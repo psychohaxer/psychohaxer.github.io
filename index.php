@@ -1,1 +1,0 @@
-<?php header("location: blog\tutorial-instalasi-r-windows\index.html"); ?>
