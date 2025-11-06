@@ -1,0 +1,235 @@
+<html>
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+        />
+        <title>Dokumen Saya</title>
+
+        <!-- LETAKKAN KODE CSS DI SINI -->
+        <style>
+            /* Mengatur font dan tampilan dasar halaman */
+            body {
+                font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+                line-height: 1.6;
+                color: #333;
+                max-width: 800px;
+                margin: 2rem auto;
+                padding: 0 1rem;
+            }
+
+            /* Mengatur tampilan semua judul */
+            h1,
+            h2,
+            h3,
+            h4,
+            h5,
+            h6 {
+                margin-top: 1.5em;
+                margin-bottom: 0.8em;
+                font-weight: 600;
+                line-height: 1.25;
+                color: #111;
+            }
+
+            /* Garis bawah untuk H1 dan H2 agar lebih jelas */
+            h1,
+            h2 {
+                border-bottom: 1px solid #eaecef;
+                padding-bottom: 0.3em;
+            }
+
+            /* Mengatur jarak antar paragraf */
+            p {
+                margin-bottom: 1em;
+            }
+
+            /* Mengatur tampilan tautan/link */
+            a {
+                color: #0366d6;
+                text-decoration: none;
+            }
+
+            a:hover {
+                text-decoration: underline;
+            }
+
+            /* Mengatur tampilan kutipan */
+            blockquote {
+                margin: 1em 0;
+                padding: 0 1em;
+                color: #6a737d;
+                border-left: 0.25em solid #dfe2e5;
+            }
+
+            /* Mengatur tampilan kode dalam baris */
+            code {
+                padding: 0.2em 0.4em;
+                margin: 0;
+                font-size: 85%;
+                background-color: rgba(27, 31, 35, 0.05);
+                border-radius: 3px;
+                font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+            }
+
+            /* Mengatur tampilan blok kode */
+            pre {
+                padding: 1em;
+                overflow: auto;
+                font-size: 85%;
+                line-height: 1.45;
+                background-color: #f6f8fa;
+                border-radius: 6px;
+            }
+
+            pre code {
+                padding: 0;
+                background: none;
+            }
+
+            /* Mengatur tampilan tabel */
+            table {
+                border-collapse: collapse;
+                width: 100%;
+                margin-bottom: 1em;
+            }
+
+            table th,
+            table td {
+                padding: 6px 13px;
+                border: 1px solid #dfe2e5;
+            }
+
+            table th {
+                font-weight: 600;
+                background-color: #f6f8fa;
+            }
+
+            /* Mengatur tampilan gambar agar responsif */
+            img {
+                max-width: 100%;
+                height: auto;
+            }
+        </style>
+    </head>
+    <body>
+        <h3 id="yuk-kenalan-sama-proyek-renpy-mu"><strong>Yuk, Kenalan Sama Proyek Ren'Py-mu!</strong></h3>
+        <p>Bayangkan proyek Ren'Py itu seperti rumah. Ada ruang tengahnya, ada kamar tidurnya, ada gudangnya, dan tentu ada dapurnya. Semuanya punya fungsi masing-masing dan saling mendukung biar rumah itu jadi "hidup".</p>
+        <h4 id="1-struktur-proyek-tata-letak-rumah-renpy-mu"><strong>1. Struktur Proyek: "Tata Letak Rumah" Ren'Py-mu</strong></h4>
+        <p>Ketika kamu bikin proyek baru di Ren'Py, kamu bakal nemuin beberapa folder dan file. Ini yang paling penting-penting aja ya:</p>
+        <pre><code>nama_proyek_kamu/
+├── game/          &lt;-- Ini "Ruang Kerja" Utamamu!
+│   ├── script.rpy
+│   ├── options.rpy
+│   ├── gui.rpy
+│   ├── screens.rpy
+│   ├── images/    &lt;-- "Album Foto" buat naruh gambar karakter, bg, dll.
+│   └── audio/     &lt;-- "Rak CD" buat naruh musik dan efek suara.
+└── ... (folder lain yang gak perlu kamu ganggu dulu)
+</code></pre>
+        <p><strong>Intinya:</strong></p>
+        <ul>
+            <li>
+                <strong>Folder <code>game/</code>:</strong> Ini adalah jantung dari visual novel-mu. Semua file yang mendefinisikan cerita, tampilan, dan suara ada di sini. 90% waktumu bakal dihabisin di folder ini.
+            </li>
+            <li>
+                <strong>Folder <code>images/</code>:</strong> Semua gambar, dari karakter (sprite), latar belakang (background), sampe ilustrasi (CG) masuk sini.
+            </li>
+            <li>
+                <strong>Folder <code>audio/</code>:</strong> Buat naruh file musik (biasanya <code>.ogg</code> atau <code>.mp3</code>) dan efek suara (<code>.ogg</code> atau <code>.wav</code>).
+            </li>
+        </ul>
+        <p>Gampang kan? kayak nentuin mana buku novel, mana buku gambar, mana mana playlist lagu.</p>
+        <hr />
+        <h4 id="2-the-fabulous-four-kegunaan-file-file-penting-di-folder-game">
+            <strong>2. The Fabulous Four: Kegunaan File-file Penting di Folder <code>game/</code></strong>
+        </h4>
+        <p>Nah, sekarang kita masuk ke ruang kerja utama. Di dalam folder <code>game/</code>, ada empat file bintang yang wajib kamu kenal. Kita pakai analogi produksi film aja ya, biar lebih seru!</p>
+        <h5 id="a-scriptrpy---si-sutradara--naskah">
+            <strong>a. <code>script.rpy</code> - Si Sutradara &amp; Naskah</strong>
+        </h5>
+        <ul>
+            <li><strong>Fungsinya apa?</strong> Ini adalah <strong>naskah</strong> visual novel-mu. Semua cerita, dialog karakter, perpindahan adegan, musik yang muncul, semuanya ditulis di sini.</li>
+            <li><strong>Apa isinya?</strong> Kamu bakal nemuin kode-kode seperti <code>label start:</code>, <code>say "Karakter" "Halo!"</code>, <code>show karakter senyum</code>, <code>play music "sedih.ogg"</code>.</li>
+            <li><strong>Analogi Film:</strong> Ini adalah <strong>naskah skenario</strong> yang dipegang sutradara. Di sinilah semua intrik, drama, dan komedi dimulai. Kalau mau nambahin adegan atau ngubah dialog, ya buka file ini.</li>
+            <li><strong>Cara Gampang Ingat:</strong> <strong>Script = Naskah Cerita.</strong></li>
+        </ul>
+        <h5 id="b-optionsrpy---si-manajer-produksi">
+            <strong>b. <code>options.rpy</code> - Si Manajer Produksi</strong>
+        </h5>
+        <ul>
+            <li><strong>Fungsinya apa?</strong> File ini ngatur semua <strong>pengaturan umum dan global</strong> dari visual novel-mu. Hal-hal teknis yang biasanya cuma diatur sekali di awal.</li>
+            <li><strong>Apa isinya?</strong> Nama game (<code>config.name</code>), versi (<code>config.version</code>), ukuran layar (<code>config.screen_width</code>), kecepatan teks default, dan lain-lain.</li>
+            <li><strong>Analogi Film:</strong> Ini adalah <strong>manajer produksi</strong> yang ngatur semua logistik. "Lokasi syuting di mana?" "Budget berapa?" "Durasi film berapa menit?" Di Ren'Py, dia yang jawab, "Resolusi layarnya berapa?" "Nama pemain bisa diganti nggak?"</li>
+            <li><strong>Cara Gampang Ingat:</strong> <strong>Options = Pengaturan Dasar.</strong></li>
+        </ul>
+        <h5 id="c-guirpy---si-art-director--tata-rias">
+            <strong>c. <code>gui.rpy</code> - Si Art Director &amp; Tata Rias</strong>
+        </h5>
+        <ul>
+            <li><strong>Fungsinya apa?</strong> File ini adalah pusat dari <strong>tampilan visual (GUI - Graphical User Interface)</strong>. Mau ganti warna tema? Font teks? Ukuran tombol? Ya, di sinilah tempatnya.</li>
+            <li><strong>Apa isinya?</strong> Kode-kode yang mendefinisikan warna (<code>gui.accent_color</code>), jenis font (<code>gui.text_font</code>), ukuran teks, warna background, dll.</li>
+            <li><strong>Analogi Film:</strong> Ini adalah <strong>art director</strong> atau <strong>tata rias dan busana</strong>. Mereka yang menentukan "Karakter A pake baju warna apa?", "Makeup-nya gimana?", "Dekorasi set-nya tema apa?". Di Ren'Py, dia yang tentuin "Tombol Save-nya warna pink ya", "Font dialog-nya pake yang ini".</li>
+            <li><strong>Cara Gampang Ingat:</strong> <strong>GUI = Dandan &amp; Tampilan.</strong></li>
+        </ul>
+        <h5 id="d-screensrpy---si-desainer-set--properti">
+            <strong>d. <code>screens.rpy</code> - Si Desainer Set &amp; Properti</strong>
+        </h5>
+        <ul>
+            <li><strong>Fungsinya apa?</strong> File ini mendefinisikan <strong>tampilan dari "layar" atau "screen"</strong> yang muncul di VN-mu. Ini yang bedain sama <code>gui.rpy</code>. Kalau <code>gui.rpy</code> ngatur komponen individual (warna, font), <code>screens.rpy</code> ngatur <strong>tata letak dan susunannya</strong>.</li>
+            <li><strong>Apa isinya?</strong> Struktur dari Main Menu, Save/Load Screen, Preferences, Dialogue Box (kotak dialog), dan Quick Menu (tombol save, load, q.save, q.load, auto yang biasanya di bawah).</li>
+            <li><strong>Analogi Film:</strong> Ini adalah <strong>desainer set dan properti</strong>. Mereka yang merancang "Nih, bentuk meja dan kursinya di ruangan ini", "Tombol liftnya di sebelah kiri", "Pintunya model begini". Jadi kalau kamu mau desain menu yang unik, ngubah posisi tombol, atau nambahin elemen baru di layar, kamu main di sini.</li>
+            <li><strong>Cara Gampang Ingat:</strong> <strong>Screens = Kerangka Tampilan (Menu, Kotak Dialog, dll).</strong></li>
+        </ul>
+        <hr />
+        <h3 id="ringkasan-santainya"><strong>Ringkasan Santainya</strong></h3>
+        <table>
+            <thead>
+                <tr>
+                    <th style="text-align: left">Nama File</th>
+                    <th style="text-align: left">Fungsi Utama</th>
+                    <th style="text-align: left">Analogi Produksi Film</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td style="text-align: left">
+                        <strong><code>script.rpy</code></strong>
+                    </td>
+                    <td style="text-align: left">Menulis cerita dan dialog</td>
+                    <td style="text-align: left"><strong>Naskah Skenario</strong></td>
+                </tr>
+                <tr>
+                    <td style="text-align: left">
+                        <strong><code>options.rpy</code></strong>
+                    </td>
+                    <td style="text-align: left">Pengaturan teknis &amp; global</td>
+                    <td style="text-align: left"><strong>Manajer Produksi</strong></td>
+                </tr>
+                <tr>
+                    <td style="text-align: left">
+                        <strong><code>gui.rpy</code></strong>
+                    </td>
+                    <td style="text-align: left">Mendandani tampilan (warna, font)</td>
+                    <td style="text-align: left"><strong>Art Director / Tata Rias</strong></td>
+                </tr>
+                <tr>
+                    <td style="text-align: left">
+                        <strong><code>screens.rpy</code></strong>
+                    </td>
+                    <td style="text-align: left">Merancang tata letak menu &amp; layar</td>
+                    <td style="text-align: left"><strong>Desainer Set &amp; Properti</strong></td>
+                </tr>
+            </tbody>
+        </table>
+        <hr />
+        <h3 id="quiz-asah-pemahaman-dasar-renpy"><strong>Quiz: Asah Pemahaman Dasar Ren'Py</strong></h3>
+        <p><strong>Soal 1:</strong> Kamu baru saja mendownload gambar karakter baru. Di folder mana dalam struktur proyek Ren'Py kamu seharusnya menyimpan file gambar tersebut?</p>
+        <p><strong>Soal 2:</strong> Kamu ingin menambahkan adegan di mana karakter "Sari" mengucapkan dialog, "Aku akan menemukanmu!". Di file <code>.rpy</code> mana kamu harus menulis baris kode untuk dialog tersebut?</p>
+        <p><strong>Soal 3:</strong> Untuk mengubah warna default semua tombol di visual novel-mu menjadi hijau, file <code>.rpy</code> mana yang harus kamu edit?</p>
+        <p><strong>Soal 4:</strong> Jelaskan secara singkat fungsi utama dari file <code>script.rpy</code> dan <code>options.rpy</code> menggunakan analogi "produksi film"!</p>
+        <p><strong>Soal 5:</strong> Kamu perlu mengubah judul game yang muncul di jendela aplikasi dari "Project Baru" menjadi "Petualangan Seru". File <code>.rpy</code> mana yang digunakan untuk mengatur pengaturan fundamental seperti ini?</p>
+        <hr />
+    </body>
+</html>
