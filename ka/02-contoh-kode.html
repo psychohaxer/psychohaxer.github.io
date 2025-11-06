@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="id">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+        />
+        <title>02. Contoh Kode Ren'Py</title>
+        <link
+            rel="stylesheet"
+            href="styles.css"
+        />
+    </head>
+    <body>
+        <div class="max-w-5xl mx-auto p-6 site-content">
+            <h3 id="02-contoh-kode" class="text-2xl font-semibold mb-3"><strong>Contekan Kode: script.rpy — Dasar Ren'Py</strong></h3>
+
+            <p class="prose">Di halaman ini ada potongan-potongan kode kecil yang menjelaskan konsep dasar Ren'Py (langsung pakai contoh). Setiap bagian singkat dan mudah dicoba — di akhir ada skrip lengkap yang bisa kamu salin ke <code>script.rpy</code>.</p>
+
+            <h4 id="1-definisi-karakter" class="mt-6"><strong>1. Definisi karakter</strong></h4>
+            <p class="prose">Cara mendefinisikan karakter di Ren'Py. Biasanya definisi karakter diletakkan di awal <code>script.rpy</code>. Kamu nggak perlu mendefinisikan setiap pose atau gambar — cukup panggil nama berkas saat memanggil <code>show</code> atau <code>scene</code>.</p>
+            <pre><code># define characters
+define ayu = Character("Ayu", color="#00a0a0")
+define dewi = Character("Dewi", color="#ad4000")
+define lestari = Character("Lestari", color="#6948fc")
+define pandu = Character("Pandu", color="#ff7300")
+define rika = Character("Rika", color="#ff00ff")</code></pre>
+
+            <h4 id="2-apa-itu-label" class="mt-6"><strong>2. Apa itu label dan cara menggunakannya</strong></h4>
+            <p class="prose">Label adalah penanda bagian cerita (seperti bab). Pakai <code>jump</code> untuk berpindah ke label lain tanpa kembali, dan <code>call</code>/<code>return</code> untuk memanggil subrutin lalu kembali ke titik semula.</p>
+            <pre><code># example label
+label start:
+    ayu "Ini adalah awal permainan."
+    jump next_scene
+
+label next_scene:
+    dewi "Kita berada di scene berikutnya."
+    return</code></pre>
+
+            <h4 id="3-label-utama" class="mt-6"><strong>3. Label utama (titik masuk)</strong></h4>
+            <p class="prose">Ren'Py biasanya memulai eksekusi dari label bernama <code>start</code>. Letakkan alur utama dan inisialisasi awal game di label ini.</p>
+            <pre><code>label start:
+    scene corridor_f morning
+    show ayu relaxed at right
+    ayu "Selamat datang!"
+    jump first_question</code></pre>
+
+            <h4 id="4-jump" class="mt-6"><strong>4. <code>jump</code> (pindah label)</strong></h4>
+            <p class="prose">Gunakan <code>jump</code> untuk langsung berpindah ke label lain — cocok untuk mengarahkan alur berdasarkan pilihan pemain.</p>
+            <pre><code>menu:
+    "Pergi ke taman":
+        jump garden_scene
+    "Tetap di kelas":
+        jump classroom_scene</code></pre>
+
+            <h4 id="5-menu" class="mt-6"><strong>5. <code>menu</code> (pilihan pemain)</strong></h4>
+            <p class="prose"><code>menu</code> menampilkan pilihan kepada pemain. Di dalam setiap pilihan kamu bisa mengubah variabel, menjalankan <code>jump</code>, atau memanggil label lain.</p>
+            <pre><code>menu:
+    "Saya siap":
+        $ confirmed = True
+        jump lesson_menu
+    "Beri aku waktu":
+        $ confirmed = False
+        jump start</code></pre>
+
+            <h4 id="6-variabel" class="mt-6"><strong>6. Variabel</strong></h4>
+            <p class="prose">Gunakan <code>default</code> untuk mendeklarasikan variabel yang ingin disimpan pada file save. Untuk assignment singkat di dalam label gunakan tanda <code>$</code>.</p>
+            <pre><code>default confirmed = False
+default score = 0
+default attempts = 0</code></pre>
+
+            <h4 id="7-if-else" class="mt-6"><strong>7. <code>if / else</code> sederhana</strong></h4>
+            <p class="prose">Contoh penggunaan kondisi untuk mengubah alur atau menampilkan dialog berdasarkan nilai variabel.</p>
+            <pre><code>label check_result:
+    if score >= 5:
+        ayu "Keren — kamu lulus kuis!"
+    else:
+        ayu "Coba lagi — kamu bisa lebih baik!"
+    return</code></pre>
+
+            <h4 id="skrip-lengkap" class="mt-6"><strong>Skrip lengkap — contoh penuh</strong></h4>
+            <p class="prose">Skrip berikut menggabungkan semua elemen di atas. Salin seluruh blok ini ke <code>script.rpy</code> pada folder <code>game/</code> proyekmu untuk mencobanya.</p>
+            <pre><code># Full example script.rpy
+# Characters
+define ayu = Character("Ayu", color="#00a0a0")
+define dewi = Character("Dewi", color="#ad4000")
+define lestari = Character("Lestari", color="#6948fc")
+define pandu = Character("Pandu", color="#ff7300")
+define rika = Character("Rika", color="#ff00ff")
+
+# Persistent / saveable variables
+default confirmed = 0
+default score = 0
+default attempts = 0
+
+label start:
+    # Start scene (use image names directly; define images in assets if needed)
+    scene corridor_f morning
+    show ayu relaxed at right
+    pause 0.5
+    ayu "Halo! Selamat datang di Skill School."
+    ayu "Di sini kamu akan belajar keterampilan hidup melalui cerita interaktif."
+
+    show ayu pointing with dissolve
+    ayu "Siap mencoba pelajaran pertama?"
+
+    jump first_question
+
+label first_question:
+    menu:
+        "Ya, saya siap!":
+            if confirmed == 0:
+                show ayu excited with dissolve
+                ayu "Hebat! Mari kita mulai."
+                $ confirmed = 1
+            else:
+                show ayu smiling with dissolve
+                ayu "Kamu sudah siap sebelumnya — selamat datang kembali!"
+            jump lesson_menu
+
+        "Saya butuh waktu sebentar.":
+            show ayu thinking with dissolve
+            ayu "Tidak apa-apa. Ambil waktumu, nanti kembali saja."
+            $ confirmed += 1
+            jump first_question
+
+label lesson_menu:
+    menu:
+        "Mulai Pelajaran":
+            jump lesson_1
+        "Keluar":
+            return
+
+label lesson_1:
+    scene classroom morning with fade
+    show pandu happy at left
+    pandu "Halo! Aku Pandu, mentor pelajaran pertama. Kita akan belajar komunikasi efektif."
+
+    menu:
+        "Komunikasi efektif adalah menyampaikan pesan dengan jelas.":
+            show pandu excited with dissolve
+            pandu "Betul sekali!"
+            $ score += 2
+
+        "Komunikasi efektif adalah berbicara lancar saja.":
+            show pandu thinking with dissolve
+            pandu "Hampir — ada aspek lain seperti mendengarkan."
+            $ score += 1
+
+        "Komunikasi efektif adalah kemampuan mendengarkan.":
+            show pandu smiling with dissolve
+            pandu "Benar — mendengarkan aktif sangat penting."
+            $ score += 2
+
+    show pandu relaxed with dissolve
+    pandu "Baik. Kita telah membahas dasar komunikasi efektif."
+    jump check_result
+
+label check_result:
+    if score >= 3:
+        show lestari happy with dissolve
+        lestari "Selamat — kamu memahami konsep dasar."
+    else:
+        show rika concerned with dissolve
+        rika "Tidak apa-apa — kamu bisa mengulang pelajaran."
+
+    return
+</code></pre>
+        </div>
+    </body>
+</html>
