@@ -131,6 +131,7 @@ label next_scene:
             <pre><code>menu:
     "Pergi ke taman":
         jump garden_scene
+
     "Tetap di kelas":
         jump classroom_scene</code></pre>
 
@@ -140,6 +141,7 @@ label next_scene:
     "Saya siap":
         $ confirmed = True
         jump lesson_menu
+
     "Beri aku waktu":
         $ confirmed = False
         jump start</code></pre>
@@ -201,6 +203,7 @@ label first_question:
                 show ayu excited with moveinright:
                     xalign 0.25
                     yalign 1.0
+
                 ayu "Hebat! Mari kita mulai."
 
                 $ confirmed = 1
@@ -238,6 +241,7 @@ label lesson_1:
     show pandu happy with moveinleft:
         xalign 0.0
         yalign 1.0
+        
     pandu "Halo! Aku Pandu, mentor pelajaran pertama. Kita akan belajar komunikasi efektif."
 
     menu:
