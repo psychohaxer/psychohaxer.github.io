@@ -18,6 +18,19 @@
 
             <p class="prose">Di halaman ini ada potongan-potongan kode kecil yang menjelaskan konsep dasar Ren'Py (langsung pakai contoh). Setiap bagian singkat dan mudah dicoba — di akhir ada skrip lengkap yang bisa kamu salin ke <code>script.rpy</code>.</p>
 
+            <h4 class="mt-4"><strong>Daftar Isi</strong></h4>
+            <ul class="prose">
+                <li><a href="#1-definisi-karakter">1. Definisi karakter</a></li>
+                <li><a href="#scene-show-posisi">Scene / Show / Posisi / Transition</a></li>
+                <li><a href="#2-apa-itu-label">2. Apa itu label</a></li>
+                <li><a href="#3-label-utama">3. Label utama</a></li>
+                <li><a href="#4-jump">4. jump (pindah label)</a></li>
+                <li><a href="#5-menu">5. menu (pilihan pemain)</a></li>
+                <li><a href="#6-variabel">6. Variabel</a></li>
+                <li><a href="#7-if-else">7. if / else sederhana</a></li>
+                <li><a href="#skrip-lengkap">Skrip lengkap — contoh penuh</a></li>
+            </ul>
+
             <h4 id="1-definisi-karakter" class="mt-6"><strong>1. Definisi karakter</strong></h4>
             <p class="prose">Cara mendefinisikan karakter di Ren'Py. Biasanya definisi karakter diletakkan di awal <code>script.rpy</code>. Kamu nggak perlu mendefinisikan setiap pose atau gambar — cukup panggil nama berkas saat memanggil <code>show</code> atau <code>scene</code>.</p>
             <pre><code># define characters
@@ -26,6 +39,69 @@ define dewi = Character("Dewi", color="#ad4000")
 define lestari = Character("Lestari", color="#6948fc")
 define pandu = Character("Pandu", color="#ff7300")
 define rika = Character("Rika", color="#ff00ff")</code></pre>
+
+            <h4 id="scene-show-posisi" class="mt-6"><strong>Scene, Show, Posisi, dan Transition</strong></h4>
+            <p class="prose">Beberapa perintah visual penting:</p>
+            <ul>
+                <li><strong><code>scene</code></strong> — menampilkan background (latar). Contoh: <code>scene corridor_f morning</code>.</li>
+                <li><strong><code>show</code></strong> — menampilkan karakter atau gambar. Contoh: <code>show ayu relaxed</code>.</li>
+                <li><strong>Transition</strong> — efek pergantian antar gambar/scene (mis. <code>dissolve</code>, <code>moveinright</code>). Bisa ditambahkan dengan <code>with</code> atau sebagai bagian dari perintah <code>show</code>.</li>
+                <li><strong>Posisi</strong> — gunakan <code>xalign</code> (horizontal) dan <code>yalign</code> (vertikal) untuk menempatkan karakter di layar. Contoh penggunaan bersama transition:
+                    <pre><code>show ayu relaxed with moveinright:
+    xalign 0.25
+    yalign 1.0</code></pre>
+                </li>
+            </ul>
+
+            <h5 class="mt-4"><strong>Nilai <code>xalign</code> dan <code>yalign</code></strong></h5>
+            <p class="prose">Untuk <code>xalign</code> (horizontal):</p>
+            <ul>
+                <li><code>0.00</code> — posisi paling kiri layar.</li>
+                <li><code>0.25</code> — sepertiga dari kiri (lebih ke kiri, cocok untuk karakter kiri).</li>
+                <li><code>0.50</code> — posisi tengah layar.</li>
+                <li><code>0.75</code> — sepertiga dari kanan (lebih ke kanan).</li>
+                <li><code>1.00</code> — posisi paling kanan layar.</li>
+            </ul>
+            <p class="prose">Untuk <code>yalign</code> (vertikal):</p>
+            <ul>
+                <li><code>0.00</code> — paling atas layar.</li>
+                <li><code>0.25</code> — sedikit turun dari atas.</li>
+                <li><code>0.50</code> — tengah vertikal layar.</li>
+                <li><code>0.75</code> — sedikit di atas bawah layar.</li>
+                <li><code>1.00</code> — paling bawah layar (umumnya kaki karakter terlihat di dasar layar).</li>
+            </ul>
+
+            <h5 class="mt-4"><strong>Tabel Transitions (nama &amp; penjelasan)</strong></h5>
+            <table>
+                <thead>
+                    <tr>
+                        <th style="text-align:left">Transition</th>
+                        <th style="text-align:left">Penjelasan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><code>dissolve</code></td><td>Takes 0.5s — larutkan dari layar lama ke baru (Dissolve).</td></tr>
+                    <tr><td><code>fade</code></td><td>Takes 0.5s fade to black, 0.5s fade to new screen (Fade).</td></tr>
+                    <tr><td><code>pixellate</code></td><td>Pixellate lama lalu baru (0.5s + 0.5s).</td></tr>
+                    <tr><td><code>move</code></td><td>Memindahkan gambar yang bergeser ke lokasi baru (MoveTransition).</td></tr>
+                    <tr><td><code>moveinright / moveinleft / moveintop / moveinbottom</code></td><td>Memasukkan gambar dari sisi yang sesuai (0.5s).</td></tr>
+                    <tr><td><code>moveoutright / moveoutleft / moveouttop / moveoutbottom</code></td><td>Memindahkan gambar keluar layar melalui sisi yang sesuai (0.5s).</td></tr>
+                    <tr><td><code>ease / easein*/easeout*</code></td><td>Sama seperti move tetapi pelan di awal dan akhir (kurva cosinus).</td></tr>
+                    <tr><td><code>zoomin</code></td><td>Zoom in pada gambar yang masuk (0.5s).</td></tr>
+                    <tr><td><code>zoomout</code></td><td>Zoom out pada gambar yang keluar (0.5s).</td></tr>
+                    <tr><td><code>zoominout</code></td><td>Zoom in pada yang masuk dan zoom out pada yang keluar.</td></tr>
+                    <tr><td><code>vpunch / hpunch</code></td><td>Guncangan vertikal / horizontal pendek (quarter second).</td></tr>
+                    <tr><td><code>blinds</code></td><td>Efek vertical blinds (1s).</td></tr>
+                    <tr><td><code>squares</code></td><td>Efek kotak-kotak (1s).</td></tr>
+                    <tr><td><code>wipeleft / wiperight / wipeup / wipedown</code></td><td>Wipe arah tertentu (CropMove).</td></tr>
+                    <tr><td><code>slideleft / slideright / slideup / slidedown</code></td><td>Slide scene baru masuk (CropMove).</td></tr>
+                    <tr><td><code>slideawayleft / slideaway*</code></td><td>Slide scene lama keluar (CropMove).</td></tr>
+                    <tr><td><code>pushright / pushleft / pushup / pushdown</code></td><td>Scene baru mendorong scene lama keluar (PushMove).</td></tr>
+                    <tr><td><code>irisin / irisout</code></td><td>Iris rectangular membuka/menutup layar (CropMove).</td></tr>
+                </tbody>
+            </table>
+
+            <p class="prose">Catatan: banyak transition punya alias (mis. <code>moveinright</code> punya <code>moveinleft</code> dsb). Waktu default biasanya 0.5 detik kecuali disebut lain.</p>
 
             <h4 id="2-apa-itu-label" class="mt-6"><strong>2. Apa itu label dan cara menggunakannya</strong></h4>
             <p class="prose">Label adalah penanda bagian cerita (seperti bab). Pakai <code>jump</code> untuk berpindah ke label lain tanpa kembali, dan <code>call</code>/<code>return</code> untuk memanggil subrutin lalu kembali ke titik semula.</p>
@@ -40,9 +116,13 @@ label next_scene:
 
             <h4 id="3-label-utama" class="mt-6"><strong>3. Label utama (titik masuk)</strong></h4>
             <p class="prose">Ren'Py biasanya memulai eksekusi dari label bernama <code>start</code>. Letakkan alur utama dan inisialisasi awal game di label ini.</p>
-            <pre><code>label start:
+        <pre><code>label start:
     scene corridor_f morning
-    show ayu relaxed at right
+
+    show ayu relaxed with moveinright:
+    xalign 0.25
+    yalign 1.0
+
     ayu "Selamat datang!"
     jump first_question</code></pre>
 
@@ -97,12 +177,19 @@ default attempts = 0
 label start:
     # Start scene (use image names directly; define images in assets if needed)
     scene corridor_f morning
-    show ayu relaxed at right
+
+    show ayu relaxed with moveinright:
+        xalign 0.25
+        yalign 1.0
     pause 0.5
+
     ayu "Halo! Selamat datang di Skill School."
     ayu "Di sini kamu akan belajar keterampilan hidup melalui cerita interaktif."
 
-    show ayu pointing with dissolve
+    show ayu pointing with dissolve:
+        xalign 0.25
+        yalign 1.0
+
     ayu "Siap mencoba pelajaran pertama?"
 
     jump first_question
@@ -111,18 +198,31 @@ label first_question:
     menu:
         "Ya, saya siap!":
             if confirmed == 0:
-                show ayu excited with dissolve
+                show ayu excited with moveinright:
+                    xalign 0.25
+                    yalign 1.0
                 ayu "Hebat! Mari kita mulai."
+
                 $ confirmed = 1
+
             else:
-                show ayu smiling with dissolve
+                show ayu smiling with dissolve:
+                    xalign 0.25
+                    yalign 1.0
+
                 ayu "Kamu sudah siap sebelumnya — selamat datang kembali!"
+
             jump lesson_menu
 
         "Saya butuh waktu sebentar.":
-            show ayu thinking with dissolve
+            show ayu thinking with dissolve:
+                xalign 0.25
+                yalign 1.0
+
             ayu "Tidak apa-apa. Ambil waktumu, nanti kembali saja."
+
             $ confirmed += 1
+
             jump first_question
 
 label lesson_menu:
@@ -134,39 +234,63 @@ label lesson_menu:
 
 label lesson_1:
     scene classroom morning with fade
-    show pandu happy at left
+
+    show pandu happy with moveinleft:
+        xalign 0.0
+        yalign 1.0
     pandu "Halo! Aku Pandu, mentor pelajaran pertama. Kita akan belajar komunikasi efektif."
 
     menu:
         "Komunikasi efektif adalah menyampaikan pesan dengan jelas.":
-            show pandu excited with dissolve
+            show pandu excited with moveinleft:
+                xalign 0.15
+                yalign 1.0
+
             pandu "Betul sekali!"
+
             $ score += 2
 
         "Komunikasi efektif adalah berbicara lancar saja.":
-            show pandu thinking with dissolve
+            show pandu thinking with dissolve:
+                xalign 0.15
+                yalign 1.0
+
             pandu "Hampir — ada aspek lain seperti mendengarkan."
+
             $ score += 1
 
         "Komunikasi efektif adalah kemampuan mendengarkan.":
-            show pandu smiling with dissolve
+            show pandu smiling with dissolve:
+                xalign 0.15
+                yalign 1.0
+
             pandu "Benar — mendengarkan aktif sangat penting."
+
             $ score += 2
 
-    show pandu relaxed with dissolve
+    show pandu relaxed with dissolve:
+        xalign 0.15
+        yalign 1.0
+        
     pandu "Baik. Kita telah membahas dasar komunikasi efektif."
+
     jump check_result
 
 label check_result:
     if score >= 3:
-        show lestari happy with dissolve
+        show lestari happy with dissolve:
+            xalign 0.75
+            yalign 1.0
+
         lestari "Selamat — kamu memahami konsep dasar."
     else:
-        show rika concerned with dissolve
+        show rika concerned with dissolve:
+            xalign 0.50
+            yalign 1.0
+
         rika "Tidak apa-apa — kamu bisa mengulang pelajaran."
 
-    return
-</code></pre>
+    return</code></pre>
         </div>
     </body>
 </html>
