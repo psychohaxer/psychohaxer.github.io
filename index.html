@@ -744,33 +744,47 @@
                         }
                     })();
 
-                    // bug AI: avoid ship and throw projectiles
+                    // bug AI: keep distance when ship is too close, otherwise drift + avoid projectiles
                     (function bugAI() {
-                        // run away from ship
+                        // vector from ship to bug
                         let bx = bug.x - ship.x, by = bug.y - ship.y;
                         const dist = length(bx, by) || 1;
                         const [nx, ny] = normalize(bx, by);
-                        // wander
-                        const wanderAngle = (Math.random() - 0.5) * 0.6;
-                        bug.vx += (nx * 80 + Math.cos(wanderAngle) * 20) * dt;
-                        bug.vy += (ny * 80 + Math.sin(wanderAngle) * 20) * dt;
-                        // avoid ship projectiles
+
+                        // avoidance from incoming projectiles (high priority)
                         let avoidX = 0, avoidY = 0;
                         for (const p of projectiles) {
                             if (p.owner === 'bug') continue;
                             const px = p.x - bug.x, py = p.y - bug.y;
                             const d = length(px, py);
-                            if (d < 120) {
-                                avoidX -= px / (d*d);
-                                avoidY -= py / (d*d);
+                            if (d < 140) {
+                                // stronger avoidance for closer projectiles
+                                avoidX -= px / (d * d);
+                                avoidY -= py / (d * d);
                             }
                         }
-                        const [ax, ay] = normalize(avoidX, avoidY);
-                        bug.vx += ax * 240 * dt;
-                        bug.vy += ay * 240 * dt;
+                        const [ax, ay] = normalize(avoidX, avoidY || 0);
+                        // behavior selection: flee when too close, otherwise idle drift
+                        const keepDistance = 180; // desired minimum distance
+                        if (dist < keepDistance) {
+                            // flee more strongly the closer the ship is
+                            const fleeStrength = 220 * ((keepDistance - dist) / keepDistance + 0.2);
+                            bug.vx += (nx * fleeStrength + ax * 240) * dt;
+                            bug.vy += (ny * fleeStrength + ay * 240) * dt;
+                        } else {
+                            // idle drift: gentle damping + small random jitter
+                            bug.vx *= 0.985;
+                            bug.vy *= 0.985;
+                            bug.vx += (Math.random() - 0.5) * 18 * dt;
+                            bug.vy += (Math.random() - 0.5) * 18 * dt;
+                            // weakly avoid immediate projectiles
+                            bug.vx += ax * 100 * dt;
+                            bug.vy += ay * 100 * dt;
+                        }
 
-                        bug.vx = clamp(bug.vx, 220);
-                        bug.vy = clamp(bug.vy, 220);
+                        // speed clamp and integrate
+                        bug.vx = clamp(bug.vx, 240);
+                        bug.vy = clamp(bug.vy, 240);
                         bug.x += bug.vx * dt;
                         bug.y += bug.vy * dt;
 
@@ -783,11 +797,17 @@
                             bug.vy *= -0.3;
                         }
 
-                        // throw projectile at ship occasionally
+                        // throw projectile at ship more often when within range
                         bug.throwCooldown -= dt;
                         if (bug.throwCooldown <= 0) {
-                            shoot(bug.x, bug.y, ship.x + (Math.random()-0.5)*20, ship.y + (Math.random()-0.5)*20, 220, 'bug');
-                            bug.throwCooldown = 0.8 + Math.random() * 1.2;
+                            // only bother firing if ship is within a reasonable range
+                            if (dist < 380) {
+                                shoot(bug.x, bug.y, ship.x + (Math.random() - 0.5) * 20, ship.y + (Math.random() - 0.5) * 20, 220, 'bug');
+                                bug.throwCooldown = 0.6 + Math.random() * 1.0;
+                            } else {
+                                // less frequent when far
+                                bug.throwCooldown = 1.2 + Math.random() * 2.0;
+                            }
                         }
                     })();
 
