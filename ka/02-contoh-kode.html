@@ -163,7 +163,7 @@ default attempts = 0</code></pre>
 
             <h4 id="skrip-lengkap" class="mt-6"><strong>Skrip lengkap — contoh penuh</strong></h4>
             <p class="prose">Skrip berikut menggabungkan semua elemen di atas. Salin seluruh blok ini ke <code>script.rpy</code> pada folder <code>game/</code> proyekmu untuk mencobanya.</p>
-            <pre><code># Full example script.rpy
+            <pre><code># Contoh script.rpy
 # Characters
 define ayu = Character("Ayu", color="#00a0a0")
 define dewi = Character("Dewi", color="#ad4000")
@@ -177,7 +177,6 @@ default score = 0
 default attempts = 0
 
 label start:
-    # Start scene (use image names directly; define images in assets if needed)
     scene corridor_f morning
 
     show ayu relaxed with moveinright:
@@ -241,7 +240,7 @@ label lesson_1:
     show pandu happy with moveinleft:
         xalign 0.0
         yalign 1.0
-        
+
     pandu "Halo! Aku Pandu, mentor pelajaran pertama. Kita akan belajar komunikasi efektif."
 
     menu:
@@ -288,7 +287,7 @@ label check_result:
 
         lestari "Selamat — kamu memahami konsep dasar."
     else:
-        show rika concerned with dissolve:
+        show rika cute with dissolve:
             xalign 0.50
             yalign 1.0
 
