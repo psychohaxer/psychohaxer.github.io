@@ -32,7 +32,8 @@
             .card {
                 background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
                 background-color: var(--card);
-                border: 1px solid rgba(255, 255, 255, 0.03);
+                /* thin accent border */
+                border: 3px solid rgba(0, 230, 118, 0.12);
             }
 
             /* accent helpers */
@@ -106,6 +107,18 @@
                 border-color: rgba(0,230,118,0.12);
                 color: var(--accent);
                 transform: translateY(-2px);
+            }
+
+            /* icons in card titles */
+            .card .card-title {
+                display: flex;
+                align-items: center;
+                gap: 0.6rem;
+            }
+            .card .card-title i {
+                color: var(--accent);
+                font-size: 1.05rem;
+                line-height: 1;
             }
 
             /* starry background canvas */
@@ -203,7 +216,7 @@
             <main class="grid grid-cols-1 gap-8">
                 <!-- About card -->
                 <section class="card p-6 rounded-lg shadow">
-                    <h2 class="text-xl font-semibold mb-3">About Me</h2>
+                    <h2 class="text-xl font-semibold mb-3 card-title"><i class="fas fa-user"></i> <span>About Me</span></h2>
                     <div
                         id="aboutMe"
                         class="text-gray-300 prose"
@@ -214,7 +227,7 @@
 
                 <!-- Technical Skills card (3-column layout) -->
                 <section class="card p-6 rounded-lg shadow">
-                    <h3 class="mt-0 text-lg font-semibold">Technical Skills</h3>
+                    <h3 class="mt-0 text-lg font-semibold card-title"><i class="fas fa-code"></i> <span>Technical Skills</span></h3>
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mt-3">
                         <!-- ordered by most selling first -->
                         <div class="flex items-start gap-3 p-3 border rounded">
@@ -339,7 +352,7 @@
                 <!-- Projects + Timeline + Research + Education (stacked) -->
                 <section class="space-y-6">
                     <div class="card p-6 rounded-lg shadow">
-                        <h2 class="text-xl font-semibold mb-3">Flagship Project</h2>
+                        <h2 class="text-xl font-semibold mb-3 card-title"><i class="fas fa-rocket"></i> <span>Flagship Project</span></h2>
                         <!-- stacked like previous layout (single column) -->
                         <div class="space-y-4 mt-3">
                             <!-- DMS -->
@@ -355,7 +368,7 @@
                                             <span class="badge-soft">ERP</span>
                                             <span class="badge-soft">Manufacturing</span>
                                             <span class="badge-soft">OEE</span>
-                                            <span class="badge-soft">Energy Optimization</span>
+                                            <span class="badge-soft">Energy Monitoring</span>
                                             <span class="badge-soft">Production Planning</span>
                                         </div>
                                     </div>
@@ -401,7 +414,7 @@
                     </div>
 
                     <div class="card p-6 rounded-lg shadow">
-                        <h2 class="text-xl font-semibold mb-3">Work Experience</h2>
+                        <h2 class="text-xl font-semibold mb-3 card-title"><i class="fas fa-briefcase"></i> <span>Work Experience</span></h2>
                         <div class="space-y-4">
                             <div class="timeline-item">
                                 <div>
@@ -466,7 +479,7 @@
                     </div>
 
                     <div class="card p-6 rounded-lg shadow">
-                        <h2 class="text-xl font-semibold mb-3">Research Published</h2>
+                        <h2 class="text-xl font-semibold mb-3 card-title"><i class="fas fa-book"></i> <span>Research Published</span></h2>
                         <div class="space-y-3 text-gray-300">
                             <div class="p-4 border rounded bg-transparent">
                                 <strong>Implementation of A Wireless Sensor Network for Monitoring Air Pollutants in Urban and Industrial Areas</strong> — Environmental Engineering & Management Journal (EEMJ), 2024, Vol 23, Issue 7, p1391
@@ -499,7 +512,7 @@
                     </div>
 
                     <div class="card p-6 rounded-lg shadow">
-                        <h2 class="text-xl font-semibold mb-3">Academic Background</h2>
+                        <h2 class="text-xl font-semibold mb-3 card-title"><i class="fas fa-graduation-cap"></i> <span>Academic Background</span></h2>
                         <div class="space-y-4">
                             <div class="timeline-item">
                                 <div>
