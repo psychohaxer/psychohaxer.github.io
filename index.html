@@ -7,9 +7,12 @@
             content="width=device-width, initial-scale=1.0"
         />
         <title>Profil Saya</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome for brand / skill icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+        <script src="https://cdn.tailwindcss.com"></script>
+        <!-- Font Awesome for brand / skill icons -->
+        <link
+            rel="stylesheet"
+            href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        />
         <style>
             :root {
                 --accent: #00e676; /* main accent */
@@ -78,34 +81,74 @@
                 }
             }
 
-            /* timeline helpers */
-            .timeline {
-                position: relative;
-            }
+            /* timeline helpers (simplified) */
             .timeline-item {
-                position: relative;
-                padding: 0.75rem 0 0.75rem 1.5rem; /* spacing so text doesn't overlap dot */
+                margin-bottom: 1rem;
             }
-            .timeline-dot {
-                position: absolute;
-                left: -0.9rem; /* place on the left border */
-                top: 1rem;
-                width: 0.75rem;
-                height: 0.75rem;
-                border-radius: 9999px;
-                background: var(--card);
-                border: 3px solid var(--accent);
-                box-shadow: 0 0 0 6px rgba(0, 230, 118, 0.03) inset;
+
+            /* contact buttons */
+            .contact-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                padding: 0.35rem 0.75rem;
+                border-radius: 0.5rem;
+                border: 1px solid rgba(255,255,255,0.04);
+                background: rgba(255,255,255,0.01);
+                color: #e6ffef;
+                text-decoration: none;
+                font-size: 0.9rem;
+                transition: background 180ms ease, border-color 180ms ease, color 180ms ease, transform 120ms ease;
+            }
+            .contact-btn .fa-fw { width: 1em; }
+            .contact-btn:hover {
+                background: linear-gradient(90deg, rgba(0,230,118,0.06), rgba(0,230,118,0.03));
+                border-color: rgba(0,230,118,0.12);
+                color: var(--accent);
+                transform: translateY(-2px);
+            }
+
+            /* starry background canvas */
+            #stars {
+                position: fixed;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 0;
+                pointer-events: none;
+                background: radial-gradient(1200px 600px at 10% 0%, rgba(0, 230, 118, 0.02), transparent 20%), var(--bg);
+            }
+
+            /* make main content sit above the stars */
+            .site-content {
+                position: relative;
+                z-index: 10;
+            }
+
+            /* avatar wrapper (no hover orbit) */
+            .avatar-wrapper {
+                position: relative;
+                display: inline-block;
+            }
+
+            /* cards keep relative positioning for potential effects, but hover overlays removed */
+            .card {
+                position: relative;
+                overflow: hidden;
             }
         </style>
     </head>
 
     <body class="antialiased font-sans">
-        <div class="max-w-5xl mx-auto p-6">
+        <canvas
+            id="stars"
+            aria-hidden="true"
+        ></canvas>
+        <div class="max-w-5xl mx-auto p-6 site-content">
             <header class="flex items-center gap-6 mb-8">
                 <!-- Profile picture + basic info -->
                 <div class="flex items-center gap-4">
-                    <div class="relative">
+                    <div class="relative avatar-wrapper">
                         <img
                             id="profileImage"
                             src="https://avatars.githubusercontent.com/psychohaxer"
@@ -127,22 +170,31 @@
                         >
                             Full Stack Developer | Game Developer | Educator
                         </p>
-                        <div class="mt-3 flex gap-3">
-                            <a
-                                href="https://github.com/psychohaxer"
-                                class="text-blue-600 hover:underline"
-                                >GitHub</a
-                            >
-                            <a
-                                href="https://www.linkedin.com/in/firemanz1304/"
-                                class="text-blue-600 hover:underline"
-                                >LinkedIn</a
-                            >
-                            <a
-                                href="mailto:firmanadinurfatin@gmail.com"
-                                class="text-blue-600 hover:underline"
-                                >Email</a
-                            >
+                        <div class="mt-3 flex flex-wrap gap-3">
+                            <a href="https://github.com/psychohaxer" class="contact-btn" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                                <i class="fab fa-github fa-fw"></i>
+                                <span>GitHub</span>
+                            </a>
+
+                            <a href="https://www.linkedin.com/in/firemanz1304/" class="contact-btn" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                                <i class="fab fa-linkedin fa-fw"></i>
+                                <span>LinkedIn</span>
+                            </a>
+
+                            <a href="https://psychohaxer.itch.io/" class="contact-btn" target="_blank" rel="noopener noreferrer" aria-label="Itch.io">
+                                <i class="fas fa-gamepad fa-fw"></i>
+                                <span>Itch.io</span>
+                            </a>
+
+                            <a href="mailto:firmanadinurfatin@gmail.com" class="contact-btn" aria-label="Email">
+                                <i class="fas fa-envelope fa-fw"></i>
+                                <span>Email</span>
+                            </a>
+
+                            <a href="https://wa.me/6281325374731" class="contact-btn" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                                <i class="fab fa-whatsapp fa-fw"></i>
+                                <span>WhatsApp</span>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -152,10 +204,11 @@
                 <!-- About card -->
                 <section class="card p-6 rounded-lg shadow">
                     <h2 class="text-xl font-semibold mb-3">About Me</h2>
-                    <div id="aboutMe" class="text-gray-300 prose">
-                        <p>
-                            I'm a passionate developer with experience in building web applications and games. I love learning new technologies and applying them to solve real-world problems. In addition to coding, I enjoy teaching and sharing knowledge with others.
-                        </p>
+                    <div
+                        id="aboutMe"
+                        class="text-gray-300 prose"
+                    >
+                        <p>I'm a passionate developer with experience in building web applications and games. I love learning new technologies and applying them to solve real-world problems. In addition to coding, I enjoy teaching and sharing knowledge with others.</p>
                     </div>
                 </section>
 
@@ -349,59 +402,64 @@
 
                     <div class="card p-6 rounded-lg shadow">
                         <h2 class="text-xl font-semibold mb-3">Work Experience</h2>
-                        <div class="timeline border-l-2 border-gray-800 pl-6">
+                        <div class="space-y-4">
                             <div class="timeline-item">
-                                <div class="timeline-dot" aria-hidden="true"></div>
                                 <div>
-                                    <div class="flex justify-between items-baseline">
-                                        <h4 class="font-semibold">Full Stack Programmer — LMask</h4>
-                                        <span class="text-sm text-gray-400">December 2023 — Present</span>
+                                    <div class="p-4 border rounded bg-transparent">
+                                        <div class="flex justify-between items-baseline">
+                                            <h4 class="font-semibold">Full Stack Programmer — LMask</h4>
+                                            <span class="text-sm text-gray-400">December 2023 — Present</span>
+                                        </div>
+                                        <p class="text-sm text-gray-300 mt-1">Joined as an early team member at a pioneering startup focused on industrial monitoring and control systems. Designed and implemented web dashboards, backend services that ingest SCADA/MES signals, and integrations for alerts and reporting. Drove prototype-to-production deliveries and collaborated closely with operations for field validation.</p>
                                     </div>
-                                    <p class="text-sm text-gray-300 mt-1">Joined as an early team member at a pioneering startup focused on industrial monitoring and control systems. Designed and implemented web dashboards, backend services that ingest SCADA/MES signals, and integrations for alerts and reporting. Drove prototype-to-production deliveries and collaborated closely with operations for field validation.</p>
                                 </div>
                             </div>
 
                             <div class="timeline-item">
-                                <div class="timeline-dot" aria-hidden="true"></div>
                                 <div>
-                                    <div class="flex justify-between items-baseline">
-                                        <h4 class="font-semibold">Teacher — SMKS Tamansiswa Kudus</h4>
-                                        <span class="text-sm text-gray-400">October 2023 — Present</span>
+                                    <div class="p-4 border rounded bg-transparent">
+                                        <div class="flex justify-between items-baseline">
+                                            <h4 class="font-semibold">Teacher — SMKS Tamansiswa Kudus</h4>
+                                            <span class="text-sm text-gray-400">October 2023 — Present</span>
+                                        </div>
+                                        <p class="text-sm text-gray-300 mt-1">Instructor for Broadcasting & Film departments and informatics topics. Teach coding and practical AI introductions, create curricula and assessments, and act as Moodle LMS administrator — supporting course delivery, student mentoring, and project supervision.</p>
                                     </div>
-                                    <p class="text-sm text-gray-300 mt-1">Instructor for Broadcasting & Film departments and informatics topics. Teach coding and practical AI introductions, create curricula and assessments, and act as Moodle LMS administrator — supporting course delivery, student mentoring, and project supervision.</p>
                                 </div>
                             </div>
 
                             <div class="timeline-item">
-                                <div class="timeline-dot" aria-hidden="true"></div>
                                 <div>
-                                    <div class="flex justify-between items-baseline">
-                                        <h4 class="font-semibold">Academic Mentor & Lab Assistant — Universitas Muria Kudus</h4>
-                                        <span class="text-sm text-gray-400">September 2022 — December 2022</span>
+                                    <div class="p-4 border rounded bg-transparent">
+                                        <div class="flex justify-between items-baseline">
+                                            <h4 class="font-semibold">Academic Mentor & Lab Assistant — Universitas Muria Kudus</h4>
+                                            <span class="text-sm text-gray-400">September 2022 — December 2022</span>
+                                        </div>
+                                        <p class="text-sm text-gray-300 mt-1">Served as teaching assistant during laboratory practicals, mentored students in theory sessions, and assisted lecturers with research tasks including data processing and translating papers into English.</p>
                                     </div>
-                                    <p class="text-sm text-gray-300 mt-1">Served as teaching assistant during laboratory practicals, mentored students in theory sessions, and assisted lecturers with research tasks including data processing and translating papers into English.</p>
                                 </div>
                             </div>
 
                             <div class="timeline-item">
-                                <div class="timeline-dot" aria-hidden="true"></div>
                                 <div>
-                                    <div class="flex justify-between items-baseline">
-                                        <h4 class="font-semibold">Field Admin — UD. Dadi Makmur</h4>
-                                        <span class="text-sm text-gray-400">August 2021 — August 2022</span>
+                                    <div class="p-4 border rounded bg-transparent">
+                                        <div class="flex justify-between items-baseline">
+                                            <h4 class="font-semibold">Field Admin — UD. Dadi Makmur</h4>
+                                            <span class="text-sm text-gray-400">August 2021 — August 2022</span>
+                                        </div>
+                                        <p class="text-sm text-gray-300 mt-1">Implemented automation for fertilizer redemption administration documents, reducing manual entry and improving processing speed and accuracy through lightweight web tools and process templates.</p>
                                     </div>
-                                    <p class="text-sm text-gray-300 mt-1">Implemented automation for fertilizer redemption administration documents, reducing manual entry and improving processing speed and accuracy through lightweight web tools and process templates.</p>
                                 </div>
                             </div>
 
                             <div class="timeline-item">
-                                <div class="timeline-dot" aria-hidden="true"></div>
                                 <div>
-                                    <div class="flex justify-between items-baseline">
-                                        <h4 class="font-semibold">Software Engineer & Mentor — Digital Wings Code Solution</h4>
-                                        <span class="text-sm text-gray-400">April 2019 — Present</span>
+                                    <div class="p-4 border rounded bg-transparent">
+                                        <div class="flex justify-between items-baseline">
+                                            <h4 class="font-semibold">Software Engineer & Mentor — Digital Wings Code Solution</h4>
+                                            <span class="text-sm text-gray-400">April 2019 — Present</span>
+                                        </div>
+                                        <p class="text-sm text-gray-300 mt-1">At a small software house (&lt;10 people), I build web applications ranging from agency/profile sites to thesis-level systems, mentor students working on their theses, and take on project coordination duties. Roles include programmer, mentor, and project manager depending on the engagement.</p>
                                     </div>
-                                    <p class="text-sm text-gray-300 mt-1">At a small software house (&lt;10 people), I build web applications ranging from agency/profile sites to thesis-level systems, mentor students working on their theses, and take on project coordination duties. Roles include programmer, mentor, and project manager depending on the engagement.</p>
                                 </div>
                             </div>
                         </div>
@@ -409,42 +467,61 @@
 
                     <div class="card p-6 rounded-lg shadow">
                         <h2 class="text-xl font-semibold mb-3">Research Published</h2>
-                        <ol class="list-decimal list-inside space-y-3 text-gray-300">
-                            <li>
+                        <div class="space-y-3 text-gray-300">
+                            <div class="p-4 border rounded bg-transparent">
                                 <strong>Implementation of A Wireless Sensor Network for Monitoring Air Pollutants in Urban and Industrial Areas</strong> — Environmental Engineering & Management Journal (EEMJ), 2024, Vol 23, Issue 7, p1391
                                 <p class="text-sm text-gray-300 mt-1">A prototype and field evaluation of a wireless sensor network for continuous air pollutant monitoring in mixed urban-industrial environments.</p>
-                                <p class="text-sm mt-1"><a href="https://doi.org/10.30638/eemj.2024.113" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">DOI: 10.30638/eemj.2024.113</a></p>
-                            </li>
-                            <li>
+                                <p class="text-sm mt-1">
+                                    <a
+                                        href="https://doi.org/10.30638/eemj.2024.113"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="text-blue-600 hover:underline"
+                                        >DOI: 10.30638/eemj.2024.113</a
+                                    >
+                                </p>
+                            </div>
+
+                            <div class="p-4 border rounded bg-transparent">
                                 <strong>Real-Time Monitoring of Gas Fields: Prototype at PT Gamma Energi Pratama Bogor</strong> — Jurnal Teknik Informatika (JTI), 2023, Vol. 16, Issue 1
                                 <p class="text-sm text-gray-300 mt-1">Design and implementation of a real-time monitoring prototype for gas field operations with data visualization and alerting.</p>
-                                <p class="text-sm mt-1"><a href="https://doi.org/10.15408/jti.v16i1.31832" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">DOI: 10.15408/jti.v16i1.31832</a></p>
-                            </li>
-                        </ol>
+                                <p class="text-sm mt-1">
+                                    <a
+                                        href="https://doi.org/10.15408/jti.v16i1.31832"
+                                        target="_blank"
+                                        rel="noopener noreferrer"
+                                        class="text-blue-600 hover:underline"
+                                        >DOI: 10.15408/jti.v16i1.31832</a
+                                    >
+                                </p>
+                            </div>
+                        </div>
                     </div>
 
                     <div class="card p-6 rounded-lg shadow">
                         <h2 class="text-xl font-semibold mb-3">Academic Background</h2>
-                        <div class="timeline border-l-2 border-gray-800 pl-6">
+                        <div class="space-y-4">
                             <div class="timeline-item">
-                                <div class="timeline-dot" aria-hidden="true"></div>
                                 <div>
-                                    <div class="flex justify-between items-baseline">
-                                        <h4 class="font-semibold">Universitas Muria Kudus — Bachelor, Informatics Engineering</h4>
-                                        <span class="text-sm text-gray-400">September 2019 — February 2023</span>
+                                    <div class="p-4 border rounded bg-transparent">
+                                        <div class="flex justify-between items-baseline">
+                                            <h4 class="font-semibold">Universitas Muria Kudus — Bachelor, Informatics Engineering</h4>
+                                            <span class="text-sm text-gray-400">September 2019 — February 2023</span>
+                                        </div>
+                                        <p class="text-sm text-gray-300 mt-1">Graduated with a GPA of <strong>3.69 / 4.00</strong>. Focus on software development, data processing, and applied computing.</p>
                                     </div>
-                                    <p class="text-sm text-gray-300 mt-1">Graduated with a GPA of <strong>3.69 / 4.00</strong>. Focus on software development, data processing, and applied computing.</p>
                                 </div>
                             </div>
 
                             <div class="timeline-item">
-                                <div class="timeline-dot" aria-hidden="true"></div>
                                 <div>
-                                    <div class="flex justify-between items-baseline">
-                                        <h4 class="font-semibold">SMKN 1 Wonosobo — Vocational, Software Engineering</h4>
-                                        <span class="text-sm text-gray-400">July 2016 — June 2019</span>
+                                    <div class="p-4 border rounded bg-transparent">
+                                        <div class="flex justify-between items-baseline">
+                                            <h4 class="font-semibold">SMKN 1 Wonosobo — Vocational, Software Engineering</h4>
+                                            <span class="text-sm text-gray-400">July 2016 — June 2019</span>
+                                        </div>
+                                        <p class="text-sm text-gray-300 mt-1">Vocational training focused on software engineering practices and practical application development.</p>
                                     </div>
-                                    <p class="text-sm text-gray-300 mt-1">Vocational training focused on software engineering practices and practical application development.</p>
                                 </div>
                             </div>
                         </div>
@@ -452,17 +529,77 @@
                 </section>
             </main>
         </div>
-
         <script>
             // Small helper: preview uploaded profile image
             const input = document.getElementById("imageUpload");
             const img = document.getElementById("profileImage");
-            input.addEventListener("change", (e) => {
-                const file = e.target.files && e.target.files[0];
-                if (!file) return;
-                const url = URL.createObjectURL(file);
-                img.src = url;
-            });
+            if (input) {
+                input.addEventListener("change", (e) => {
+                    const file = e.target.files && e.target.files[0];
+                    if (!file) return;
+                    const url = URL.createObjectURL(file);
+                    img.src = url;
+                });
+            }
+
+            // Starry background canvas
+            (function () {
+                const canvas = document.getElementById("stars");
+                if (!canvas) return;
+                const ctx = canvas.getContext("2d");
+                let w = (canvas.width = innerWidth);
+                let h = (canvas.height = innerHeight);
+
+                const stars = [];
+                const STAR_COUNT = Math.floor((w * h) / 9000); // density
+
+                function rand(min, max) {
+                    return Math.random() * (max - min) + min;
+                }
+
+                for (let i = 0; i < STAR_COUNT; i++) {
+                    stars.push({
+                        x: Math.random() * w,
+                        y: Math.random() * h,
+                        r: rand(0.3, 1.3),
+                        phase: Math.random() * Math.PI * 2,
+                        twinkle: rand(0.01, 0.04),
+                    });
+                }
+
+                function draw() {
+                    ctx.clearRect(0, 0, w, h);
+                    // soft gradient vignette
+                    const g = ctx.createRadialGradient(w * 0.15, h * 0.05, 0, w * 0.15, h * 0.05, Math.max(w, h));
+                    g.addColorStop(0, "rgba(0,230,118,0.02)");
+                    g.addColorStop(1, "rgba(0,0,0,0)");
+                    ctx.fillStyle = g;
+                    ctx.fillRect(0, 0, w, h);
+
+                    for (let s of stars) {
+                        s.phase += s.twinkle;
+                        const a = 0.4 + Math.sin(s.phase) * 0.6;
+                        ctx.beginPath();
+                        ctx.fillStyle = `rgba(255,255,255,${a})`;
+                        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                    requestAnimationFrame(draw);
+                }
+
+                window.addEventListener("resize", () => {
+                    w = canvas.width = innerWidth;
+                    h = canvas.height = innerHeight;
+                    // recreate stars density on resize
+                    stars.length = 0;
+                    const count = Math.floor((w * h) / 9000);
+                    for (let i = 0; i < count; i++) {
+                        stars.push({ x: Math.random() * w, y: Math.random() * h, r: rand(0.3, 1.3), phase: Math.random() * Math.PI * 2, twinkle: rand(0.01, 0.04) });
+                    }
+                });
+
+                draw();
+            })();
         </script>
     </body>
 </html>
