@@ -168,8 +168,30 @@
             id="stars"
             aria-hidden="true"
         ></canvas>
-        <!-- autonomous mini-sim canvas: spaceship vs bug (visual only, pointer-events:none) -->
-        <canvas id="battlefield" aria-hidden="true"></canvas>
+          <!--
+                Battlefield sim (spaceship vs space-bug)
+
+                If you're the one I asked for criticism and suggestions about this page, hahaha, I know you'll definitely open this. 
+                Consider it a gift, if you're interested in this simple AI, let's put it on your GitHub page too.
+                NB: Check the code block below too, because this is just a canvas, haha
+
+                HOWTO: Add this mini-sim to another page
+                1. Add the CSS for `#battlefield` (position:fixed; inset:0; pointer-events:none; z-index high enough).
+                2. Insert the canvas element somewhere in the body:
+                    <canvas id="battlefield" aria-hidden="true"></canvas>
+                3. Include the script block (placed after the canvas). The script is self-contained inside an IIFE and will run automatically
+                    unless the user prefers reduced motion. If you want to control it from the page, change the `reduced` check or wrap the
+                    `requestAnimationFrame(drawLoop)` call with a flag you can toggle.
+                4. To disable interactions (so the canvas doesn't block clicks), keep `pointer-events: none` in the CSS. To make it
+                    interactive, remove that and add event handlers to the canvas.
+
+                Notes:
+                - The simulation uses only small canvas rectangles (no external assets) and is intentionally light-weight.
+                - It respects `prefers-reduced-motion` and will not run for users who request reduced motion.
+                - Key functions you can reuse or call from your page: `respawn(ent)` (internal), `shoot(x,y,tx,ty,speed,owner)` (internal).
+                  If you want an API, you can modify the IIFE to expose a global object like `window.battlefield` with start/stop/toggle methods.
+          -->
+          <canvas id="battlefield" aria-hidden="true"></canvas>
         <div class="max-w-5xl mx-auto p-6 site-content">
             <header class="flex items-center gap-6 mb-8">
                 <!-- Profile picture + basic info -->
@@ -628,8 +650,40 @@
                 draw();
             })();
 
-            // --- Small autonomous battlefield: spaceship chases a bug, both throw/avoid projectiles ---
-            (function () {
+                        // --- Small autonomous battlefield: spaceship chases a bug, both throw/avoid projectiles ---
+                        /*
+                                Overview of the simulation logic (readers' quick guide):
+
+                                - Entities:
+                                    * ship: pursues the bug, avoids incoming projectiles, fires periodically.
+                                    * bug: keeps distance from the ship when too close, drifts when idle, avoids projectiles, and throws projectiles.
+                                    * projectiles: small pixel bullets with owner ('ship' or 'bug'). They expire after a life timer or when off-screen.
+
+                                - States:
+                                    * entering: when an entity respawns it starts off-screen and smoothly interpolates to a target on-screen position.
+                                        While entering it cannot fire and cannot be hit by projectiles.
+
+                                - Simple AI rules:
+                                    * shipAI: computes a desired vector toward the bug, adds avoidance vectors for nearby enemy projectiles, then
+                                        integrates velocity and position. Fires at the bug occasionally (disabled while entering).
+                                    * bugAI: if the ship is closer than `keepDistance` the bug performs a strong flee (away from ship) scaled by
+                                        proximity. When the ship is farther the bug idly drifts with small random jitter. The bug also avoids incoming
+                                        projectiles and fires more often when the ship is near.
+
+                                - Integration and rendering:
+                                    * update(now) advances physics, AI, and projectiles using a timestep limited to avoid spikes.
+                                    * drawLoop(now) renders projectiles and pixel-style sprites for ship and bug. Uses requestAnimationFrame.
+
+                                - How to adapt for your page:
+                                    1) Copy the CSS rule for `#battlefield` into your stylesheet.
+                                    2) Add the canvas element: <canvas id="battlefield"></canvas>
+                                    3) Copy the entire script IIFE below into a <script> tag after the canvas.
+                                    4) Optionally replace the pixel drawings with images: locate the ship/bug draw blocks and use ctx.drawImage.
+                                    5) To expose control functions (start/stop/respawn), wrap the IIFE content into an object and assign to window.battlefield.
+
+                                This comment block summarizes the logic; inline comments below explain specific functions in-place.
+                        */
+                        (function () {
                 const canvas = document.getElementById('battlefield');
                 if (!canvas) return;
                 const ctx = canvas.getContext('2d');
@@ -637,9 +691,11 @@
                 let h = (canvas.height = innerHeight);
                 ctx.imageSmoothingEnabled = false;
 
-                // simple vector helpers
+                // --- helpers ---
+                // simple vector helpers used across AI and movement
                 function length(x, y) { return Math.hypot(x, y); }
                 function normalize(x, y) { const l = length(x, y) || 1; return [x / l, y / l]; }
+                // clamp a scalar to +/- n
                 function clamp(v, n) { return Math.max(-n, Math.min(n, v)); }
 
                 // entities
@@ -699,7 +755,8 @@
                     }
                 }
 
-                // shooting helper
+                // shooting helper: spawns a small projectile from (x,y) toward (tx,ty)
+                // owner is 'ship' or 'bug' so AI can ignore friendly projectiles when avoiding
                 function shoot(x, y, tx, ty, speed, owner) {
                     const [dx, dy] = normalize(tx - x, ty - y);
                     projectiles.push({ x: x + dx * 12, y: y + dy * 12, vx: dx * speed, vy: dy * speed, size: 3, owner, life: 3000, born: performance.now() });
@@ -713,6 +770,12 @@
 
                     // basic steering: ship chases bug
                     (function shipAI() {
+                        // shipAI: pursue the bug while avoiding enemy projectiles
+                        // Steps:
+                        // 1. Compute desired direction toward the bug
+                        // 2. Compute avoidance vector by summing inverse-square contributions from nearby enemy projectiles
+                        // 3. Apply steering forces to ship velocity, clamp speed, and integrate position
+                        // 4. Keep the ship on-screen and fire occasionally (disabled during 'entering')
                         const desired = [bug.x - ship.x, bug.y - ship.y];
                         const [dx, dy] = normalize(desired[0], desired[1]);
                         // avoid nearby incoming projectiles
