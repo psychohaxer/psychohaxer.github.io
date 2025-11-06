@@ -665,34 +665,37 @@
 
                 const projectiles = []; // {x,y,vx,vy,size,owner,life}
 
-                // respawn helper: place entity at random screen edge with inward velocity
+                // respawn helper: place entity just off a random screen edge and set an entrance target
                 function respawn(ent) {
                     const edge = Math.floor(Math.random() * 4);
-                    const speed = 40 + Math.random() * 80;
+                    const margin = 80; // how far inside the screen the target appears
+                    const startOffset = 80; // how far off-screen the entity starts
+                    // pick a random target location inside the viewport
+                    const targetX = Math.random() * (w - margin * 2) + margin;
+                    const targetY = Math.random() * (h - margin * 2) + margin;
+                    ent.entering = true;
+                    ent.enterTimer = 0;
+                    ent.enterDuration = 700 + Math.random() * 300; // ms
+                    ent.enterTargetX = targetX;
+                    ent.enterTargetY = targetY;
+                    ent.vx = ent.vy = 0;
+
                     if (edge === 0) {
                         // top
-                        ent.x = Math.random() * w;
-                        ent.y = -30;
-                        ent.vx = (Math.random() - 0.5) * 80;
-                        ent.vy = 40 + Math.random() * 80;
+                        ent.x = targetX;
+                        ent.y = -startOffset;
                     } else if (edge === 1) {
                         // right
-                        ent.x = w + 30;
-                        ent.y = Math.random() * h;
-                        ent.vx = - (40 + Math.random() * 80);
-                        ent.vy = (Math.random() - 0.5) * 80;
+                        ent.x = w + startOffset;
+                        ent.y = targetY;
                     } else if (edge === 2) {
                         // bottom
-                        ent.x = Math.random() * w;
-                        ent.y = h + 30;
-                        ent.vx = (Math.random() - 0.5) * 80;
-                        ent.vy = - (40 + Math.random() * 80);
+                        ent.x = targetX;
+                        ent.y = h + startOffset;
                     } else {
                         // left
-                        ent.x = -30;
-                        ent.y = Math.random() * h;
-                        ent.vx = 40 + Math.random() * 80;
-                        ent.vy = (Math.random() - 0.5) * 80;
+                        ent.x = -startOffset;
+                        ent.y = targetY;
                     }
                 }
 
@@ -736,10 +739,10 @@
                         ship.x = Math.max(10, Math.min(w - 10, ship.x));
                         ship.y = Math.max(10, Math.min(h - 10, ship.y));
 
-                        // fire at bug occasionally
+                        // fire at bug occasionally (disabled while entering)
                         ship.fireCooldown -= dt;
-                        if (ship.fireCooldown <= 0) {
-                            shoot(ship.x, ship.y, bug.x + (Math.random()-0.5)*30, bug.y + (Math.random()-0.5)*30, 260, 'ship');
+                        if (!ship.entering && ship.fireCooldown <= 0) {
+                            shoot(ship.x, ship.y, bug.x + (Math.random() - 0.5) * 30, bug.y + (Math.random() - 0.5) * 30, 260, 'ship');
                             ship.fireCooldown = 0.6 + Math.random() * 0.6;
                         }
                     })();
@@ -797,15 +800,13 @@
                             bug.vy *= -0.3;
                         }
 
-                        // throw projectile at ship more often when within range
+                        // throw projectile at ship more often when within range (disabled while entering)
                         bug.throwCooldown -= dt;
-                        if (bug.throwCooldown <= 0) {
-                            // only bother firing if ship is within a reasonable range
+                        if (!bug.entering && bug.throwCooldown <= 0) {
                             if (dist < 380) {
                                 shoot(bug.x, bug.y, ship.x + (Math.random() - 0.5) * 20, ship.y + (Math.random() - 0.5) * 20, 220, 'bug');
                                 bug.throwCooldown = 0.6 + Math.random() * 1.0;
                             } else {
-                                // less frequent when far
                                 bug.throwCooldown = 1.2 + Math.random() * 2.0;
                             }
                         }
@@ -823,22 +824,25 @@
                             continue;
                         }
 
-                        // collision with targets
+                        // collision with targets (ignore targets while they are entering)
                         if (p.owner === 'ship') {
-                            const dx = p.x - bug.x, dy = p.y - bug.y;
-                            if (length(dx, dy) < bug.size + p.size) {
-                                // hit bug -> respawn bug
-                                projectiles.splice(i, 1);
-                                // small flash effect handled in draw
-                                respawn(bug);
-                                continue;
+                            if (!bug.entering) {
+                                const dx = p.x - bug.x, dy = p.y - bug.y;
+                                if (length(dx, dy) < bug.size + p.size) {
+                                    // hit bug -> respawn bug
+                                    projectiles.splice(i, 1);
+                                    respawn(bug);
+                                    continue;
+                                }
                             }
                         } else if (p.owner === 'bug') {
-                            const dx = p.x - ship.x, dy = p.y - ship.y;
-                            if (length(dx, dy) < ship.size + p.size) {
-                                projectiles.splice(i, 1);
-                                respawn(ship);
-                                continue;
+                            if (!ship.entering) {
+                                const dx = p.x - ship.x, dy = p.y - ship.y;
+                                if (length(dx, dy) < ship.size + p.size) {
+                                    projectiles.splice(i, 1);
+                                    respawn(ship);
+                                    continue;
+                                }
                             }
                         }
                     }
@@ -846,7 +850,31 @@
 
                 // draw loop
                 let flashTimer = 0;
+                let prevDraw = performance.now();
                 function drawLoop(now) {
+                    // compute dt for entrance easing
+                    const dtMs = Math.min(60, Math.max(0, now - prevDraw));
+                    prevDraw = now;
+
+                    // handle entrance interpolation for entities
+                    function processEntering(ent, dtMs) {
+                        if (!ent.entering) return;
+                        ent.enterTimer += dtMs;
+                        const t = Math.min(1, ent.enterTimer / (ent.enterDuration || 600));
+                        // ease-out cubic
+                        const ease = 1 - Math.pow(1 - t, 3);
+                        // interpolate from start position toward target smoothly using ease factor
+                        ent.x = ent.x + (ent.enterTargetX - ent.x) * Math.min(1, ease);
+                        ent.y = ent.y + (ent.enterTargetY - ent.y) * Math.min(1, ease);
+                        if (t >= 1) {
+                            ent.entering = false;
+                            ent.enterTimer = 0;
+                            ent.enterDuration = 0;
+                        }
+                    }
+                    processEntering(ship, dtMs);
+                    processEntering(bug, dtMs);
+
                     update(now);
                     // clear
                     ctx.clearRect(0, 0, w, h);
