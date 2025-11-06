@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html lang="id">
+    <head>
+        <meta charset="UTF-8" />
+        <meta
+            name="viewport"
+            content="width=device-width, initial-scale=1.0"
+        />
+        <title>Profil Saya</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Font Awesome for brand / skill icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+        <style>
+            :root {
+                --accent: #00e676; /* main accent */
+                --bg: #05060a; /* page background */
+                --card: #0f1720; /* card background */
+                --muted: #9ca3af; /* muted text */
+                --glass: rgba(255, 255, 255, 0.03);
+            }
+
+            /* page background and default text color */
+            body {
+                background: radial-gradient(1200px 600px at 10% 0%, rgba(0, 230, 118, 0.04), transparent 20%), radial-gradient(800px 400px at 100% 100%, rgba(0, 230, 118, 0.02), transparent 10%), var(--bg);
+                color: #dfffe9;
+            }
+
+            /* simple card class to replace white cards used earlier */
+            .card {
+                background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+                background-color: var(--card);
+                border: 1px solid rgba(255, 255, 255, 0.03);
+            }
+
+            /* accent helpers */
+            .accent {
+                color: var(--accent) !important;
+            }
+            .accent-bg {
+                background: linear-gradient(90deg, rgba(0, 230, 118, 0.15), rgba(0, 230, 118, 0.05));
+            }
+            .glow {
+                text-shadow: 0 0 8px rgba(0, 230, 118, 0.25);
+            }
+
+            /* make existing Tailwind 'text-blue-600' links use our accent (keeps existing classes intact) */
+            .text-blue-600 {
+                color: var(--accent) !important;
+            }
+
+            /* subtle badge style */
+            .badge-soft {
+                background: rgba(255, 255, 255, 0.03);
+                color: #c7ffd5;
+                padding: 0.125rem 0.5rem;
+                border-radius: 0.375rem;
+                font-size: 0.675rem;
+            }
+
+            /* profile image accent ring */
+            #profileImage {
+                box-shadow: 0 6px 18px rgba(0, 230, 118, 0.08), 0 0 0 6px rgba(0, 230, 118, 0.03) inset;
+            }
+
+            /* small responsive tweaks */
+            @media (min-width: 1024px) {
+                .w-120 {
+                    width: 30rem;
+                }
+                .h-120 {
+                    height: 30rem;
+                }
+                .md\:w-144 {
+                    width: 36rem;
+                }
+                .md\:h-144 {
+                    height: 36rem;
+                }
+            }
+
+            /* timeline helpers */
+            .timeline {
+                position: relative;
+            }
+            .timeline-item {
+                position: relative;
+                padding: 0.75rem 0 0.75rem 1.5rem; /* spacing so text doesn't overlap dot */
+            }
+            .timeline-dot {
+                position: absolute;
+                left: -0.9rem; /* place on the left border */
+                top: 1rem;
+                width: 0.75rem;
+                height: 0.75rem;
+                border-radius: 9999px;
+                background: var(--card);
+                border: 3px solid var(--accent);
+                box-shadow: 0 0 0 6px rgba(0, 230, 118, 0.03) inset;
+            }
+        </style>
+    </head>
+
+    <body class="antialiased font-sans">
+        <div class="max-w-5xl mx-auto p-6">
+            <header class="flex items-center gap-6 mb-8">
+                <!-- Profile picture + basic info -->
+                <div class="flex items-center gap-4">
+                    <div class="relative">
+                        <img
+                            id="profileImage"
+                            src="https://avatars.githubusercontent.com/psychohaxer"
+                            alt="Foto Profil"
+                            class="w-40 h-40 rounded-full shadow-lg object-cover"
+                        />
+                    </div>
+
+                    <div>
+                        <h1
+                            id="displayName"
+                            class="text-3xl font-bold text-gray-100"
+                        >
+                            Firman Adi Nur Fatin
+                        </h1>
+                        <p
+                            id="headline"
+                            class="text-gray-300 mt-1"
+                        >
+                            Full Stack Developer | Game Developer | Educator
+                        </p>
+                        <div class="mt-3 flex gap-3">
+                            <a
+                                href="https://github.com/psychohaxer"
+                                class="text-blue-600 hover:underline"
+                                >GitHub</a
+                            >
+                            <a
+                                href="https://www.linkedin.com/in/firemanz1304/"
+                                class="text-blue-600 hover:underline"
+                                >LinkedIn</a
+                            >
+                            <a
+                                href="mailto:firmanadinurfatin@gmail.com"
+                                class="text-blue-600 hover:underline"
+                                >Email</a
+                            >
+                        </div>
+                    </div>
+                </div>
+            </header>
+
+            <main class="grid grid-cols-1 gap-8">
+                <!-- About card -->
+                <section class="card p-6 rounded-lg shadow">
+                    <h2 class="text-xl font-semibold mb-3">About Me</h2>
+                    <div id="aboutMe" class="text-gray-300 prose">
+                        <p>
+                            I'm a passionate developer with experience in building web applications and games. I love learning new technologies and applying them to solve real-world problems. In addition to coding, I enjoy teaching and sharing knowledge with others.
+                        </p>
+                    </div>
+                </section>
+
+                <!-- Technical Skills card (3-column layout) -->
+                <section class="card p-6 rounded-lg shadow">
+                    <h3 class="mt-0 text-lg font-semibold">Technical Skills</h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mt-3">
+                        <!-- ordered by most selling first -->
+                        <div class="flex items-start gap-3 p-3 border rounded">
+                            <div class="flex-shrink-0 text-yellow-400">
+                                <i class="fab fa-php fa-2x"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <h4 class="font-semibold">Web Development</h4>
+                                    <span class="badge-soft">PHP</span>
+                                </div>
+                                <p class="text-sm text-gray-300 mt-1">Backend & full-stack web apps.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3 p-3 border rounded">
+                            <div class="flex-shrink-0 text-green-400">
+                                <i class="fab fa-python fa-2x"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <h4 class="font-semibold">Data Science</h4>
+                                    <span class="badge-soft">Python</span>
+                                </div>
+                                <p class="text-sm text-gray-300 mt-1">Analysis, ML basics, and visualization.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3 p-3 border rounded">
+                            <div class="flex-shrink-0 text-sky-400">
+                                <i class="fas fa-database fa-2x"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <h4 class="font-semibold">Data & Storage</h4>
+                                    <span class="badge-soft">SQL</span>
+                                </div>
+                                <p class="text-sm text-gray-300 mt-1">Schema design and reliable storage.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3 p-3 border rounded">
+                            <div class="flex-shrink-0 text-purple-400">
+                                <i class="fas fa-gamepad fa-2x"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <h4 class="font-semibold">Game Development</h4>
+                                    <span class="badge-soft">Ren'Py</span>
+                                </div>
+                                <p class="text-sm text-gray-300 mt-1">Visual novels & interactive experiences.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3 p-3 border rounded">
+                            <div class="flex-shrink-0 text-amber-400">
+                                <i class="fas fa-sitemap fa-2x"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <h4 class="font-semibold">Business Process</h4>
+                                    <span class="badge-soft">draw.io</span>
+                                </div>
+                                <p class="text-sm text-gray-300 mt-1">Process mapping and practical understanding.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3 p-3 border rounded">
+                            <div class="flex-shrink-0 text-indigo-400">
+                                <i class="fas fa-chalkboard-teacher fa-2x"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <h4 class="font-semibold">Teaching</h4>
+                                    <span class="badge-soft">Mentor</span>
+                                </div>
+                                <p class="text-sm text-gray-300 mt-1">Course design, mentoring, and workshops.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3 p-3 border rounded">
+                            <div class="flex-shrink-0 text-blue-300">
+                                <i class="fas fa-image fa-2x"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <h4 class="font-semibold">Image Editing</h4>
+                                    <span class="badge-soft">Photoshop</span>
+                                </div>
+                                <p class="text-sm text-gray-300 mt-1">Retouching & web assets.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3 p-3 border rounded">
+                            <div class="flex-shrink-0 text-pink-400">
+                                <i class="fas fa-video fa-2x"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <h4 class="font-semibold">Video Editing</h4>
+                                    <span class="badge-soft">Filmora</span>
+                                </div>
+                                <p class="text-sm text-gray-300 mt-1">Promo edits and motion basics.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3 p-3 border rounded">
+                            <div class="flex-shrink-0 text-yellow-600">
+                                <i class="fas fa-book fa-2x"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <h4 class="font-semibold">Academic Research</h4>
+                                    <span class="badge-soft">LaTeX</span>
+                                </div>
+                                <p class="text-sm text-gray-300 mt-1">Study design, stats, and paper writing.</p>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Projects + Timeline + Research + Education (stacked) -->
+                <section class="space-y-6">
+                    <div class="card p-6 rounded-lg shadow">
+                        <h2 class="text-xl font-semibold mb-3">Flagship Project</h2>
+                        <!-- stacked like previous layout (single column) -->
+                        <div class="space-y-4 mt-3">
+                            <!-- DMS -->
+                            <div class="p-4 border rounded bg-transparent">
+                                <div class="flex items-start gap-3">
+                                    <div class="text-yellow-400 text-2xl"><i class="fas fa-industry"></i></div>
+                                    <div class="flex-1">
+                                        <h3 class="font-semibold">Digital Manufacturing System (DMS)</h3>
+                                        <p class="text-sm text-gray-300 mt-2">ERP built from scratch in PHP to augment an industrial L3 system for a steel-processing plant. DMS centralizes production data and gives operations and planners fast access to the KPIs they need to act.</p>
+                                        <p class="text-sm text-gray-300 mt-2">Features such as <strong>Daily Report</strong>, <strong>Quality Control</strong>, <strong>Capacity Planning</strong>, <strong>Manufacture Planning List</strong>, <strong>Energy Consumption</strong>, <strong>OEE Report</strong>, and <strong>Statistic Process Control</strong> convert raw production signals into actionable insights — reducing downtime, improving yield and quality, optimizing energy use, and enabling data-driven scheduling.</p>
+                                        <p class="text-xs text-gray-400 italic mt-2">Client name withheld due to NDA.</p>
+                                        <div class="mt-3 flex flex-wrap gap-2">
+                                            <span class="badge-soft">ERP</span>
+                                            <span class="badge-soft">Manufacturing</span>
+                                            <span class="badge-soft">OEE</span>
+                                            <span class="badge-soft">Energy Optimization</span>
+                                            <span class="badge-soft">Production Planning</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Fiscal Bridge -->
+                            <div class="p-4 border rounded bg-transparent">
+                                <div class="flex items-start gap-3">
+                                    <div class="text-green-400 text-2xl"><i class="fas fa-file-invoice-dollar"></i></div>
+                                    <div class="flex-1">
+                                        <h3 class="font-semibold">Fiscal Bridge</h3>
+                                        <p class="text-sm text-gray-300 mt-2">Web-based accounting software that streamlines commercial workflows — from quotations and invoicing to transaction recording and purchase orders. Stores customer and vendor data and generates financial reports for bookkeeping and tax purposes.</p>
+                                        <p class="text-xs text-gray-400 italic mt-2">Client name withheld due to NDA.</p>
+                                        <div class="mt-3 flex flex-wrap gap-2">
+                                            <span class="badge-soft">Accounting</span>
+                                            <span class="badge-soft">Invoicing</span>
+                                            <span class="badge-soft">Financial Reports</span>
+                                            <span class="badge-soft">Bookkeeping</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Auto Dosing -->
+                            <div class="p-4 border rounded bg-transparent">
+                                <div class="flex items-start gap-3">
+                                    <div class="text-pink-400 text-2xl"><i class="fas fa-microchip"></i></div>
+                                    <div class="flex-1">
+                                        <h3 class="font-semibold">Auto Dosing</h3>
+                                        <p class="text-sm text-gray-300 mt-2">Web application integrated with SCADA to monitor and control animal feed production. Clear visualizations and tabulated reports turn SCADA signals into operator-ready information, helping maintain dosing accuracy and production traceability.</p>
+                                        <p class="text-xs text-gray-400 italic mt-2">Client name withheld due to NDA.</p>
+                                        <div class="mt-3 flex flex-wrap gap-2">
+                                            <span class="badge-soft">SCADA</span>
+                                            <span class="badge-soft">Process Control</span>
+                                            <span class="badge-soft">Traceability</span>
+                                            <span class="badge-soft">Monitoring</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card p-6 rounded-lg shadow">
+                        <h2 class="text-xl font-semibold mb-3">Work Experience</h2>
+                        <div class="timeline border-l-2 border-gray-800 pl-6">
+                            <div class="timeline-item">
+                                <div class="timeline-dot" aria-hidden="true"></div>
+                                <div>
+                                    <div class="flex justify-between items-baseline">
+                                        <h4 class="font-semibold">Full Stack Programmer — LMask</h4>
+                                        <span class="text-sm text-gray-400">December 2023 — Present</span>
+                                    </div>
+                                    <p class="text-sm text-gray-300 mt-1">Joined as an early team member at a pioneering startup focused on industrial monitoring and control systems. Designed and implemented web dashboards, backend services that ingest SCADA/MES signals, and integrations for alerts and reporting. Drove prototype-to-production deliveries and collaborated closely with operations for field validation.</p>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="timeline-dot" aria-hidden="true"></div>
+                                <div>
+                                    <div class="flex justify-between items-baseline">
+                                        <h4 class="font-semibold">Teacher — SMKS Tamansiswa Kudus</h4>
+                                        <span class="text-sm text-gray-400">October 2023 — Present</span>
+                                    </div>
+                                    <p class="text-sm text-gray-300 mt-1">Instructor for Broadcasting & Film departments and informatics topics. Teach coding and practical AI introductions, create curricula and assessments, and act as Moodle LMS administrator — supporting course delivery, student mentoring, and project supervision.</p>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="timeline-dot" aria-hidden="true"></div>
+                                <div>
+                                    <div class="flex justify-between items-baseline">
+                                        <h4 class="font-semibold">Academic Mentor & Lab Assistant — Universitas Muria Kudus</h4>
+                                        <span class="text-sm text-gray-400">September 2022 — December 2022</span>
+                                    </div>
+                                    <p class="text-sm text-gray-300 mt-1">Served as teaching assistant during laboratory practicals, mentored students in theory sessions, and assisted lecturers with research tasks including data processing and translating papers into English.</p>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="timeline-dot" aria-hidden="true"></div>
+                                <div>
+                                    <div class="flex justify-between items-baseline">
+                                        <h4 class="font-semibold">Field Admin — UD. Dadi Makmur</h4>
+                                        <span class="text-sm text-gray-400">August 2021 — August 2022</span>
+                                    </div>
+                                    <p class="text-sm text-gray-300 mt-1">Implemented automation for fertilizer redemption administration documents, reducing manual entry and improving processing speed and accuracy through lightweight web tools and process templates.</p>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="timeline-dot" aria-hidden="true"></div>
+                                <div>
+                                    <div class="flex justify-between items-baseline">
+                                        <h4 class="font-semibold">Software Engineer & Mentor — Digital Wings Code Solution</h4>
+                                        <span class="text-sm text-gray-400">April 2019 — Present</span>
+                                    </div>
+                                    <p class="text-sm text-gray-300 mt-1">At a small software house (&lt;10 people), I build web applications ranging from agency/profile sites to thesis-level systems, mentor students working on their theses, and take on project coordination duties. Roles include programmer, mentor, and project manager depending on the engagement.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="card p-6 rounded-lg shadow">
+                        <h2 class="text-xl font-semibold mb-3">Research Published</h2>
+                        <ol class="list-decimal list-inside space-y-3 text-gray-300">
+                            <li>
+                                <strong>Implementation of A Wireless Sensor Network for Monitoring Air Pollutants in Urban and Industrial Areas</strong> — Environmental Engineering & Management Journal (EEMJ), 2024, Vol 23, Issue 7, p1391
+                                <p class="text-sm text-gray-300 mt-1">A prototype and field evaluation of a wireless sensor network for continuous air pollutant monitoring in mixed urban-industrial environments.</p>
+                                <p class="text-sm mt-1"><a href="https://doi.org/10.30638/eemj.2024.113" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">DOI: 10.30638/eemj.2024.113</a></p>
+                            </li>
+                            <li>
+                                <strong>Real-Time Monitoring of Gas Fields: Prototype at PT Gamma Energi Pratama Bogor</strong> — Jurnal Teknik Informatika (JTI), 2023, Vol. 16, Issue 1
+                                <p class="text-sm text-gray-300 mt-1">Design and implementation of a real-time monitoring prototype for gas field operations with data visualization and alerting.</p>
+                                <p class="text-sm mt-1"><a href="https://doi.org/10.15408/jti.v16i1.31832" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">DOI: 10.15408/jti.v16i1.31832</a></p>
+                            </li>
+                        </ol>
+                    </div>
+
+                    <div class="card p-6 rounded-lg shadow">
+                        <h2 class="text-xl font-semibold mb-3">Academic Background</h2>
+                        <div class="timeline border-l-2 border-gray-800 pl-6">
+                            <div class="timeline-item">
+                                <div class="timeline-dot" aria-hidden="true"></div>
+                                <div>
+                                    <div class="flex justify-between items-baseline">
+                                        <h4 class="font-semibold">Universitas Muria Kudus — Bachelor, Informatics Engineering</h4>
+                                        <span class="text-sm text-gray-400">September 2019 — February 2023</span>
+                                    </div>
+                                    <p class="text-sm text-gray-300 mt-1">Graduated with a GPA of <strong>3.69 / 4.00</strong>. Focus on software development, data processing, and applied computing.</p>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div class="timeline-dot" aria-hidden="true"></div>
+                                <div>
+                                    <div class="flex justify-between items-baseline">
+                                        <h4 class="font-semibold">SMKN 1 Wonosobo — Vocational, Software Engineering</h4>
+                                        <span class="text-sm text-gray-400">July 2016 — June 2019</span>
+                                    </div>
+                                    <p class="text-sm text-gray-300 mt-1">Vocational training focused on software engineering practices and practical application development.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+            </main>
+        </div>
+
+        <script>
+            // Small helper: preview uploaded profile image
+            const input = document.getElementById("imageUpload");
+            const img = document.getElementById("profileImage");
+            input.addEventListener("change", (e) => {
+                const file = e.target.files && e.target.files[0];
+                if (!file) return;
+                const url = URL.createObjectURL(file);
+                img.src = url;
+            });
+        </script>
+    </body>
+</html>
