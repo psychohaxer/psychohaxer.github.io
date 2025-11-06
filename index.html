@@ -132,6 +132,17 @@
                 background: radial-gradient(1200px 600px at 10% 0%, rgba(0, 230, 118, 0.02), transparent 20%), var(--bg);
             }
 
+            /* battlefield canvas for small autonomous pixel-sim (spaceship vs bug) */
+            #battlefield {
+                position: fixed;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 15; /* above content but pointer-events none so it doesn't block UI */
+                pointer-events: none;
+                mix-blend-mode: screen;
+            }
+
             /* make main content sit above the stars */
             .site-content {
                 position: relative;
@@ -157,6 +168,8 @@
             id="stars"
             aria-hidden="true"
         ></canvas>
+        <!-- autonomous mini-sim canvas: spaceship vs bug (visual only, pointer-events:none) -->
+        <canvas id="battlefield" aria-hidden="true"></canvas>
         <div class="max-w-5xl mx-auto p-6 site-content">
             <header class="flex items-center gap-6 mb-8">
                 <!-- Profile picture + basic info -->
@@ -613,6 +626,293 @@
                 });
 
                 draw();
+            })();
+
+            // --- Small autonomous battlefield: spaceship chases a bug, both throw/avoid projectiles ---
+            (function () {
+                const canvas = document.getElementById('battlefield');
+                if (!canvas) return;
+                const ctx = canvas.getContext('2d');
+                let w = (canvas.width = innerWidth);
+                let h = (canvas.height = innerHeight);
+                ctx.imageSmoothingEnabled = false;
+
+                // simple vector helpers
+                function length(x, y) { return Math.hypot(x, y); }
+                function normalize(x, y) { const l = length(x, y) || 1; return [x / l, y / l]; }
+                function clamp(v, n) { return Math.max(-n, Math.min(n, v)); }
+
+                // entities
+                const ship = {
+                    x: w * 0.2,
+                    y: h * 0.5,
+                    vx: 0,
+                    vy: 0,
+                    size: 8,
+                    color: 'rgba(0,230,118,1)',
+                    fireCooldown: 0
+                };
+
+                const bug = {
+                    x: w * 0.8,
+                    y: h * 0.5,
+                    vx: 0,
+                    vy: 0,
+                    size: 10,
+                    color: 'rgba(255,120,80,1)',
+                    throwCooldown: 0
+                };
+
+                const projectiles = []; // {x,y,vx,vy,size,owner,life}
+
+                // respawn helper: place entity at random screen edge with inward velocity
+                function respawn(ent) {
+                    const edge = Math.floor(Math.random() * 4);
+                    const speed = 40 + Math.random() * 80;
+                    if (edge === 0) {
+                        // top
+                        ent.x = Math.random() * w;
+                        ent.y = -30;
+                        ent.vx = (Math.random() - 0.5) * 80;
+                        ent.vy = 40 + Math.random() * 80;
+                    } else if (edge === 1) {
+                        // right
+                        ent.x = w + 30;
+                        ent.y = Math.random() * h;
+                        ent.vx = - (40 + Math.random() * 80);
+                        ent.vy = (Math.random() - 0.5) * 80;
+                    } else if (edge === 2) {
+                        // bottom
+                        ent.x = Math.random() * w;
+                        ent.y = h + 30;
+                        ent.vx = (Math.random() - 0.5) * 80;
+                        ent.vy = - (40 + Math.random() * 80);
+                    } else {
+                        // left
+                        ent.x = -30;
+                        ent.y = Math.random() * h;
+                        ent.vx = 40 + Math.random() * 80;
+                        ent.vy = (Math.random() - 0.5) * 80;
+                    }
+                }
+
+                // shooting helper
+                function shoot(x, y, tx, ty, speed, owner) {
+                    const [dx, dy] = normalize(tx - x, ty - y);
+                    projectiles.push({ x: x + dx * 12, y: y + dy * 12, vx: dx * speed, vy: dy * speed, size: 3, owner, life: 3000, born: performance.now() });
+                }
+
+                // update loop
+                let last = performance.now();
+                function update(now) {
+                    const dt = Math.min(60, now - last) / 1000;
+                    last = now;
+
+                    // basic steering: ship chases bug
+                    (function shipAI() {
+                        const desired = [bug.x - ship.x, bug.y - ship.y];
+                        const [dx, dy] = normalize(desired[0], desired[1]);
+                        // avoid nearby incoming projectiles
+                        let avoidX = 0, avoidY = 0;
+                        for (const p of projectiles) {
+                            if (p.owner === 'ship') continue;
+                            const px = p.x - ship.x, py = p.y - ship.y;
+                            const dist = length(px, py);
+                            if (dist < 120) {
+                                avoidX -= px / (dist*dist);
+                                avoidY -= py / (dist*dist);
+                            }
+                        }
+                        const [ax, ay] = normalize(avoidX, avoidY);
+                        ship.vx += (dx * 60 + ax * 120) * dt;
+                        ship.vy += (dy * 60 + ay * 120) * dt;
+                        // limit speed
+                        ship.vx = clamp(ship.vx, 180);
+                        ship.vy = clamp(ship.vy, 180);
+                        ship.x += ship.vx * dt;
+                        ship.y += ship.vy * dt;
+
+                        // keep on-screen
+                        ship.x = Math.max(10, Math.min(w - 10, ship.x));
+                        ship.y = Math.max(10, Math.min(h - 10, ship.y));
+
+                        // fire at bug occasionally
+                        ship.fireCooldown -= dt;
+                        if (ship.fireCooldown <= 0) {
+                            shoot(ship.x, ship.y, bug.x + (Math.random()-0.5)*30, bug.y + (Math.random()-0.5)*30, 260, 'ship');
+                            ship.fireCooldown = 0.6 + Math.random() * 0.6;
+                        }
+                    })();
+
+                    // bug AI: avoid ship and throw projectiles
+                    (function bugAI() {
+                        // run away from ship
+                        let bx = bug.x - ship.x, by = bug.y - ship.y;
+                        const dist = length(bx, by) || 1;
+                        const [nx, ny] = normalize(bx, by);
+                        // wander
+                        const wanderAngle = (Math.random() - 0.5) * 0.6;
+                        bug.vx += (nx * 80 + Math.cos(wanderAngle) * 20) * dt;
+                        bug.vy += (ny * 80 + Math.sin(wanderAngle) * 20) * dt;
+                        // avoid ship projectiles
+                        let avoidX = 0, avoidY = 0;
+                        for (const p of projectiles) {
+                            if (p.owner === 'bug') continue;
+                            const px = p.x - bug.x, py = p.y - bug.y;
+                            const d = length(px, py);
+                            if (d < 120) {
+                                avoidX -= px / (d*d);
+                                avoidY -= py / (d*d);
+                            }
+                        }
+                        const [ax, ay] = normalize(avoidX, avoidY);
+                        bug.vx += ax * 240 * dt;
+                        bug.vy += ay * 240 * dt;
+
+                        bug.vx = clamp(bug.vx, 220);
+                        bug.vy = clamp(bug.vy, 220);
+                        bug.x += bug.vx * dt;
+                        bug.y += bug.vy * dt;
+
+                        // boundaries
+                        if (bug.x < 20 || bug.x > w - 20 || bug.y < 20 || bug.y > h - 20) {
+                            // nudge back
+                            bug.x = Math.max(20, Math.min(w - 20, bug.x));
+                            bug.y = Math.max(20, Math.min(h - 20, bug.y));
+                            bug.vx *= -0.3;
+                            bug.vy *= -0.3;
+                        }
+
+                        // throw projectile at ship occasionally
+                        bug.throwCooldown -= dt;
+                        if (bug.throwCooldown <= 0) {
+                            shoot(bug.x, bug.y, ship.x + (Math.random()-0.5)*20, ship.y + (Math.random()-0.5)*20, 220, 'bug');
+                            bug.throwCooldown = 0.8 + Math.random() * 1.2;
+                        }
+                    })();
+
+                    // update projectiles
+                    for (let i = projectiles.length - 1; i >= 0; i--) {
+                        const p = projectiles[i];
+                        p.x += p.vx * dt;
+                        p.y += p.vy * dt;
+                        p.life -= dt * 1000;
+                        // offscreen or expired
+                        if (p.life <= 0 || p.x < -20 || p.x > w + 20 || p.y < -20 || p.y > h + 20) {
+                            projectiles.splice(i, 1);
+                            continue;
+                        }
+
+                        // collision with targets
+                        if (p.owner === 'ship') {
+                            const dx = p.x - bug.x, dy = p.y - bug.y;
+                            if (length(dx, dy) < bug.size + p.size) {
+                                // hit bug -> respawn bug
+                                projectiles.splice(i, 1);
+                                // small flash effect handled in draw
+                                respawn(bug);
+                                continue;
+                            }
+                        } else if (p.owner === 'bug') {
+                            const dx = p.x - ship.x, dy = p.y - ship.y;
+                            if (length(dx, dy) < ship.size + p.size) {
+                                projectiles.splice(i, 1);
+                                respawn(ship);
+                                continue;
+                            }
+                        }
+                    }
+                }
+
+                // draw loop
+                let flashTimer = 0;
+                function drawLoop(now) {
+                    update(now);
+                    // clear
+                    ctx.clearRect(0, 0, w, h);
+
+                    // optionally dim content behind slightly by drawing nothing (canvas is transparent)
+
+                    // draw projectiles
+                    for (const p of projectiles) {
+                        ctx.fillStyle = p.owner === 'ship' ? 'rgba(150,255,200,0.95)' : 'rgba(255,180,140,0.95)';
+                        ctx.fillRect(p.x - p.size/2, p.y - p.size/2, p.size, p.size);
+                    }
+
+                    // draw ship (slimmer pixel-style spaceship)
+                    ctx.save();
+                    ctx.translate(ship.x, ship.y);
+                    const angle = Math.atan2(ship.vy, ship.vx) + Math.PI / 2;
+                    ctx.rotate(angle);
+                    const s = Math.max(4, Math.round(ship.size * 0.5)); // slimmer base unit
+                    // hull (narrow)
+                    ctx.fillStyle = 'rgba(0,180,100,1)';
+                    ctx.fillRect(-s, -Math.floor(s * 0.6), s * 2, Math.floor(s * 1.2));
+                    // cockpit (glass)
+                    ctx.fillStyle = 'rgba(160,255,200,1)';
+                    ctx.fillRect(-1, -Math.floor(s * 0.9) - 1, 2, 2);
+                    // small wings
+                    ctx.fillStyle = 'rgba(0,220,130,1)';
+                    ctx.fillRect(-s - 1, 1, 1, Math.max(1, Math.floor(s * 0.8)));
+                    ctx.fillRect(s, 1, 1, Math.max(1, Math.floor(s * 0.8)));
+                    // nose (short)
+                    ctx.fillStyle = 'rgba(120,240,180,1)';
+                    ctx.fillRect(-1, -Math.floor(s * 0.9) - 3, 2, 2);
+                    // smaller thruster flame (animated by velocity magnitude)
+                    const speed = Math.min(1.6, Math.hypot(ship.vx, ship.vy) / 160);
+                    if (speed > 0.03) {
+                        const flameLen = 1 + Math.round(speed * 4);
+                        ctx.fillStyle = 'rgba(255,200,100,' + (0.5 + speed * 0.4) + ')';
+                        for (let i = 0; i < flameLen; i++) {
+                            ctx.fillRect(-1 + (i % 2), Math.floor(s * 0.8) + i, 1, 1 + (i % 2));
+                        }
+                    }
+                    ctx.restore();
+
+                    // draw bug (pixel-space 'space-bug')
+                    const bs = Math.max(8, bug.size);
+                    // body segments
+                    ctx.fillStyle = 'rgba(255,110,60,1)';
+                    ctx.fillRect(bug.x - bs, bug.y - Math.floor(bs / 2), bs * 2, Math.floor(bs / 1.3));
+                    // shell spots (darker)
+                    ctx.fillStyle = 'rgba(200,70,40,1)';
+                    ctx.fillRect(bug.x - 2, bug.y - 3, 2, 2);
+                    ctx.fillRect(bug.x + 4, bug.y - 2, 2, 2);
+                    // eyes (glowing cores)
+                    ctx.fillStyle = 'rgba(30,10,10,1)';
+                    ctx.fillRect(bug.x - 3, bug.y - 4, 2, 2);
+                    ctx.fillRect(bug.x + 1, bug.y - 4, 2, 2);
+                    // antennae
+                    ctx.fillStyle = 'rgba(255,160,120,1)';
+                    ctx.fillRect(bug.x - 4, bug.y - 8, 1, 3);
+                    ctx.fillRect(bug.x + 6, bug.y - 8, 1, 3);
+                    // legs (small pixels)
+                    ctx.fillStyle = 'rgba(180,70,40,1)';
+                    ctx.fillRect(bug.x - bs, bug.y + Math.floor(bs / 2), 1, 2);
+                    ctx.fillRect(bug.x - bs + 4, bug.y + Math.floor(bs / 2), 1, 2);
+                    ctx.fillRect(bug.x + bs - 1, bug.y + Math.floor(bs / 2), 1, 2);
+
+                    requestAnimationFrame(drawLoop);
+                }
+
+                // respawn ship and bug at random screen edges
+                respawn(ship);
+                respawn(bug);
+
+                // spawn a few initial projectiles to make things lively
+                for (let i = 0; i < 3; i++) {
+                    shoot(Math.random() * w, Math.random() * h, Math.random() * w, Math.random() * h, 140 + Math.random() * 120, Math.random() < 0.5 ? 'ship' : 'bug');
+                }
+
+                // resize handling
+                window.addEventListener('resize', () => {
+                    w = canvas.width = innerWidth;
+                    h = canvas.height = innerHeight;
+                });
+
+                // reduced-motion respect
+                const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+                if (!reduced) requestAnimationFrame(drawLoop);
             })();
         </script>
     </body>
