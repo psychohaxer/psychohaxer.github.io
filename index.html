@@ -160,6 +160,68 @@
                 position: relative;
                 overflow: hidden;
             }
+
+            /* carousel helpers */
+            .no-scrollbar {
+                -ms-overflow-style: none; /* IE and Edge */
+                scrollbar-width: none; /* Firefox */
+            }
+            .no-scrollbar::-webkit-scrollbar {
+                display: none; /* Chrome, Safari */
+            }
+            .carousel-container {
+                position: relative;
+            }
+            .carousel-btn {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 2.4rem;
+                height: 2.4rem;
+                border-radius: 0.5rem;
+                background: rgba(0,0,0,0.45);
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                color: #dfffe9;
+                border: 1px solid rgba(255,255,255,0.04);
+                cursor: pointer;
+                transition: transform 120ms ease, background 120ms ease;
+                z-index: 5;
+            }
+            .carousel-btn:hover { transform: translateY(-50%) scale(1.05); background: rgba(0,230,118,0.08); color: var(--accent); }
+            .carousel-btn.left { left: 6px; }
+            .carousel-btn.right { right: 6px; }
+
+            /* modal */
+            .img-modal-backdrop {
+                position: fixed;
+                inset: 0;
+                background: rgba(0,0,0,0.7);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 60;
+                padding: 1.25rem;
+            }
+            .img-modal-content {
+                max-width: 90vw;
+                max-height: 85vh;
+                position: relative;
+            }
+            .img-modal-content img { width: auto; height: auto; max-width: 100%; max-height: 85vh; border-radius: 0.5rem; display: block; }
+            .img-modal-close {
+                position: absolute; top: -0.6rem; right: -0.6rem; background: rgba(0,0,0,0.6); border-radius: 999px; padding: 0.45rem; color: #fff; cursor: pointer; border: 1px solid rgba(255,255,255,0.04);
+            }
+            .img-modal-nav {
+                position: absolute; top: 50%; transform: translateY(-50%); width: 2.2rem; height: 2.2rem; background: rgba(0,0,0,0.5); display: inline-flex; align-items: center; justify-content: center; border-radius: 0.4rem; color: #fff; cursor: pointer; border: 1px solid rgba(255,255,255,0.04);
+            }
+            .img-modal-nav.left { left: -2.6rem; }
+            .img-modal-nav.right { right: -2.6rem; }
+            /* show exactly 3 items in carousel viewport */
+            .carousel-viewport { width: 100%; }
+            .carousel-viewport .flex > .carousel-item { flex: 0 0 calc((100% - 1.5rem) / 3); scroll-snap-align: start; }
+            .carousel-viewport { scroll-snap-type: x mandatory; }
         </style>
     </head>
 
@@ -407,6 +469,57 @@
                                             <span class="badge-soft">Energy Monitoring</span>
                                             <span class="badge-soft">Production Planning</span>
                                         </div>
+                                        <div class="mt-4">
+                                            <div class="carousel-container">
+                                                <button id="dms-prev" class="carousel-btn left" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
+                                                <div id="dms-carousel" class="carousel-viewport overflow-x-auto no-scrollbar">
+                                                    <div class="flex gap-3 py-2">
+                                                        <img src="img/dms/001-dashboard.png" alt="DMS Dashboard" data-index="0" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/002-dashboard.png" alt="DMS Dashboard" data-index="1" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/003-dashboard.png" alt="DMS Dashboard" data-index="2" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/004-report.png" alt="DMS Daily Report" data-index="3" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/005-report.png" alt="DMS Daily Report" data-index="4" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/006-report.png" alt="DMS Daily Report" data-index="5" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/007-report.png" alt="DMS Daily Report" data-index="6" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/008-pareto.png" alt="DMS Pareto Analysis" data-index="7" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/009-downtime.png" alt="DMS Downtime Analysis" data-index="8" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/010-list.png" alt="DMS Downtime List" data-index="9" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/011-uptime.png" alt="DMS Uptime Analysis" data-index="10" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/012-oee.png" alt="DMS OEE Report" data-index="11" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/013-scrap.png" alt="DMS Scrap Analysis" data-index="12" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/014-scrap.png" alt="DMS Scrap Analysis" data-index="13" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/015-energy.png" alt="DMS Energy Consumption" data-index="14" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/016-emission.png" alt="DMS Emission Report" data-index="15" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/017-cp.png" alt="DMS Capacity Planning Overview" data-index="16" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/018-cp.png" alt="DMS Capacity Planning Off-Production" data-index="17" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/019-cp.png" alt="DMS Capacity Planning Throughput" data-index="18" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/020-cp.png" alt="DMS Capacity Planning Details" data-index="19" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/021-cp.png" alt="DMS Capacity Planning Chart" data-index="20" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/022-cp.png" alt="DMS Capacity Planning Custom Days" data-index="21" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/023-cp.png" alt="DMS Capacity Planning Production Plan Chart" data-index="22" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/024-mpl.png" alt="DMS Manufacture Planning List" data-index="23" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/025-mpl.png" alt="DMS Manufacture Planning List Details" data-index="24" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/026-mpl.png" alt="DMS Manufacture Planning Planned Items" data-index="25" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/027-prod.png" alt="DMS Production Report Overview" data-index="26" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/028-prod.png" alt="DMS Production Report by Finished Goods" data-index="27" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/029-prod.png" alt="DMS Production Report by Color" data-index="28" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/030-consumables.png" alt="DMS Paint Consumption Report" data-index="29" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/031-consumables.png" alt="DMS Paint Consumption Details" data-index="30" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/032-paint.png" alt="DMS Paint Consumption Selection" data-index="31" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/033-paint.png" alt="DMS Paint Consumption Table" data-index="32" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/034-dd.png" alt="DMS Defect Dictionary" data-index="33" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/035-dd.png" alt="DMS Defect Dictionary Form" data-index="34" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/036-dd.png" alt="DMS Defect Dictionary Picture" data-index="35" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/037-spc.png" alt="DMS Statistical Process Control" data-index="36" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/038-spc.png" alt="DMS Statistical Process Control Chart" data-index="37" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/039-spc.png" alt="DMS Statistical Process Control Details" data-index="38" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/040-log.png" alt="DMS API Log" data-index="39" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                    </div>
+                                                </div>
+                                                <button id="dms-next" class="carousel-btn right" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
+                                            </div>
+                                            <p class="text-xs text-gray-400 mt-2 italic">Click an image to open a larger view.</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -578,6 +691,19 @@
                 </section>
             </main>
         </div>
+        <!-- Image modal (hidden by default) -->
+        <div id="image-modal" class="hidden" aria-hidden="true">
+            <div class="img-modal-backdrop" id="img-modal-backdrop" role="dialog" aria-modal="true">
+                <div class="img-modal-content">
+                    <button id="img-modal-close" class="img-modal-close" aria-label="Close"><i class="fas fa-times"></i></button>
+                    <button id="img-modal-prev" class="img-modal-nav left" aria-label="Previous"><i class="fas fa-chevron-left"></i></button>
+                    <img id="img-modal-img" src="" alt="" />
+                    <div id="img-modal-title" class="text-sm text-gray-200 mt-3 text-center"></div>
+                    <button id="img-modal-next" class="img-modal-nav right" aria-label="Next"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </div>
+        </div>
+
         <script>
             // Small helper: preview uploaded profile image
             const input = document.getElementById("imageUpload");
@@ -1024,6 +1150,79 @@
                 // reduced-motion respect
                 const reduced = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
                 if (!reduced) requestAnimationFrame(drawLoop);
+            })();
+
+            // --- Carousel controls + image modal handlers ---
+            (function () {
+                const carousel = document.getElementById('dms-carousel');
+                const prevBtn = document.getElementById('dms-prev');
+                const nextBtn = document.getElementById('dms-next');
+                if (!carousel) return; // nothing to do
+
+                const items = Array.from(carousel.querySelectorAll('.carousel-item'));
+                const itemWidth = items[0] ? items[0].getBoundingClientRect().width + parseInt(getComputedStyle(items[0]).marginRight || '12') : 260;
+
+                function scrollByDir(dir) {
+                    // scroll by one item width
+                    carousel.scrollBy({ left: dir * itemWidth, behavior: 'smooth' });
+                }
+
+                prevBtn && prevBtn.addEventListener('click', () => scrollByDir(-1));
+                nextBtn && nextBtn.addEventListener('click', () => scrollByDir(1));
+
+                // Modal elements
+                const modalRoot = document.getElementById('image-modal');
+                const modalBackdrop = document.getElementById('img-modal-backdrop');
+                const modalImg = document.getElementById('img-modal-img');
+                const modalTitle = document.getElementById('img-modal-title');
+                const modalClose = document.getElementById('img-modal-close');
+                const modalPrev = document.getElementById('img-modal-prev');
+                const modalNext = document.getElementById('img-modal-next');
+                let currentIndex = 0;
+
+                function openModal(index) {
+                    const it = items[index];
+                    if (!it) return;
+                    currentIndex = index;
+                    modalImg.src = it.src;
+                    modalImg.alt = it.alt || '';
+                    if (modalTitle) modalTitle.textContent = it.alt || '';
+                    modalRoot.classList.remove('hidden');
+                    modalRoot.setAttribute('aria-hidden', 'false');
+                }
+
+                function closeModal() {
+                    modalRoot.classList.add('hidden');
+                    modalRoot.setAttribute('aria-hidden', 'true');
+                    modalImg.src = '';
+                    if (modalTitle) modalTitle.textContent = '';
+                }
+
+                items.forEach((it, idx) => {
+                    it.addEventListener('click', () => openModal(idx));
+                });
+
+                modalClose && modalClose.addEventListener('click', closeModal);
+                modalBackdrop && modalBackdrop.addEventListener('click', (e) => { if (e.target === modalBackdrop) closeModal(); });
+
+                modalPrev && modalPrev.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    currentIndex = (currentIndex - 1 + items.length) % items.length;
+                    openModal(currentIndex);
+                });
+                modalNext && modalNext.addEventListener('click', (e) => {
+                    e.stopPropagation();
+                    currentIndex = (currentIndex + 1) % items.length;
+                    openModal(currentIndex);
+                });
+
+                // keyboard support
+                document.addEventListener('keydown', (e) => {
+                    if (modalRoot.classList.contains('hidden')) return;
+                    if (e.key === 'Escape') closeModal();
+                    if (e.key === 'ArrowLeft') { currentIndex = (currentIndex - 1 + items.length) % items.length; openModal(currentIndex); }
+                    if (e.key === 'ArrowRight') { currentIndex = (currentIndex + 1) % items.length; openModal(currentIndex); }
+                });
             })();
         </script>
     </body>
