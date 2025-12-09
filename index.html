@@ -3,7 +3,7 @@
     <head>
         <meta charset="UTF-8" />
         <meta name="viewport" content="width=800" />
-        <title>Firman Adi Nur Fatin, S.Kom. - Profil Saya</title>
+        <title data-i18n="page.title">Firman Adi Nur Fatin, S.Kom. - Profil Saya</title>
         <script src="https://cdn.tailwindcss.com"></script>
         <!-- Font Awesome for brand / skill icons -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
@@ -264,6 +264,29 @@
             .carousel-viewport {
                 scroll-snap-type: x mandatory;
             }
+
+            /* Floating language toggle button */
+            .lang-toggle {
+                position: fixed;
+                right: 1rem;
+                bottom: 1rem;
+                z-index: 80;
+                background: var(--card);
+                border: 1px solid rgba(255,255,255,0.06);
+                color: #dfffe9;
+                padding: 0.4rem 0.65rem;
+                border-radius: 0.5rem;
+                box-shadow: 0 6px 18px rgba(0,0,0,0.45);
+                cursor: pointer;
+                font-weight: 600;
+                min-width: 3rem;
+                text-align: center;
+            }
+            .lang-toggle:hover {
+                transform: translateY(-3px);
+                background: linear-gradient(90deg, rgba(0,230,118,0.04), rgba(0,230,118,0.02));
+                color: var(--accent);
+            }
         </style>
     </head>
 
@@ -303,31 +326,31 @@
 
                     <div>
                         <h1 id="displayName" class="text-3xl font-bold text-gray-100">Firman Adi Nur Fatin, S.Kom.</h1>
-                        <p id="headline" class="text-gray-300 mt-1">Full Stack Developer | Game Developer | Educator</p>
+                        <p id="headline" class="text-gray-300 mt-1" data-i18n="headline">Full Stack Developer | Game Developer | Educator</p>
                         <div class="mt-3 flex flex-wrap gap-3">
-                            <a href="https://github.com/psychohaxer" class="contact-btn" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                                <a href="https://github.com/psychohaxer" class="contact-btn" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
                                 <i class="fab fa-github fa-fw"></i>
-                                <span>GitHub</span>
+                                <span data-i18n="contact.github">GitHub</span>
                             </a>
 
                             <a href="https://www.linkedin.com/in/firemanz1304/" class="contact-btn" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
                                 <i class="fab fa-linkedin fa-fw"></i>
-                                <span>LinkedIn</span>
+                                <span data-i18n="contact.linkedin">LinkedIn</span>
                             </a>
 
                             <a href="https://psychohaxer.itch.io/" class="contact-btn" target="_blank" rel="noopener noreferrer" aria-label="Itch.io">
                                 <i class="fas fa-gamepad fa-fw"></i>
-                                <span>Itch.io</span>
+                                <span data-i18n="contact.itch">Itch.io</span>
                             </a>
 
                             <a href="mailto:firmanadinurfatin@gmail.com" class="contact-btn" aria-label="Email">
                                 <i class="fas fa-envelope fa-fw"></i>
-                                <span>Email</span>
+                                <span data-i18n="contact.email">Email</span>
                             </a>
 
                             <a href="https://wa.me/6281325374731" class="contact-btn" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
                                 <i class="fab fa-whatsapp fa-fw"></i>
-                                <span>WhatsApp</span>
+                                <span data-i18n="contact.wa">WhatsApp</span>
                             </a>
                         </div>
                     </div>
@@ -337,15 +360,15 @@
             <main class="grid grid-cols-1 gap-8">
                 <!-- About card -->
                 <section class="card p-6 rounded-lg shadow">
-                    <h2 class="text-xl font-semibold mb-3 card-title"><i class="fas fa-user"></i> <span>About Me</span></h2>
-                    <div id="aboutMe" class="text-gray-300 prose">
-                        <p>I'm a passionate developer with experience in building web applications and games. I love learning new technologies and applying them to solve real-world problems. In addition to coding, I enjoy teaching and sharing knowledge with others.</p>
-                    </div>
+                    <h2 class="text-xl font-semibold mb-3 card-title"><i class="fas fa-user"></i> <span data-i18n="about.title">About Me</span></h2>
+                        <div id="aboutMe" class="text-gray-300 prose">
+                            <p data-i18n="about.bio">I'm a passionate developer with experience in building web applications and games. I love learning new technologies and applying them to solve real-world problems. In addition to coding, I enjoy teaching and sharing knowledge with others.</p>
+                        </div>
                 </section>
 
                 <!-- Technical Skills card (3-column layout) -->
                 <section class="card p-6 rounded-lg shadow">
-                    <h3 class="mt-0 text-lg font-semibold card-title"><i class="fas fa-code"></i> <span>Technical Skills</span></h3>
+                    <h3 class="mt-0 text-lg font-semibold card-title"><i class="fas fa-code"></i> <span data-i18n="skills.title">Technical Skills</span></h3>
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mt-3">
                         <!-- ordered by most selling first -->
                         <div class="flex items-start gap-3 p-3 border rounded">
@@ -357,7 +380,7 @@
                                     <h4 class="font-semibold">Web Development</h4>
                                     <span class="badge-soft">PHP</span>
                                 </div>
-                                <p class="text-sm text-gray-300 mt-1">Backend & full-stack web apps.</p>
+                                <p class="text-sm text-gray-300 mt-1" data-i18n="skills.item1">Backend & full-stack web apps.</p>
                             </div>
                         </div>
 
@@ -370,7 +393,7 @@
                                     <h4 class="font-semibold">Data Science</h4>
                                     <span class="badge-soft">Python</span>
                                 </div>
-                                <p class="text-sm text-gray-300 mt-1">Analysis, ML basics, and visualization.</p>
+                                <p class="text-sm text-gray-300 mt-1" data-i18n="skills.item2">Analysis, ML basics, and visualization.</p>
                             </div>
                         </div>
 
@@ -383,7 +406,7 @@
                                     <h4 class="font-semibold">Data & Storage</h4>
                                     <span class="badge-soft">SQL</span>
                                 </div>
-                                <p class="text-sm text-gray-300 mt-1">Schema design and reliable storage.</p>
+                                <p class="text-sm text-gray-300 mt-1" data-i18n="skills.item3">Schema design and reliable storage.</p>
                             </div>
                         </div>
 
@@ -396,7 +419,7 @@
                                     <h4 class="font-semibold">Game Development</h4>
                                     <span class="badge-soft">Ren'Py</span>
                                 </div>
-                                <p class="text-sm text-gray-300 mt-1">Visual novels & interactive experiences.</p>
+                                <p class="text-sm text-gray-300 mt-1" data-i18n="skills.item4">Visual novels & interactive experiences.</p>
                             </div>
                         </div>
 
@@ -409,7 +432,7 @@
                                     <h4 class="font-semibold">Business Process</h4>
                                     <span class="badge-soft">draw.io</span>
                                 </div>
-                                <p class="text-sm text-gray-300 mt-1">Process mapping and practical understanding.</p>
+                                <p class="text-sm text-gray-300 mt-1" data-i18n="skills.item5">Process mapping and practical understanding.</p>
                             </div>
                         </div>
 
@@ -422,7 +445,7 @@
                                     <h4 class="font-semibold">Teaching</h4>
                                     <span class="badge-soft">Hybrid</span>
                                 </div>
-                                <p class="text-sm text-gray-300 mt-1">Course design, mentoring, and workshops.</p>
+                                <p class="text-sm text-gray-300 mt-1" data-i18n="skills.item6">Course design, mentoring, and workshops.</p>
                             </div>
                         </div>
 
@@ -435,7 +458,7 @@
                                     <h4 class="font-semibold">Image Editing</h4>
                                     <span class="badge-soft">Photoshop</span>
                                 </div>
-                                <p class="text-sm text-gray-300 mt-1">Retouching & web assets.</p>
+                                <p class="text-sm text-gray-300 mt-1" data-i18n="skills.item7">Retouching & web assets.</p>
                             </div>
                         </div>
 
@@ -448,7 +471,7 @@
                                     <h4 class="font-semibold">Video Editing</h4>
                                     <span class="badge-soft">Filmora</span>
                                 </div>
-                                <p class="text-sm text-gray-300 mt-1">Promo edits and motion basics.</p>
+                                <p class="text-sm text-gray-300 mt-1" data-i18n="skills.item8">Promo edits and motion basics.</p>
                             </div>
                         </div>
 
@@ -461,7 +484,7 @@
                                     <h4 class="font-semibold">Academic Research</h4>
                                     <span class="badge-soft">LaTeX</span>
                                 </div>
-                                <p class="text-sm text-gray-300 mt-1">Study design, stats, and paper writing.</p>
+                                <p class="text-sm text-gray-300 mt-1" data-i18n="skills.item9">Study design, stats, and paper writing.</p>
                             </div>
                         </div>
                     </div>
@@ -470,7 +493,7 @@
                 <!-- Projects + Timeline + Research + Education (stacked) -->
                 <section class="space-y-6">
                     <div class="card p-6 rounded-lg shadow">
-                        <h2 class="text-xl font-semibold mb-3 card-title"><i class="fas fa-rocket"></i> <span>Flagship Project</span></h2>
+                        <h2 class="text-xl font-semibold mb-3 card-title"><i class="fas fa-rocket"></i> <span data-i18n="project.flagship">Flagship Project</span></h2>
                         <!-- stacked like previous layout (single column) -->
                         <div class="space-y-4 mt-3">
                             <!-- DMS -->
@@ -480,10 +503,10 @@
                                         <i class="fas fa-industry"></i>
                                     </div>
                                     <div class="flex-1">
-                                        <h3 class="font-semibold">Digital Manufacturing System (DMS) 👑</h3>
-                                        <p class="text-sm text-gray-300 mt-2">ERP built from scratch in PHP to augment an industrial L3 system for a steel-processing plant. DMS centralizes production data and gives operations and planners fast access to the KPIs they need to act.</p>
-                                        <p class="text-sm text-gray-300 mt-2">Features such as <strong>Daily Report</strong>, <strong>Quality Control</strong>, <strong>Capacity Planning</strong>, <strong>Manufacture Planning List</strong>, <strong>Energy Consumption</strong>, <strong>OEE Report</strong>, and <strong>Statistic Process Control</strong> convert raw production signals into actionable insights — reducing downtime, improving yield and quality, optimizing energy use, and enabling data-driven scheduling.</p>
-                                        <p class="text-xs text-gray-400 italic mt-2">Client name withheld due to NDA.</p>
+                                        <h3 class="font-semibold" data-i18n="project.dms.title">Digital Manufacturing System (DMS) 👑</h3>
+                                        <p class="text-sm text-gray-300 mt-2" data-i18n="project.dms.desc1">ERP built from scratch in PHP to augment an industrial L3 system for a steel-processing plant. DMS centralizes production data and gives operations and planners fast access to the KPIs they need to act.</p>
+                                        <p class="text-sm text-gray-300 mt-2" data-i18n="project.dms.desc2">Features such as <strong>Daily Report</strong>, <strong>Quality Control</strong>, <strong>Capacity Planning</strong>, <strong>Manufacture Planning List</strong>, <strong>Energy Consumption</strong>, <strong>OEE Report</strong>, and <strong>Statistic Process Control</strong> convert raw production signals into actionable insights — reducing downtime, improving yield and quality, optimizing energy use, and enabling data-driven scheduling.</p>
+                                        <p class="text-xs text-gray-400 italic mt-2" data-i18n="project.client_nd">Client name withheld due to NDA.</p>
                                         <div class="mt-3 flex flex-wrap gap-2">
                                             <span class="badge-soft">ERP</span>
                                             <span class="badge-soft">Manufacturing</span>
@@ -544,7 +567,7 @@
                                                     <i class="fas fa-chevron-right"></i>
                                                 </button>
                                             </div>
-                                            <p class="text-xs text-gray-400 mt-2 italic">Click an image to open a larger view.</p>
+                                            <p class="text-xs text-gray-400 mt-2 italic" data-i18n="ui.click_image">Click an image to open a larger view.</p>
                                         </div>
                                     </div>
                                 </div>
@@ -557,9 +580,9 @@
                                         <i class="fas fa-file-invoice-dollar"></i>
                                     </div>
                                     <div class="flex-1">
-                                        <h3 class="font-semibold">Fiscal Bridge</h3>
-                                        <p class="text-sm text-gray-300 mt-2">Web-based accounting software that streamlines commercial workflows — from quotations and invoicing to transaction recording and purchase orders. Stores customer and vendor data and generates financial reports for bookkeeping and tax purposes.</p>
-                                        <p class="text-xs text-gray-400 italic mt-2">Client name withheld due to NDA.</p>
+                                        <h3 class="font-semibold" data-i18n="project.fb.title">Fiscal Bridge</h3>
+                                        <p class="text-sm text-gray-300 mt-2" data-i18n="project.fb.desc1">Web-based accounting software that streamlines commercial workflows — from quotations and invoicing to transaction recording and purchase orders. Stores customer and vendor data and generates financial reports for bookkeeping and tax purposes.</p>
+                                        <p class="text-xs text-gray-400 italic mt-2" data-i18n="project.client_nd">Client name withheld due to NDA.</p>
                                         <div class="mt-3 flex flex-wrap gap-2">
                                             <span class="badge-soft">Accounting</span>
                                             <span class="badge-soft">Invoicing</span>
@@ -609,9 +632,9 @@
                                         <i class="fas fa-microchip"></i>
                                     </div>
                                     <div class="flex-1">
-                                        <h3 class="font-semibold">Auto Dosing</h3>
-                                        <p class="text-sm text-gray-300 mt-2">Web application integrated with SCADA to monitor and control animal feed production. Clear visualizations and tabulated reports turn SCADA signals into operator-ready information, helping maintain dosing accuracy and production traceability.</p>
-                                        <p class="text-xs text-gray-400 italic mt-2">Client name withheld due to NDA.</p>
+                                        <h3 class="font-semibold" data-i18n="project.ad.title">Auto Dosing</h3>
+                                        <p class="text-sm text-gray-300 mt-2" data-i18n="project.ad.desc1">Web application integrated with SCADA to monitor and control animal feed production. Clear visualizations and tabulated reports turn SCADA signals into operator-ready information, helping maintain dosing accuracy and production traceability.</p>
+                                        <p class="text-xs text-gray-400 italic mt-2" data-i18n="project.client_nd">Client name withheld due to NDA.</p>
                                         <div class="mt-3 flex flex-wrap gap-2">
                                             <span class="badge-soft">SCADA</span>
                                             <span class="badge-soft">Process Control</span>
@@ -644,16 +667,16 @@
                     </div>
 
                     <div class="card p-6 rounded-lg shadow">
-                        <h2 class="text-xl font-semibold mb-3 card-title"><i class="fas fa-briefcase"></i> <span>Work Experience</span></h2>
+                        <h2 class="text-xl font-semibold mb-3 card-title"><i class="fas fa-briefcase"></i> <span data-i18n="project.work">Work Experience</span></h2>
                         <div class="space-y-4">
                             <div class="timeline-item">
                                 <div>
                                     <div class="p-4 border rounded bg-transparent">
-                                        <div class="flex justify-between items-baseline">
-                                            <h4 class="font-semibold">Full Stack Programmer — LMask</h4>
+                                            <div class="flex justify-between items-baseline">
+                                            <h4 class="font-semibold" data-i18n="work.job1.title">Full Stack Programmer — LMask</h4>
                                             <span class="text-sm text-gray-400">December 2023 — Present</span>
                                         </div>
-                                        <p class="text-sm text-gray-300 mt-1">Joined as an early team member at a pioneering startup focused on industrial monitoring and control systems. Designed and implemented web dashboards, backend services that ingest SCADA/MES signals, and integrations for alerts and reporting. Drove prototype-to-production deliveries and collaborated closely with operations for field validation.</p>
+                                        <p class="text-sm text-gray-300 mt-1" data-i18n="work.job1.desc">Joined as an early team member at a pioneering startup focused on industrial monitoring and control systems. Designed and implemented web dashboards, backend services that ingest SCADA/MES signals, and integrations for alerts and reporting. Drove prototype-to-production deliveries and collaborated closely with operations for field validation.</p>
                                     </div>
                                 </div>
                             </div>
@@ -661,11 +684,11 @@
                             <div class="timeline-item">
                                 <div>
                                     <div class="p-4 border rounded bg-transparent">
-                                        <div class="flex justify-between items-baseline">
-                                            <h4 class="font-semibold">Teacher — SMKS Tamansiswa Kudus</h4>
+                                            <div class="flex justify-between items-baseline">
+                                            <h4 class="font-semibold" data-i18n="work.job2.title">Teacher — SMKS Tamansiswa Kudus</h4>
                                             <span class="text-sm text-gray-400">October 2023 — Present</span>
                                         </div>
-                                        <p class="text-sm text-gray-300 mt-1">Instructor for Broadcasting & Film departments and informatics topics. Teach coding and practical AI introductions, create curricula and assessments, and act as Moodle LMS administrator — supporting course delivery, student mentoring, and project supervision.</p>
+                                        <p class="text-sm text-gray-300 mt-1" data-i18n="work.job2.desc">Instructor for Broadcasting & Film departments and informatics topics. Teach coding and practical AI introductions, create curricula and assessments, and act as Moodle LMS administrator — supporting course delivery, student mentoring, and project supervision.</p>
                                     </div>
                                 </div>
                             </div>
@@ -673,11 +696,11 @@
                             <div class="timeline-item">
                                 <div>
                                     <div class="p-4 border rounded bg-transparent">
-                                        <div class="flex justify-between items-baseline">
-                                            <h4 class="font-semibold">Academic Mentor & Lab Assistant — Universitas Muria Kudus</h4>
+                                            <div class="flex justify-between items-baseline">
+                                            <h4 class="font-semibold" data-i18n="work.job3.title">Academic Mentor & Lab Assistant — Universitas Muria Kudus</h4>
                                             <span class="text-sm text-gray-400">September 2022 — December 2022</span>
                                         </div>
-                                        <p class="text-sm text-gray-300 mt-1">Served as teaching assistant during laboratory practicals, mentored students in theory sessions, and assisted lecturers with research tasks including data processing and translating papers into English.</p>
+                                        <p class="text-sm text-gray-300 mt-1" data-i18n="work.job3.desc">Served as teaching assistant during laboratory practicals, mentored students in theory sessions, and assisted lecturers with research tasks including data processing and translating papers into English.</p>
                                     </div>
                                 </div>
                             </div>
@@ -685,11 +708,11 @@
                             <div class="timeline-item">
                                 <div>
                                     <div class="p-4 border rounded bg-transparent">
-                                        <div class="flex justify-between items-baseline">
-                                            <h4 class="font-semibold">Field Admin — UD. Dadi Makmur</h4>
+                                            <div class="flex justify-between items-baseline">
+                                            <h4 class="font-semibold" data-i18n="work.job4.title">Field Admin — UD. Dadi Makmur</h4>
                                             <span class="text-sm text-gray-400">August 2021 — August 2022</span>
                                         </div>
-                                        <p class="text-sm text-gray-300 mt-1">Implemented automation for fertilizer redemption administration documents, reducing manual entry and improving processing speed and accuracy through lightweight web tools and process templates.</p>
+                                        <p class="text-sm text-gray-300 mt-1" data-i18n="work.job4.desc">Implemented automation for fertilizer redemption administration documents, reducing manual entry and improving processing speed and accuracy through lightweight web tools and process templates.</p>
                                     </div>
                                 </div>
                             </div>
@@ -697,11 +720,11 @@
                             <div class="timeline-item">
                                 <div>
                                     <div class="p-4 border rounded bg-transparent">
-                                        <div class="flex justify-between items-baseline">
-                                            <h4 class="font-semibold">Software Engineer & Mentor — Digital Wings Code Solution</h4>
+                                            <div class="flex justify-between items-baseline">
+                                            <h4 class="font-semibold" data-i18n="work.job5.title">Software Engineer & Mentor — Digital Wings Code Solution</h4>
                                             <span class="text-sm text-gray-400">April 2019 — Present</span>
                                         </div>
-                                        <p class="text-sm text-gray-300 mt-1">At a small software house (&lt;10 people), I build web applications ranging from agency/profile sites to thesis-level systems, mentor students working on their theses, and take on project coordination duties. Roles include programmer, mentor, and project manager depending on the engagement.</p>
+                                        <p class="text-sm text-gray-300 mt-1" data-i18n="work.job5.desc">At a small software house (&lt;10 people), I build web applications ranging from agency/profile sites to thesis-level systems, mentor students working on their theses, and take on project coordination duties. Roles include programmer, mentor, and project manager depending on the engagement.</p>
                                     </div>
                                 </div>
                             </div>
@@ -709,21 +732,19 @@
                     </div>
 
                     <div class="card p-6 rounded-lg shadow">
-                        <h2 class="text-xl font-semibold mb-3 card-title"><i class="fas fa-book"></i> <span>Research Published</span></h2>
+                        <h2 class="text-xl font-semibold mb-3 card-title"><i class="fas fa-book"></i> <span data-i18n="project.research">Research Published</span></h2>
                         <div class="space-y-3 text-gray-300">
                             <div class="p-4 border rounded bg-transparent">
-                                <strong>Implementation of A Wireless Sensor Network for Monitoring Air Pollutants in Urban and Industrial Areas</strong>
-                                — Environmental Engineering & Management Journal (EEMJ), 2024, Vol 23, Issue 7, p1391
-                                <p class="text-sm text-gray-300 mt-1">A prototype and field evaluation of a wireless sensor network for continuous air pollutant monitoring in mixed urban-industrial environments.</p>
+                                <p><strong data-i18n="research.pub1.title">Implementation of A Wireless Sensor Network for Monitoring Air Pollutants in Urban and Industrial Areas</strong> <span data-i18n="research.pub1.journal">— Environmental Engineering & Management Journal (EEMJ), 2024, Vol 23, Issue 7, p1391</span></p>
+                                <p class="text-sm text-gray-300 mt-1" data-i18n="research.pub1.desc">A prototype and field evaluation of a wireless sensor network for continuous air pollutant monitoring in mixed urban-industrial environments.</p>
                                 <p class="text-sm mt-1">
                                     <a href="https://doi.org/10.30638/eemj.2024.113" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">DOI: 10.30638/eemj.2024.113</a>
                                 </p>
                             </div>
 
                             <div class="p-4 border rounded bg-transparent">
-                                <strong>Real-Time Monitoring of Gas Fields: Prototype at PT Gamma Energi Pratama Bogor</strong>
-                                — Jurnal Teknik Informatika (JTI), 2023, Vol. 16, Issue 1
-                                <p class="text-sm text-gray-300 mt-1">Design and implementation of a real-time monitoring prototype for gas field operations with data visualization and alerting.</p>
+                                <p><strong data-i18n="research.pub2.title">Real-Time Monitoring of Gas Fields: Prototype at PT Gamma Energi Pratama Bogor</strong> <span data-i18n="research.pub2.journal">— Jurnal Teknik Informatika (JTI), 2023, Vol. 16, Issue 1</span></p>
+                                <p class="text-sm text-gray-300 mt-1" data-i18n="research.pub2.desc">Design and implementation of a real-time monitoring prototype for gas field operations with data visualization and alerting.</p>
                                 <p class="text-sm mt-1">
                                     <a href="https://doi.org/10.15408/jti.v16i1.31832" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">DOI: 10.15408/jti.v16i1.31832</a>
                                 </p>
@@ -732,19 +753,19 @@
                     </div>
 
                     <div class="card p-6 rounded-lg shadow">
-                        <h2 class="text-xl font-semibold mb-3 card-title">
+                            <h2 class="text-xl font-semibold mb-3 card-title">
                             <i class="fas fa-graduation-cap"></i>
-                            <span>Academic Background</span>
+                            <span data-i18n="project.academic">Academic Background</span>
                         </h2>
                         <div class="space-y-4">
                             <div class="timeline-item">
                                 <div>
                                     <div class="p-4 border rounded bg-transparent">
                                         <div class="flex justify-between items-baseline">
-                                            <h4 class="font-semibold">Universitas Muria Kudus — Bachelor, Informatics Engineering</h4>
+                                            <h4 class="font-semibold" data-i18n="academic.edu1.title">Universitas Muria Kudus — Bachelor, Informatics Engineering</h4>
                                             <span class="text-sm text-gray-400">September 2019 — February 2023</span>
                                         </div>
-                                        <p class="text-sm text-gray-300 mt-1">Graduated with a GPA of <strong>3.69 / 4.00</strong>. Focus on software development, data processing, and applied computing.</p>
+                                        <p class="text-sm text-gray-300 mt-1" data-i18n="academic.edu1.desc">Graduated with a GPA of <strong>3.69 / 4.00</strong>. Focus on software development, data processing, and applied computing.</p>
                                     </div>
                                 </div>
                             </div>
@@ -753,10 +774,10 @@
                                 <div>
                                     <div class="p-4 border rounded bg-transparent">
                                         <div class="flex justify-between items-baseline">
-                                            <h4 class="font-semibold">SMKN 1 Wonosobo — Vocational, Software Engineering</h4>
+                                            <h4 class="font-semibold" data-i18n="academic.edu2.title">SMKN 1 Wonosobo — Vocational, Software Engineering</h4>
                                             <span class="text-sm text-gray-400">July 2016 — June 2019</span>
                                         </div>
-                                        <p class="text-sm text-gray-300 mt-1">Vocational training focused on software engineering practices and practical application development.</p>
+                                        <p class="text-sm text-gray-300 mt-1" data-i18n="academic.edu2.desc">Vocational training focused on software engineering practices and practical application development.</p>
                                     </div>
                                 </div>
                             </div>
@@ -864,37 +885,37 @@
 
             // --- Small autonomous battlefield: spaceship chases a bug, both throw/avoid projectiles ---
             /*
-                                Overview of the simulation logic (readers' quick guide):
+                Overview of the simulation logic (readers' quick guide):
 
-                                - Entities:
-                                    * ship: pursues the bug, avoids incoming projectiles, fires periodically.
-                                    * bug: keeps distance from the ship when too close, drifts when idle, avoids projectiles, and throws projectiles.
-                                    * projectiles: small pixel bullets with owner ('ship' or 'bug'). They expire after a life timer or when off-screen.
+                - Entities:
+                    * ship: pursues the bug, avoids incoming projectiles, fires periodically.
+                    * bug: keeps distance from the ship when too close, drifts when idle, avoids projectiles, and throws projectiles.
+                    * projectiles: small pixel bullets with owner ('ship' or 'bug'). They expire after a life timer or when off-screen.
 
-                                - States:
-                                    * entering: when an entity respawns it starts off-screen and smoothly interpolates to a target on-screen position.
-                                        While entering it cannot fire and cannot be hit by projectiles.
+                - States:
+                    * entering: when an entity respawns it starts off-screen and smoothly interpolates to a target on-screen position.
+                        While entering it cannot fire and cannot be hit by projectiles.
 
-                                - Simple AI rules:
-                                    * shipAI: computes a desired vector toward the bug, adds avoidance vectors for nearby enemy projectiles, then
-                                        integrates velocity and position. Fires at the bug occasionally (disabled while entering).
-                                    * bugAI: if the ship is closer than `keepDistance` the bug performs a strong flee (away from ship) scaled by
-                                        proximity. When the ship is farther the bug idly drifts with small random jitter. The bug also avoids incoming
-                                        projectiles and fires more often when the ship is near.
+                - Simple AI rules:
+                    * shipAI: computes a desired vector toward the bug, adds avoidance vectors for nearby enemy projectiles, then
+                        integrates velocity and position. Fires at the bug occasionally (disabled while entering).
+                    * bugAI: if the ship is closer than `keepDistance` the bug performs a strong flee (away from ship) scaled by
+                        proximity. When the ship is farther the bug idly drifts with small random jitter. The bug also avoids incoming
+                        projectiles and fires more often when the ship is near.
 
-                                - Integration and rendering:
-                                    * update(now) advances physics, AI, and projectiles using a timestep limited to avoid spikes.
-                                    * drawLoop(now) renders projectiles and pixel-style sprites for ship and bug. Uses requestAnimationFrame.
+                - Integration and rendering:
+                    * update(now) advances physics, AI, and projectiles using a timestep limited to avoid spikes.
+                    * drawLoop(now) renders projectiles and pixel-style sprites for ship and bug. Uses requestAnimationFrame.
 
-                                - How to adapt for your page:
-                                    1) Copy the CSS rule for `#battlefield` into your stylesheet.
-                                    2) Add the canvas element: <canvas id="battlefield"></canvas>
-                                    3) Copy the entire script IIFE below into a <script> tag after the canvas.
-                                    4) Optionally replace the pixel drawings with images: locate the ship/bug draw blocks and use ctx.drawImage.
-                                    5) To expose control functions (start/stop/respawn), wrap the IIFE content into an object and assign to window.battlefield.
+                - How to adapt for your page:
+                    1) Copy the CSS rule for `#battlefield` into your stylesheet.
+                    2) Add the canvas element: <canvas id="battlefield"></canvas>
+                    3) Copy the entire script IIFE below into a <script> tag after the canvas.
+                    4) Optionally replace the pixel drawings with images: locate the ship/bug draw blocks and use ctx.drawImage.
+                    5) To expose control functions (start/stop/respawn), wrap the IIFE content into an object and assign to window.battlefield.
 
-                                This comment block summarizes the logic; inline comments below explain specific functions in-place.
-                        */
+                This comment block summarizes the logic; inline comments below explain specific functions in-place.
+            */
             (function () {
                 const canvas = document.getElementById("battlefield");
                 if (!canvas) return;
@@ -1363,6 +1384,188 @@
                             modalController.open(items, idx);
                         });
                     });
+                });
+            })();
+        </script>
+
+        <script>
+            (function () {
+                const translations = {
+                    en: {
+                        'page.title': 'Firman Adi Nur Fatin, S.Kom. - Profile',
+                        'headline': 'Full Stack Developer | Game Developer | Educator',
+                        'about.title': 'About Me',
+                        'about.bio': "I'm a passionate developer with experience in building web applications and games. I love learning new technologies and applying them to solve real-world problems. In addition to coding, I enjoy teaching and sharing knowledge with others.",
+                        'contact.github': 'GitHub',
+                        'contact.linkedin': 'LinkedIn',
+                        'contact.itch': 'Itch.io',
+                        'contact.email': 'Email',
+                        'contact.wa': 'WhatsApp',
+                        'skills.title': 'Technical Skills',
+                        'skills.item1': 'Backend & full-stack web apps.',
+                        'skills.item2': 'Analysis, ML basics, and visualization.',
+                        'skills.item3': 'Schema design and reliable storage.',
+                        'skills.item4': 'Visual novels & interactive experiences.',
+                        'skills.item5': 'Process mapping and practical understanding.',
+                        'skills.item6': 'Course design, mentoring, and workshops.',
+                        'skills.item7': 'Retouching & web assets.',
+                        'skills.item8': 'Promo edits and motion basics.',
+                        'skills.item9': 'Study design, stats, and paper writing.',
+
+                        'project.flagship': 'Flagship Project',
+                        'project.work': 'Work Experience',
+                        'project.research': 'Research Published',
+                        'project.academic': 'Academic Background',
+
+                        'project.dms.title': 'Digital Manufacturing System (DMS) 👑',
+                        'project.dms.desc1': 'ERP built from scratch in PHP to augment an industrial L3 system for a steel-processing plant. DMS centralizes production data and gives operations and planners fast access to the KPIs they need to act.',
+                        'project.dms.desc2': 'Features such as <strong>Daily Report</strong>, <strong>Quality Control</strong>, <strong>Capacity Planning</strong>, <strong>Manufacture Planning List</strong>, <strong>Energy Consumption</strong>, <strong>OEE Report</strong>, and <strong>Statistic Process Control</strong> convert raw production signals into actionable insights — reducing downtime, improving yield and quality, optimizing energy use, and enabling data-driven scheduling.',
+
+                        'project.fb.title': 'Fiscal Bridge',
+                        'project.fb.desc1': 'Web-based accounting software that streamlines commercial workflows — from quotations and invoicing to transaction recording and purchase orders. Stores customer and vendor data and generates financial reports for bookkeeping and tax purposes.',
+
+                        'project.ad.title': 'Auto Dosing',
+                        'project.ad.desc1': 'Web application integrated with SCADA to monitor and control animal feed production. Clear visualizations and tabulated reports turn SCADA signals into operator-ready information, helping maintain dosing accuracy and production traceability.',
+
+                        'project.client_nd': 'Client name withheld due to NDA.',
+                        'ui.click_image': 'Click an image to open a larger view.',
+
+                        'work.job1.title': 'Full Stack Programmer — LMask',
+                        'work.job1.desc': 'Joined as an early team member at a pioneering startup focused on industrial monitoring and control systems. Designed and implemented web dashboards, backend services that ingest SCADA/MES signals, and integrations for alerts and reporting. Drove prototype-to-production deliveries and collaborated closely with operations for field validation.',
+
+                        'work.job2.title': 'Teacher — SMKS Tamansiswa Kudus',
+                        'work.job2.desc': 'Instructor for Broadcasting & Film departments and informatics topics. Teach coding and practical AI introductions, create curricula and assessments, and act as Moodle LMS administrator — supporting course delivery, student mentoring, and project supervision.',
+
+                        'work.job3.title': 'Academic Mentor & Lab Assistant — Universitas Muria Kudus',
+                        'work.job3.desc': 'Served as teaching assistant during laboratory practicals, mentored students in theory sessions, and assisted lecturers with research tasks including data processing and translating papers into English.',
+
+                        'work.job4.title': 'Field Admin — UD. Dadi Makmur',
+                        'work.job4.desc': 'Implemented automation for fertilizer redemption administration documents, reducing manual entry and improving processing speed and accuracy through lightweight web tools and process templates.',
+
+                        'work.job5.title': 'Software Engineer & Mentor — Digital Wings Code Solution',
+                        'work.job5.desc': 'At a small software house (<10 people), I build web applications ranging from agency/profile sites to thesis-level systems, mentor students working on their theses, and take on project coordination duties. Roles include programmer, mentor, and project manager depending on the engagement.',
+
+                        'research.pub1.title': 'Implementation of A Wireless Sensor Network for Monitoring Air Pollutants in Urban and Industrial Areas',
+                        'research.pub1.journal': '— Environmental Engineering & Management Journal (EEMJ), 2024, Vol 23, Issue 7, p1391',
+                        'research.pub1.desc': 'A prototype and field evaluation of a wireless sensor network for continuous air pollutant monitoring in mixed urban-industrial environments.',
+
+                        'research.pub2.title': 'Real-Time Monitoring of Gas Fields: Prototype at PT Gamma Energi Pratama Bogor',
+                        'research.pub2.journal': '— Jurnal Teknik Informatika (JTI), 2023, Vol. 16, Issue 1',
+                        'research.pub2.desc': 'Design and implementation of a real-time monitoring prototype for gas field operations with data visualization and alerting.',
+
+                        'academic.edu1.title': 'Universitas Muria Kudus — Bachelor, Informatics Engineering',
+                        'academic.edu1.desc': 'Graduated with a GPA of <strong>3.69 / 4.00</strong>. Focus on software development, data processing, and applied computing.',
+
+                        'academic.edu2.title': 'SMKN 1 Wonosobo — Vocational, Software Engineering',
+                        'academic.edu2.desc': 'Vocational training focused on software engineering practices and practical application development.'
+                    },
+                    id: {
+                        'page.title': 'Firman Adi Nur Fatin, S.Kom. - Profil Saya',
+                        'headline': 'Full Stack Developer | Game Developer | Educator',
+                        'about.title': 'Tentang Saya',
+                        'about.bio': "Saya seorang pengembang yang bersemangat dengan pengalaman membangun aplikasi web dan game. Saya suka mempelajari teknologi baru dan menerapkannya untuk menyelesaikan masalah nyata. Selain coding, saya menikmati mengajar dan berbagi pengetahuan dengan orang lain.",
+                        'contact.github': 'GitHub',
+                        'contact.linkedin': 'LinkedIn',
+                        'contact.itch': 'Itch.io',
+                        'contact.email': 'Email',
+                        'contact.wa': 'WhatsApp',
+                        'skills.title': 'Keahlian Teknis',
+                        'skills.item1': 'Backend & aplikasi web full-stack.',
+                        'skills.item2': 'Analisis, dasar ML, dan visualisasi.',
+                        'skills.item3': 'Desain skema dan penyimpanan andal.',
+                        'skills.item4': 'Visual novel & pengalaman interaktif.',
+                        'skills.item5': 'Pemetaan proses dan pemahaman praktis.',
+                        'skills.item6': 'Desain kursus, mentoring, dan workshop.',
+                        'skills.item7': 'Retouching & aset web.',
+                        'skills.item8': 'Edit promo dan dasar motion.',
+                        'skills.item9': 'Desain studi, statistik, dan penulisan makalah.',
+
+                        'project.flagship': 'Proyek Unggulan',
+                        'project.work': 'Pengalaman Kerja',
+                        'project.research': 'Penelitian yang Diterbitkan',
+                        'project.academic': 'Latar Belakang Akademik',
+
+                        'project.dms.title': 'Digital Manufacturing System (DMS) 👑',
+                        'project.dms.desc1': 'ERP yang dibangun dari awal menggunakan PHP untuk melengkapi sistem L3 industri pada pabrik pengolahan baja. DMS memusatkan data produksi dan memberi akses cepat kepada operasional dan perencana terhadap KPI yang diperlukan untuk bertindak.',
+                        'project.dms.desc2': 'Fitur seperti <strong>Daily Report</strong>, <strong>Quality Control</strong>, <strong>Capacity Planning</strong>, <strong>Manufacture Planning List</strong>, <strong>Energy Consumption</strong>, <strong>OEE Report</strong>, dan <strong>Statistic Process Control</strong> mengubah sinyal produksi mentah menjadi wawasan yang dapat ditindaklanjuti — mengurangi downtime, meningkatkan hasil dan kualitas, mengoptimalkan penggunaan energi, dan memungkinkan penjadwalan berbasis data.',
+
+                        'project.fb.title': 'Fiscal Bridge',
+                        'project.fb.desc1': 'Perangkat lunak akuntansi berbasis web yang menyederhanakan alur kerja komersial — dari penawaran dan penagihan hingga pencatatan transaksi dan purchase order. Menyimpan data pelanggan dan vendor serta menghasilkan laporan keuangan untuk pembukuan dan pajak.',
+
+                        'project.ad.title': 'Auto Dosing',
+                        'project.ad.desc1': 'Aplikasi web yang terintegrasi dengan SCADA untuk memantau dan mengendalikan produksi pakan ternak. Visualisasi yang jelas dan laporan berbentuk tabel mengubah sinyal SCADA menjadi informasi siap-operator, membantu menjaga akurasi dosis dan keterlacakan produksi.',
+
+                        'project.client_nd': 'Nama klien disembunyikan karena NDA.',
+                        'ui.click_image': 'Klik gambar untuk membuka tampilan lebih besar.',
+
+                        'work.job1.title': 'Full Stack Programmer — LMask',
+                        'work.job1.desc': 'Bergabung sebagai anggota awal di startup yang berfokus pada monitoring industri dan sistem kontrol. Merancang dan mengimplementasikan dashboard web, layanan backend yang mengonsumsi sinyal SCADA/MES, serta integrasi untuk notifikasi dan pelaporan. Mengelola pengiriman dari prototipe ke produksi dan berkolaborasi erat dengan tim operasional untuk validasi lapangan.',
+
+                        'work.job2.title': 'Guru — SMKS Tamansiswa Kudus',
+                        'work.job2.desc': 'Instruktur untuk jurusan Broadcasting & Film serta topik informatika. Mengajar coding dan pengenalan AI praktis, menyusun kurikulum dan asesmen, serta menjadi administrator Moodle LMS — mendukung penyampaian materi, pembimbingan siswa, dan supervisi proyek.',
+
+                        'work.job3.title': 'Mentor Akademik dan Asisten Lab — Universitas Muria Kudus',
+                        'work.job3.desc': 'Bertugas sebagai asisten pengajar selama praktikum laboratorium, membimbing mahasiswa pada sesi teori, dan membantu dosen dalam tugas penelitian termasuk pengolahan data dan menerjemahkan makalah ke Bahasa Inggris.',
+
+                        'work.job4.title': 'Administrator Lapangan — UD. Dadi Makmur',
+                        'work.job4.desc': 'Mengimplementasikan otomatisasi pada dokumen administrasi penebusan pupuk, mengurangi entri manual dan meningkatkan kecepatan serta akurasi proses melalui alat web ringan dan template proses.',
+
+                        'work.job5.title': 'Insinyur Perangkat Lunak & Mentor — Digital Wings Code Solution',
+                        'work.job5.desc': 'Di sebuah software house kecil (<10 orang), saya membuat aplikasi web mulai dari situs agency/profil hingga sistem setingkat tugas akhir, membimbing mahasiswa yang mengerjakan skripsi, dan mengambil peran koordinasi proyek. Peran meliputi programmer, mentor, dan manajer proyek tergantung keterlibatan.',
+
+                        'research.pub1.title': 'Implementation of A Wireless Sensor Network for Monitoring Air Pollutants in Urban and Industrial Areas',
+                        'research.pub1.journal': '— Environmental Engineering & Management Journal (EEMJ), 2024, Vol 23, Issue 7, p1391',
+                        'research.pub1.desc': 'Sebuah prototipe dan evaluasi lapangan jaringan sensor nirkabel untuk pemantauan polutan udara berkelanjutan di lingkungan perkotaan-industri campuran.',
+
+                        'research.pub2.title': 'Real-Time Monitoring of Gas Fields: Prototype at PT Gamma Energi Pratama Bogor',
+                        'research.pub2.journal': '— Jurnal Teknik Informatika (JTI), 2023, Vol. 16, Issue 1',
+                        'research.pub2.desc': 'Perancangan dan implementasi prototipe pemantauan real-time untuk operasi lapangan gas dengan visualisasi data dan sistem peringatan.',
+
+                        'academic.edu1.title': 'Universitas Muria Kudus — Sarjana, Teknik Informatika',
+                        'academic.edu1.desc': 'Lulus dengan IPK <strong>3.69 / 4.00</strong>. Fokus pada pengembangan perangkat lunak, pengolahan data, dan komputasi terapan.',
+
+                        'academic.edu2.title': 'SMKN 1 Wonosobo — Kejuruan, Rekayasa Perangkat Lunak',
+                        'academic.edu2.desc': 'Pelatihan vokasi yang fokus pada praktik rekayasa perangkat lunak dan pengembangan aplikasi praktis.'
+                    }
+                };
+
+                const saved = localStorage.getItem('lang');
+                let lang = saved || (document.documentElement.lang || 'id');
+
+                function applyLang(l) {
+                    if (!translations[l]) return;
+                    lang = l;
+                    document.querySelectorAll('[data-i18n]').forEach((el) => {
+                        const key = el.getAttribute('data-i18n');
+                        if (key && translations[lang] && translations[lang][key]) {
+                            el.innerHTML = translations[lang][key];
+                        }
+                    });
+                    document.documentElement.lang = lang;
+                    const btn = document.getElementById('langToggle');
+                    if (btn) {
+                        btn.textContent = lang.toUpperCase();
+                        btn.setAttribute('aria-label', lang === 'id' ? 'Bahasa' : 'Language');
+                    }
+                    localStorage.setItem('lang', lang);
+                }
+
+                document.addEventListener('DOMContentLoaded', function () {
+                    let btn = document.getElementById('langToggle');
+                    if (!btn) {
+                        btn = document.createElement('button');
+                        btn.id = 'langToggle';
+                        btn.className = 'lang-toggle';
+                        btn.type = 'button';
+                        document.body.appendChild(btn);
+                    }
+
+                    btn.addEventListener('click', function () {
+                        const next = lang === 'id' ? 'en' : 'id';
+                        applyLang(next);
+                    });
+
+                    applyLang(lang);
                 });
             })();
         </script>
