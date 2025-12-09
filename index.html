@@ -566,6 +566,38 @@
                       <span class="badge-soft">Financial Reports</span>
                       <span class="badge-soft">Bookkeeping</span>
                     </div>
+                    <div class="mt-4">
+                      <div class="carousel-container">
+                        <button id="fb-prev" class="carousel-btn left" aria-label="Previous">
+                          <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <div id="fb-carousel" class="carousel-viewport overflow-x-auto no-scrollbar">
+                          <div class="flex gap-3 py-2">
+                            <img src="img/fb/001-dashboard.png" alt="Fiscal Bridge Dashboard" data-index="0" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                            <img src="img/fb/008-dashboard-accounting.png" alt="Fiscal Bridge Accounting Dashboard" data-index="1" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                            <img src="img/fb/017-dashboard-admin.png" alt="Fiscal Bridge Admin Dashboard" data-index="2" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                            <img src="img/fb/002-customer.png" alt="Fiscal Bridge Customer List" data-index="3" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                            <img src="img/fb/003-customer-form.png" alt="Fiscal Bridge Customer Form" data-index="4" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                            <img src="img/fb/004-customer-bank.png" alt="Fiscal Bridge Customer Bank Details" data-index="5" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                            <img src="img/fb/010-vendor.png" alt="Fiscal Bridge Vendor List" data-index="10" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                            <img src="img/fb/009-coa.png" alt="Fiscal Bridge Chart of Accounts" data-index="9" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                            <img src="img/fb/011-balance.png" alt="Fiscal Bridge Balance Sheet" data-index="11" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                            <img src="img/fb/012-balance-sheet-form.png" alt="Fiscal Bridge Balance Sheet Form" data-index="12" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                            <img src="img/fb/013-po.png" alt="Fiscal Bridge Purchase Order List" data-index="13" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                            <img src="img/fb/005-quotation.png" alt="Fiscal Bridge Quotation List" data-index="6" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                            <img src="img/fb/006-quotation-form.png" alt="Fiscal Bridge Quotation Form" data-index="7" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                            <img src="img/fb/007-quotation-item.png" alt="Fiscal Bridge Quotation Item Details" data-index="8" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                            <img src="img/fb/014-invoice.png" alt="Fiscal Bridge Invoice List" data-index="14" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                            <img src="img/fb/015-invoice-form.png" alt="Fiscal Bridge Invoice Form" data-index="15" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                            <img src="img/fb/016-invoice-termin.png" alt="Fiscal Bridge Invoice Payment Terms" data-index="16" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                          </div>
+                        </div>
+                        <button id="fb-next" class="carousel-btn right" aria-label="Next">
+                          <i class="fas fa-chevron-right"></i>
+                        </button>
+                      </div>
+                      <p class="text-xs text-gray-400 mt-2 italic">Click an image to open a larger view.</p>
+                    </div>
                   </div>
                 </div>
               </div>
@@ -1210,25 +1242,9 @@
         if (!reduced) requestAnimationFrame(drawLoop);
       })();
 
-      // --- Carousel controls + image modal handlers ---
+      // --- Carousel controls + image modal handlers (support multiple carousels) ---
       (function () {
-        const carousel = document.getElementById("dms-carousel");
-        const prevBtn = document.getElementById("dms-prev");
-        const nextBtn = document.getElementById("dms-next");
-        if (!carousel) return; // nothing to do
-
-        const items = Array.from(carousel.querySelectorAll(".carousel-item"));
-        const itemWidth = items[0] ? items[0].getBoundingClientRect().width + parseInt(getComputedStyle(items[0]).marginRight || "12") : 260;
-
-        function scrollByDir(dir) {
-          // scroll by one item width
-          carousel.scrollBy({ left: dir * itemWidth, behavior: "smooth" });
-        }
-
-        prevBtn && prevBtn.addEventListener("click", () => scrollByDir(-1));
-        nextBtn && nextBtn.addEventListener("click", () => scrollByDir(1));
-
-        // Modal elements
+        // modal elements (single shared modal)
         const modalRoot = document.getElementById("image-modal");
         const modalBackdrop = document.getElementById("img-modal-backdrop");
         const modalImg = document.getElementById("img-modal-img");
@@ -1236,61 +1252,85 @@
         const modalClose = document.getElementById("img-modal-close");
         const modalPrev = document.getElementById("img-modal-prev");
         const modalNext = document.getElementById("img-modal-next");
-        let currentIndex = 0;
 
-        function openModal(index) {
-          const it = items[index];
-          if (!it) return;
-          currentIndex = index;
-          modalImg.src = it.src;
-          modalImg.alt = it.alt || "";
-          if (modalTitle) modalTitle.textContent = it.alt || "";
-          modalRoot.classList.remove("hidden");
-          modalRoot.setAttribute("aria-hidden", "false");
-        }
+        const modalController = {
+          items: [],
+          currentIndex: 0,
+          open(items, index) {
+            if (!items || !items.length) return;
+            this.items = items;
+            this.currentIndex = index || 0;
+            const it = this.items[this.currentIndex];
+            modalImg.src = it.src;
+            modalImg.alt = it.alt || "";
+            if (modalTitle) modalTitle.textContent = it.alt || "";
+            modalRoot.classList.remove("hidden");
+            modalRoot.setAttribute("aria-hidden", "false");
+            // move focus to close button for accessibility
+            if (modalClose) modalClose.focus();
+          },
+          close() {
+            modalRoot.classList.add("hidden");
+            modalRoot.setAttribute("aria-hidden", "true");
+            modalImg.src = "";
+            if (modalTitle) modalTitle.textContent = "";
+          },
+          prev() {
+            if (!this.items.length) return;
+            this.currentIndex = (this.currentIndex - 1 + this.items.length) % this.items.length;
+            this.open(this.items, this.currentIndex);
+          },
+          next() {
+            if (!this.items.length) return;
+            this.currentIndex = (this.currentIndex + 1) % this.items.length;
+            this.open(this.items, this.currentIndex);
+          },
+        };
 
-        function closeModal() {
-          modalRoot.classList.add("hidden");
-          modalRoot.setAttribute("aria-hidden", "true");
-          modalImg.src = "";
-          if (modalTitle) modalTitle.textContent = "";
-        }
+        // wire modal controls
+        if (modalClose) modalClose.addEventListener("click", () => modalController.close());
+        if (modalBackdrop) modalBackdrop.addEventListener("click", (e) => { if (e.target === modalBackdrop) modalController.close(); });
+        if (modalPrev) modalPrev.addEventListener("click", (e) => { e.stopPropagation(); modalController.prev(); });
+        if (modalNext) modalNext.addEventListener("click", (e) => { e.stopPropagation(); modalController.next(); });
 
-        items.forEach((it, idx) => {
-          it.addEventListener("click", () => openModal(idx));
+        document.addEventListener("keydown", (e) => {
+          if (!modalRoot || modalRoot.classList.contains("hidden")) return;
+          if (e.key === "Escape") modalController.close();
+          if (e.key === "ArrowLeft") modalController.prev();
+          if (e.key === "ArrowRight") modalController.next();
         });
 
-        modalClose && modalClose.addEventListener("click", closeModal);
-        modalBackdrop &&
-          modalBackdrop.addEventListener("click", (e) => {
-            if (e.target === modalBackdrop) closeModal();
-          });
+        // initialize each carousel container on the page
+        const containers = Array.from(document.querySelectorAll('.carousel-container'));
+        containers.forEach((container) => {
+          const viewport = container.querySelector('.carousel-viewport');
+          if (!viewport) return;
+          const inner = viewport.querySelector('.flex');
+          const items = Array.from(viewport.querySelectorAll('.carousel-item'));
 
-        modalPrev &&
-          modalPrev.addEventListener("click", (e) => {
-            e.stopPropagation();
-            currentIndex = (currentIndex - 1 + items.length) % items.length;
-            openModal(currentIndex);
-          });
-        modalNext &&
-          modalNext.addEventListener("click", (e) => {
-            e.stopPropagation();
-            currentIndex = (currentIndex + 1) % items.length;
-            openModal(currentIndex);
-          });
+          // compute item width + gap; fallback to measured neighbor distance
+          function computeItemWidth() {
+            if (!items.length) return 260;
+            const w = items[0].getBoundingClientRect().width;
+            const gap = parseFloat(getComputedStyle(inner).gap) || parseFloat(getComputedStyle(inner).columnGap) || 12;
+            return w + gap;
+          }
 
-        // keyboard support
-        document.addEventListener("keydown", (e) => {
-          if (modalRoot.classList.contains("hidden")) return;
-          if (e.key === "Escape") closeModal();
-          if (e.key === "ArrowLeft") {
-            currentIndex = (currentIndex - 1 + items.length) % items.length;
-            openModal(currentIndex);
-          }
-          if (e.key === "ArrowRight") {
-            currentIndex = (currentIndex + 1) % items.length;
-            openModal(currentIndex);
-          }
+          let itemWidth = computeItemWidth();
+          // recalc on resize
+          window.addEventListener('resize', () => { itemWidth = computeItemWidth(); });
+
+          const prev = container.querySelector('.carousel-btn.left');
+          const next = container.querySelector('.carousel-btn.right');
+          if (prev) prev.addEventListener('click', () => viewport.scrollBy({ left: -itemWidth, behavior: 'smooth' }));
+          if (next) next.addEventListener('click', () => viewport.scrollBy({ left: itemWidth, behavior: 'smooth' }));
+
+          // clicking an item opens the shared modal with this carousel's items
+          items.forEach((it, idx) => {
+            it.addEventListener('click', () => {
+              modalController.open(items, idx);
+            });
+          });
         });
       })();
     </script>
