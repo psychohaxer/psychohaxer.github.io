@@ -1,850 +1,850 @@
 <!DOCTYPE html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=800" />
-    <title>Firman Adi Nur Fatin, S.Kom. - Profil Saya</title>
-    <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Font Awesome for brand / skill icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
-    <style>
-      :root {
-        --accent: #00e676; /* main accent */
-        --bg: #05060a; /* page background */
-        --card: #0f1720; /* card background */
-        --muted: #9ca3af; /* muted text */
-        --glass: rgba(255, 255, 255, 0.03);
-      }
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=800" />
+        <title>Firman Adi Nur Fatin, S.Kom. - Profil Saya</title>
+        <script src="https://cdn.tailwindcss.com"></script>
+        <!-- Font Awesome for brand / skill icons -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+        <style>
+            :root {
+                --accent: #00e676; /* main accent */
+                --bg: #05060a; /* page background */
+                --card: #0f1720; /* card background */
+                --muted: #9ca3af; /* muted text */
+                --glass: rgba(255, 255, 255, 0.03);
+            }
 
-      /* page background and default text color */
-      body {
-        background: radial-gradient(1200px 600px at 10% 0%, rgba(0, 230, 118, 0.04), transparent 20%), radial-gradient(800px 400px at 100% 100%, rgba(0, 230, 118, 0.02), transparent 10%), var(--bg);
-        color: #dfffe9;
-      }
+            /* page background and default text color */
+            body {
+                background: radial-gradient(1200px 600px at 10% 0%, rgba(0, 230, 118, 0.04), transparent 20%), radial-gradient(800px 400px at 100% 100%, rgba(0, 230, 118, 0.02), transparent 10%), var(--bg);
+                color: #dfffe9;
+            }
 
-      /* simple card class to replace white cards used earlier */
-      .card {
-        background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
-        background-color: var(--card);
-        /* thin accent border */
-        border: 3px solid rgba(0, 230, 118, 0.12);
-      }
+            /* simple card class to replace white cards used earlier */
+            .card {
+                background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+                background-color: var(--card);
+                /* thin accent border */
+                border: 3px solid rgba(0, 230, 118, 0.12);
+            }
 
-      /* accent helpers */
-      .accent {
-        color: var(--accent) !important;
-      }
-      .accent-bg {
-        background: linear-gradient(90deg, rgba(0, 230, 118, 0.15), rgba(0, 230, 118, 0.05));
-      }
-      .glow {
-        text-shadow: 0 0 8px rgba(0, 230, 118, 0.25);
-      }
+            /* accent helpers */
+            .accent {
+                color: var(--accent) !important;
+            }
+            .accent-bg {
+                background: linear-gradient(90deg, rgba(0, 230, 118, 0.15), rgba(0, 230, 118, 0.05));
+            }
+            .glow {
+                text-shadow: 0 0 8px rgba(0, 230, 118, 0.25);
+            }
 
-      /* make existing Tailwind 'text-blue-600' links use our accent (keeps existing classes intact) */
-      .text-blue-600 {
-        color: var(--accent) !important;
-      }
+            /* make existing Tailwind 'text-blue-600' links use our accent (keeps existing classes intact) */
+            .text-blue-600 {
+                color: var(--accent) !important;
+            }
 
-      /* subtle badge style */
-      .badge-soft {
-        background: rgba(255, 255, 255, 0.03);
-        color: #c7ffd5;
-        padding: 0.125rem 0.5rem;
-        border-radius: 0.375rem;
-        font-size: 0.675rem;
-      }
+            /* subtle badge style */
+            .badge-soft {
+                background: rgba(255, 255, 255, 0.03);
+                color: #c7ffd5;
+                padding: 0.125rem 0.5rem;
+                border-radius: 0.375rem;
+                font-size: 0.675rem;
+            }
 
-      /* profile image accent ring */
-      #profileImage {
-        box-shadow: 0 6px 18px rgba(0, 230, 118, 0.08), 0 0 0 6px rgba(0, 230, 118, 0.03) inset;
-      }
+            /* profile image accent ring */
+            #profileImage {
+                box-shadow: 0 6px 18px rgba(0, 230, 118, 0.08), 0 0 0 6px rgba(0, 230, 118, 0.03) inset;
+            }
 
-      /* small responsive tweaks */
-      @media (min-width: 1024px) {
-        .w-120 {
-          width: 30rem;
-        }
-        .h-120 {
-          height: 30rem;
-        }
-        .md\:w-144 {
-          width: 36rem;
-        }
-        .md\:h-144 {
-          height: 36rem;
-        }
-      }
+            /* small responsive tweaks */
+            @media (min-width: 1024px) {
+                .w-120 {
+                    width: 30rem;
+                }
+                .h-120 {
+                    height: 30rem;
+                }
+                .md\:w-144 {
+                    width: 36rem;
+                }
+                .md\:h-144 {
+                    height: 36rem;
+                }
+            }
 
-      /* timeline helpers (simplified) */
-      .timeline-item {
-        margin-bottom: 1rem;
-      }
+            /* timeline helpers (simplified) */
+            .timeline-item {
+                margin-bottom: 1rem;
+            }
 
-      /* contact buttons */
-      .contact-btn {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.5rem;
-        padding: 0.35rem 0.75rem;
-        border-radius: 0.5rem;
-        border: 1px solid rgba(255, 255, 255, 0.04);
-        background: rgba(255, 255, 255, 0.01);
-        color: #e6ffef;
-        text-decoration: none;
-        font-size: 0.9rem;
-        transition: background 180ms ease, border-color 180ms ease, color 180ms ease, transform 120ms ease;
-      }
-      .contact-btn .fa-fw {
-        width: 1em;
-      }
-      .contact-btn:hover {
-        background: linear-gradient(90deg, rgba(0, 230, 118, 0.06), rgba(0, 230, 118, 0.03));
-        border-color: rgba(0, 230, 118, 0.12);
-        color: var(--accent);
-        transform: translateY(-2px);
-      }
+            /* contact buttons */
+            .contact-btn {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                padding: 0.35rem 0.75rem;
+                border-radius: 0.5rem;
+                border: 1px solid rgba(255, 255, 255, 0.04);
+                background: rgba(255, 255, 255, 0.01);
+                color: #e6ffef;
+                text-decoration: none;
+                font-size: 0.9rem;
+                transition: background 180ms ease, border-color 180ms ease, color 180ms ease, transform 120ms ease;
+            }
+            .contact-btn .fa-fw {
+                width: 1em;
+            }
+            .contact-btn:hover {
+                background: linear-gradient(90deg, rgba(0, 230, 118, 0.06), rgba(0, 230, 118, 0.03));
+                border-color: rgba(0, 230, 118, 0.12);
+                color: var(--accent);
+                transform: translateY(-2px);
+            }
 
-      /* icons in card titles */
-      .card .card-title {
-        display: flex;
-        align-items: center;
-        gap: 0.6rem;
-      }
-      .card .card-title i {
-        color: var(--accent);
-        font-size: 1.05rem;
-        line-height: 1;
-      }
+            /* icons in card titles */
+            .card .card-title {
+                display: flex;
+                align-items: center;
+                gap: 0.6rem;
+            }
+            .card .card-title i {
+                color: var(--accent);
+                font-size: 1.05rem;
+                line-height: 1;
+            }
 
-      /* starry background canvas */
-      #stars {
-        position: fixed;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 0;
-        pointer-events: none;
-        background: radial-gradient(1200px 600px at 10% 0%, rgba(0, 230, 118, 0.02), transparent 20%), var(--bg);
-      }
+            /* starry background canvas */
+            #stars {
+                position: fixed;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 0;
+                pointer-events: none;
+                background: radial-gradient(1200px 600px at 10% 0%, rgba(0, 230, 118, 0.02), transparent 20%), var(--bg);
+            }
 
-      /* battlefield canvas for small autonomous pixel-sim (spaceship vs bug) */
-      #battlefield {
-        position: fixed;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        z-index: 15; /* above content but pointer-events none so it doesn't block UI */
-        pointer-events: none;
-        mix-blend-mode: screen;
-      }
+            /* battlefield canvas for small autonomous pixel-sim (spaceship vs bug) */
+            #battlefield {
+                position: fixed;
+                inset: 0;
+                width: 100%;
+                height: 100%;
+                z-index: 15; /* above content but pointer-events none so it doesn't block UI */
+                pointer-events: none;
+                mix-blend-mode: screen;
+            }
 
-      /* make main content sit above the stars */
-      .site-content {
-        position: relative;
-        z-index: 10;
-      }
+            /* make main content sit above the stars */
+            .site-content {
+                position: relative;
+                z-index: 10;
+            }
 
-      /* avatar wrapper (no hover orbit) */
-      .avatar-wrapper {
-        position: relative;
-        display: inline-block;
-      }
+            /* avatar wrapper (no hover orbit) */
+            .avatar-wrapper {
+                position: relative;
+                display: inline-block;
+            }
 
-      /* cards keep relative positioning for potential effects, but hover overlays removed */
-      .card {
-        position: relative;
-        overflow: hidden;
-      }
+            /* cards keep relative positioning for potential effects, but hover overlays removed */
+            .card {
+                position: relative;
+                overflow: hidden;
+            }
 
-      /* carousel helpers */
-      .no-scrollbar {
-        -ms-overflow-style: none; /* IE and Edge */
-        scrollbar-width: none; /* Firefox */
-      }
-      .no-scrollbar::-webkit-scrollbar {
-        display: none; /* Chrome, Safari */
-      }
-      .carousel-container {
-        position: relative;
-      }
-      .carousel-btn {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 2.4rem;
-        height: 2.4rem;
-        border-radius: 0.5rem;
-        background: rgba(0, 0, 0, 0.45);
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        color: #dfffe9;
-        border: 1px solid rgba(255, 255, 255, 0.04);
-        cursor: pointer;
-        transition: transform 120ms ease, background 120ms ease;
-        z-index: 5;
-      }
-      .carousel-btn:hover {
-        transform: translateY(-50%) scale(1.05);
-        background: rgba(0, 230, 118, 0.08);
-        color: var(--accent);
-      }
-      .carousel-btn.left {
-        left: 6px;
-      }
-      .carousel-btn.right {
-        right: 6px;
-      }
+            /* carousel helpers */
+            .no-scrollbar {
+                -ms-overflow-style: none; /* IE and Edge */
+                scrollbar-width: none; /* Firefox */
+            }
+            .no-scrollbar::-webkit-scrollbar {
+                display: none; /* Chrome, Safari */
+            }
+            .carousel-container {
+                position: relative;
+            }
+            .carousel-btn {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 2.4rem;
+                height: 2.4rem;
+                border-radius: 0.5rem;
+                background: rgba(0, 0, 0, 0.45);
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                color: #dfffe9;
+                border: 1px solid rgba(255, 255, 255, 0.04);
+                cursor: pointer;
+                transition: transform 120ms ease, background 120ms ease;
+                z-index: 5;
+            }
+            .carousel-btn:hover {
+                transform: translateY(-50%) scale(1.05);
+                background: rgba(0, 230, 118, 0.08);
+                color: var(--accent);
+            }
+            .carousel-btn.left {
+                left: 6px;
+            }
+            .carousel-btn.right {
+                right: 6px;
+            }
 
-      /* modal */
-      .img-modal-backdrop {
-        position: fixed;
-        inset: 0;
-        background: rgba(0, 0, 0, 0.7);
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        z-index: 60;
-        padding: 1.25rem;
-      }
-      .img-modal-content {
-        max-width: 90vw;
-        max-height: 85vh;
-        position: relative;
-      }
-      .img-modal-content img {
-        width: auto;
-        height: auto;
-        max-width: 100%;
-        max-height: 85vh;
-        border-radius: 0.5rem;
-        display: block;
-      }
-      .img-modal-close {
-        position: absolute;
-        top: -0.6rem;
-        right: -0.6rem;
-        background: rgba(0, 0, 0, 0.6);
-        border-radius: 999px;
-        padding: 0.45rem;
-        color: #fff;
-        cursor: pointer;
-        border: 1px solid rgba(255, 255, 255, 0.04);
-      }
-      .img-modal-nav {
-        position: absolute;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 2.2rem;
-        height: 2.2rem;
-        background: rgba(0, 0, 0, 0.5);
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        border-radius: 0.4rem;
-        color: #fff;
-        cursor: pointer;
-        border: 1px solid rgba(255, 255, 255, 0.04);
-      }
-      .img-modal-nav.left {
-        left: -2.6rem;
-      }
-      .img-modal-nav.right {
-        right: -2.6rem;
-      }
-      /* show exactly 3 items in carousel viewport */
-      .carousel-viewport {
-        width: 100%;
-      }
-      .carousel-viewport .flex > .carousel-item {
-        flex: 0 0 calc((100% - 1.5rem) / 3);
-        scroll-snap-align: start;
-      }
-      .carousel-viewport {
-        scroll-snap-type: x mandatory;
-      }
-    </style>
-  </head>
+            /* modal */
+            .img-modal-backdrop {
+                position: fixed;
+                inset: 0;
+                background: rgba(0, 0, 0, 0.7);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 60;
+                padding: 1.25rem;
+            }
+            .img-modal-content {
+                max-width: 90vw;
+                max-height: 85vh;
+                position: relative;
+            }
+            .img-modal-content img {
+                width: auto;
+                height: auto;
+                max-width: 100%;
+                max-height: 85vh;
+                border-radius: 0.5rem;
+                display: block;
+            }
+            .img-modal-close {
+                position: absolute;
+                top: -0.6rem;
+                right: -0.6rem;
+                background: rgba(0, 0, 0, 0.6);
+                border-radius: 999px;
+                padding: 0.45rem;
+                color: #fff;
+                cursor: pointer;
+                border: 1px solid rgba(255, 255, 255, 0.04);
+            }
+            .img-modal-nav {
+                position: absolute;
+                top: 50%;
+                transform: translateY(-50%);
+                width: 2.2rem;
+                height: 2.2rem;
+                background: rgba(0, 0, 0, 0.5);
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                border-radius: 0.4rem;
+                color: #fff;
+                cursor: pointer;
+                border: 1px solid rgba(255, 255, 255, 0.04);
+            }
+            .img-modal-nav.left {
+                left: -2.6rem;
+            }
+            .img-modal-nav.right {
+                right: -2.6rem;
+            }
+            /* show exactly 3 items in carousel viewport */
+            .carousel-viewport {
+                width: 100%;
+            }
+            .carousel-viewport .flex > .carousel-item {
+                flex: 0 0 calc((100% - 1.5rem) / 3);
+                scroll-snap-align: start;
+            }
+            .carousel-viewport {
+                scroll-snap-type: x mandatory;
+            }
+        </style>
+    </head>
 
-  <body class="antialiased font-sans">
-    <canvas id="stars" aria-hidden="true"></canvas>
-    <!--
-                Battlefield sim (spaceship vs space-bug)
+    <body class="antialiased font-sans">
+        <canvas id="stars" aria-hidden="true"></canvas>
+        <!--
+            Battlefield sim (spaceship vs space-bug)
 
-                If you're the one I asked for criticism and suggestions about this page, hahaha, I know you'll definitely open this. 
-                Consider it a gift, if you're interested in this simple AI, let's put it on your GitHub page too.
-                NB: Check the code block below too, because this is just a canvas, haha
+            If you're the one I asked for criticism and suggestions about this page, hahaha, I know you'll definitely open this. 
+            Consider it a gift, if you're interested in this simple AI, let's put it on your GitHub page too.
+            NB: Check the code block below too, because this is just a canvas, haha
 
-                HOWTO: Add this mini-sim to another page
-                1. Add the CSS for `#battlefield` (position:fixed; inset:0; pointer-events:none; z-index high enough).
-                2. Insert the canvas element somewhere in the body:
-                    <canvas id="battlefield" aria-hidden="true"></canvas>
-                3. Include the script block (placed after the canvas). The script is self-contained inside an IIFE and will run automatically
-                    unless the user prefers reduced motion. If you want to control it from the page, change the `reduced` check or wrap the
-                    `requestAnimationFrame(drawLoop)` call with a flag you can toggle.
-                4. To disable interactions (so the canvas doesn't block clicks), keep `pointer-events: none` in the CSS. To make it
-                    interactive, remove that and add event handlers to the canvas.
+            HOWTO: Add this mini-sim to another page
+            1. Add the CSS for `#battlefield` (position:fixed; inset:0; pointer-events:none; z-index high enough).
+            2. Insert the canvas element somewhere in the body:
+                <canvas id="battlefield" aria-hidden="true"></canvas>
+            3. Include the script block (placed after the canvas). The script is self-contained inside an IIFE and will run automatically
+                unless the user prefers reduced motion. If you want to control it from the page, change the `reduced` check or wrap the
+                `requestAnimationFrame(drawLoop)` call with a flag you can toggle.
+            4. To disable interactions (so the canvas doesn't block clicks), keep `pointer-events: none` in the CSS. To make it
+                interactive, remove that and add event handlers to the canvas.
 
-                Notes:
-                - The simulation uses only small canvas rectangles (no external assets) and is intentionally light-weight.
-                - It respects `prefers-reduced-motion` and will not run for users who request reduced motion.
-                - Key functions you can reuse or call from your page: `respawn(ent)` (internal), `shoot(x,y,tx,ty,speed,owner)` (internal).
-                  If you want an API, you can modify the IIFE to expose a global object like `window.battlefield` with start/stop/toggle methods.
+            Notes:
+            - The simulation uses only small canvas rectangles (no external assets) and is intentionally light-weight.
+            - It respects `prefers-reduced-motion` and will not run for users who request reduced motion.
+            - Key functions you can reuse or call from your page: `respawn(ent)` (internal), `shoot(x,y,tx,ty,speed,owner)` (internal).
+                If you want an API, you can modify the IIFE to expose a global object like `window.battlefield` with start/stop/toggle methods.
           -->
-    <canvas id="battlefield" aria-hidden="true"></canvas>
-    <div class="max-w-5xl mx-auto p-6 site-content">
-      <header class="flex items-center gap-6 mb-8">
-        <!-- Profile picture + basic info -->
-        <div class="flex items-center gap-4">
-          <div class="relative avatar-wrapper">
-            <img id="profileImage" src="https://avatars.githubusercontent.com/psychohaxer" alt="Foto Profil" tabindex="0" class="w-40 h-40 rounded-full shadow-lg object-cover" />
-          </div>
-
-          <div>
-            <h1 id="displayName" class="text-3xl font-bold text-gray-100">Firman Adi Nur Fatin, S.Kom.</h1>
-            <p id="headline" class="text-gray-300 mt-1">Full Stack Developer | Game Developer | Educator</p>
-            <div class="mt-3 flex flex-wrap gap-3">
-              <a href="https://github.com/psychohaxer" class="contact-btn" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
-                <i class="fab fa-github fa-fw"></i>
-                <span>GitHub</span>
-              </a>
-
-              <a href="https://www.linkedin.com/in/firemanz1304/" class="contact-btn" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
-                <i class="fab fa-linkedin fa-fw"></i>
-                <span>LinkedIn</span>
-              </a>
-
-              <a href="https://psychohaxer.itch.io/" class="contact-btn" target="_blank" rel="noopener noreferrer" aria-label="Itch.io">
-                <i class="fas fa-gamepad fa-fw"></i>
-                <span>Itch.io</span>
-              </a>
-
-              <a href="mailto:firmanadinurfatin@gmail.com" class="contact-btn" aria-label="Email">
-                <i class="fas fa-envelope fa-fw"></i>
-                <span>Email</span>
-              </a>
-
-              <a href="https://wa.me/6281325374731" class="contact-btn" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
-                <i class="fab fa-whatsapp fa-fw"></i>
-                <span>WhatsApp</span>
-              </a>
-            </div>
-          </div>
-        </div>
-      </header>
-
-      <main class="grid grid-cols-1 gap-8">
-        <!-- About card -->
-        <section class="card p-6 rounded-lg shadow">
-          <h2 class="text-xl font-semibold mb-3 card-title"><i class="fas fa-user"></i> <span>About Me</span></h2>
-          <div id="aboutMe" class="text-gray-300 prose">
-            <p>I'm a passionate developer with experience in building web applications and games. I love learning new technologies and applying them to solve real-world problems. In addition to coding, I enjoy teaching and sharing knowledge with others.</p>
-          </div>
-        </section>
-
-        <!-- Technical Skills card (3-column layout) -->
-        <section class="card p-6 rounded-lg shadow">
-          <h3 class="mt-0 text-lg font-semibold card-title"><i class="fas fa-code"></i> <span>Technical Skills</span></h3>
-          <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mt-3">
-            <!-- ordered by most selling first -->
-            <div class="flex items-start gap-3 p-3 border rounded">
-              <div class="flex-shrink-0 text-yellow-400">
-                <i class="fab fa-php fa-2x"></i>
-              </div>
-              <div class="flex-1">
-                <div class="flex items-center justify-between">
-                  <h4 class="font-semibold">Web Development</h4>
-                  <span class="badge-soft">PHP</span>
-                </div>
-                <p class="text-sm text-gray-300 mt-1">Backend & full-stack web apps.</p>
-              </div>
-            </div>
-
-            <div class="flex items-start gap-3 p-3 border rounded">
-              <div class="flex-shrink-0 text-green-400">
-                <i class="fab fa-python fa-2x"></i>
-              </div>
-              <div class="flex-1">
-                <div class="flex items-center justify-between">
-                  <h4 class="font-semibold">Data Science</h4>
-                  <span class="badge-soft">Python</span>
-                </div>
-                <p class="text-sm text-gray-300 mt-1">Analysis, ML basics, and visualization.</p>
-              </div>
-            </div>
-
-            <div class="flex items-start gap-3 p-3 border rounded">
-              <div class="flex-shrink-0 text-sky-400">
-                <i class="fas fa-database fa-2x"></i>
-              </div>
-              <div class="flex-1">
-                <div class="flex items-center justify-between">
-                  <h4 class="font-semibold">Data & Storage</h4>
-                  <span class="badge-soft">SQL</span>
-                </div>
-                <p class="text-sm text-gray-300 mt-1">Schema design and reliable storage.</p>
-              </div>
-            </div>
-
-            <div class="flex items-start gap-3 p-3 border rounded">
-              <div class="flex-shrink-0 text-purple-400">
-                <i class="fas fa-gamepad fa-2x"></i>
-              </div>
-              <div class="flex-1">
-                <div class="flex items-center justify-between">
-                  <h4 class="font-semibold">Game Development</h4>
-                  <span class="badge-soft">Ren'Py</span>
-                </div>
-                <p class="text-sm text-gray-300 mt-1">Visual novels & interactive experiences.</p>
-              </div>
-            </div>
-
-            <div class="flex items-start gap-3 p-3 border rounded">
-              <div class="flex-shrink-0 text-amber-400">
-                <i class="fas fa-sitemap fa-2x"></i>
-              </div>
-              <div class="flex-1">
-                <div class="flex items-center justify-between">
-                  <h4 class="font-semibold">Business Process</h4>
-                  <span class="badge-soft">draw.io</span>
-                </div>
-                <p class="text-sm text-gray-300 mt-1">Process mapping and practical understanding.</p>
-              </div>
-            </div>
-
-            <div class="flex items-start gap-3 p-3 border rounded">
-              <div class="flex-shrink-0 text-indigo-400">
-                <i class="fas fa-chalkboard-teacher fa-2x"></i>
-              </div>
-              <div class="flex-1">
-                <div class="flex items-center justify-between">
-                  <h4 class="font-semibold">Teaching</h4>
-                  <span class="badge-soft">Hybrid</span>
-                </div>
-                <p class="text-sm text-gray-300 mt-1">Course design, mentoring, and workshops.</p>
-              </div>
-            </div>
-
-            <div class="flex items-start gap-3 p-3 border rounded">
-              <div class="flex-shrink-0 text-blue-300">
-                <i class="fas fa-image fa-2x"></i>
-              </div>
-              <div class="flex-1">
-                <div class="flex items-center justify-between">
-                  <h4 class="font-semibold">Image Editing</h4>
-                  <span class="badge-soft">Photoshop</span>
-                </div>
-                <p class="text-sm text-gray-300 mt-1">Retouching & web assets.</p>
-              </div>
-            </div>
-
-            <div class="flex items-start gap-3 p-3 border rounded">
-              <div class="flex-shrink-0 text-pink-400">
-                <i class="fas fa-video fa-2x"></i>
-              </div>
-              <div class="flex-1">
-                <div class="flex items-center justify-between">
-                  <h4 class="font-semibold">Video Editing</h4>
-                  <span class="badge-soft">Filmora</span>
-                </div>
-                <p class="text-sm text-gray-300 mt-1">Promo edits and motion basics.</p>
-              </div>
-            </div>
-
-            <div class="flex items-start gap-3 p-3 border rounded">
-              <div class="flex-shrink-0 text-yellow-600">
-                <i class="fas fa-book fa-2x"></i>
-              </div>
-              <div class="flex-1">
-                <div class="flex items-center justify-between">
-                  <h4 class="font-semibold">Academic Research</h4>
-                  <span class="badge-soft">LaTeX</span>
-                </div>
-                <p class="text-sm text-gray-300 mt-1">Study design, stats, and paper writing.</p>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Projects + Timeline + Research + Education (stacked) -->
-        <section class="space-y-6">
-          <div class="card p-6 rounded-lg shadow">
-            <h2 class="text-xl font-semibold mb-3 card-title"><i class="fas fa-rocket"></i> <span>Flagship Project</span></h2>
-            <!-- stacked like previous layout (single column) -->
-            <div class="space-y-4 mt-3">
-              <!-- DMS -->
-              <div class="p-4 border rounded bg-transparent">
-                <div class="flex items-start gap-3">
-                  <div class="text-yellow-400 text-2xl">
-                    <i class="fas fa-industry"></i>
-                  </div>
-                  <div class="flex-1">
-                    <h3 class="font-semibold">Digital Manufacturing System (DMS) 👑</h3>
-                    <p class="text-sm text-gray-300 mt-2">ERP built from scratch in PHP to augment an industrial L3 system for a steel-processing plant. DMS centralizes production data and gives operations and planners fast access to the KPIs they need to act.</p>
-                    <p class="text-sm text-gray-300 mt-2">Features such as <strong>Daily Report</strong>, <strong>Quality Control</strong>, <strong>Capacity Planning</strong>, <strong>Manufacture Planning List</strong>, <strong>Energy Consumption</strong>, <strong>OEE Report</strong>, and <strong>Statistic Process Control</strong> convert raw production signals into actionable insights — reducing downtime, improving yield and quality, optimizing energy use, and enabling data-driven scheduling.</p>
-                    <p class="text-xs text-gray-400 italic mt-2">Client name withheld due to NDA.</p>
-                    <div class="mt-3 flex flex-wrap gap-2">
-                      <span class="badge-soft">ERP</span>
-                      <span class="badge-soft">Manufacturing</span>
-                      <span class="badge-soft">OEE</span>
-                      <span class="badge-soft">Energy Monitoring</span>
-                      <span class="badge-soft">Production Planning</span>
+        <canvas id="battlefield" aria-hidden="true"></canvas>
+        <div class="max-w-5xl mx-auto p-6 site-content">
+            <header class="flex items-center gap-6 mb-8">
+                <!-- Profile picture + basic info -->
+                <div class="flex items-center gap-4">
+                    <div class="relative avatar-wrapper">
+                        <img id="profileImage" src="https://avatars.githubusercontent.com/psychohaxer" alt="Foto Profil" tabindex="0" class="w-40 h-40 rounded-full shadow-lg object-cover" />
                     </div>
-                    <div class="mt-4">
-                      <div class="carousel-container">
-                        <button id="dms-prev" class="carousel-btn left" aria-label="Previous">
-                          <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <div id="dms-carousel" class="carousel-viewport overflow-x-auto no-scrollbar">
-                          <div class="flex gap-3 py-2">
-                            <img src="img/dms/001-dashboard.png" alt="DMS Dashboard" data-index="0" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/dms/002-dashboard.png" alt="DMS Dashboard" data-index="1" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/dms/003-dashboard.png" alt="DMS Dashboard" data-index="2" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/dms/004-report.png" alt="DMS Daily Report" data-index="3" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/dms/005-report.png" alt="DMS Daily Report" data-index="4" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/dms/006-report.png" alt="DMS Daily Report" data-index="5" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/dms/007-report.png" alt="DMS Daily Report" data-index="6" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/dms/008-pareto.png" alt="DMS Pareto Analysis" data-index="7" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/dms/009-downtime.png" alt="DMS Downtime Analysis" data-index="8" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/dms/010-list.png" alt="DMS Downtime List" data-index="9" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/dms/011-uptime.png" alt="DMS Uptime Analysis" data-index="10" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/dms/012-oee.png" alt="DMS OEE Report" data-index="11" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/dms/013-scrap.png" alt="DMS Scrap Analysis" data-index="12" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/dms/014-scrap.png" alt="DMS Scrap Analysis" data-index="13" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/dms/015-energy.png" alt="DMS Energy Consumption" data-index="14" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/dms/016-emission.png" alt="DMS Emission Report" data-index="15" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/dms/017-cp.png" alt="DMS Capacity Planning Overview" data-index="16" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/dms/018-cp.png" alt="DMS Capacity Planning Off-Production" data-index="17" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/dms/019-cp.png" alt="DMS Capacity Planning Throughput" data-index="18" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/dms/020-cp.png" alt="DMS Capacity Planning Details" data-index="19" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/dms/021-cp.png" alt="DMS Capacity Planning Chart" data-index="20" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/dms/022-cp.png" alt="DMS Capacity Planning Custom Days" data-index="21" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/dms/023-cp.png" alt="DMS Capacity Planning Production Plan Chart" data-index="22" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/dms/024-mpl.png" alt="DMS Manufacture Planning List" data-index="23" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/dms/025-mpl.png" alt="DMS Manufacture Planning List Details" data-index="24" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/dms/026-mpl.png" alt="DMS Manufacture Planning Planned Items" data-index="25" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/dms/027-prod.png" alt="DMS Production Report Overview" data-index="26" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/dms/028-prod.png" alt="DMS Production Report by Finished Goods" data-index="27" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/dms/029-prod.png" alt="DMS Production Report by Color" data-index="28" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/dms/030-consumables.png" alt="DMS Paint Consumption Report" data-index="29" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/dms/031-consumables.png" alt="DMS Paint Consumption Details" data-index="30" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/dms/032-paint.png" alt="DMS Paint Consumption Selection" data-index="31" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/dms/033-paint.png" alt="DMS Paint Consumption Table" data-index="32" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/dms/034-dd.png" alt="DMS Defect Dictionary" data-index="33" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/dms/035-dd.png" alt="DMS Defect Dictionary Form" data-index="34" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/dms/036-dd.png" alt="DMS Defect Dictionary Picture" data-index="35" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/dms/037-spc.png" alt="DMS Statistical Process Control" data-index="36" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/dms/038-spc.png" alt="DMS Statistical Process Control Chart" data-index="37" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/dms/039-spc.png" alt="DMS Statistical Process Control Details" data-index="38" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/dms/040-log.png" alt="DMS API Log" data-index="39" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                          </div>
+
+                    <div>
+                        <h1 id="displayName" class="text-3xl font-bold text-gray-100">Firman Adi Nur Fatin, S.Kom.</h1>
+                        <p id="headline" class="text-gray-300 mt-1">Full Stack Developer | Game Developer | Educator</p>
+                        <div class="mt-3 flex flex-wrap gap-3">
+                            <a href="https://github.com/psychohaxer" class="contact-btn" target="_blank" rel="noopener noreferrer" aria-label="GitHub">
+                                <i class="fab fa-github fa-fw"></i>
+                                <span>GitHub</span>
+                            </a>
+
+                            <a href="https://www.linkedin.com/in/firemanz1304/" class="contact-btn" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn">
+                                <i class="fab fa-linkedin fa-fw"></i>
+                                <span>LinkedIn</span>
+                            </a>
+
+                            <a href="https://psychohaxer.itch.io/" class="contact-btn" target="_blank" rel="noopener noreferrer" aria-label="Itch.io">
+                                <i class="fas fa-gamepad fa-fw"></i>
+                                <span>Itch.io</span>
+                            </a>
+
+                            <a href="mailto:firmanadinurfatin@gmail.com" class="contact-btn" aria-label="Email">
+                                <i class="fas fa-envelope fa-fw"></i>
+                                <span>Email</span>
+                            </a>
+
+                            <a href="https://wa.me/6281325374731" class="contact-btn" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+                                <i class="fab fa-whatsapp fa-fw"></i>
+                                <span>WhatsApp</span>
+                            </a>
                         </div>
-                        <button id="dms-next" class="carousel-btn right" aria-label="Next">
-                          <i class="fas fa-chevron-right"></i>
-                        </button>
-                      </div>
-                      <p class="text-xs text-gray-400 mt-2 italic">Click an image to open a larger view.</p>
                     </div>
-                  </div>
                 </div>
-              </div>
+            </header>
 
-              <!-- Fiscal Bridge -->
-              <div class="p-4 border rounded bg-transparent">
-                <div class="flex items-start gap-3">
-                  <div class="text-green-400 text-2xl">
-                    <i class="fas fa-file-invoice-dollar"></i>
-                  </div>
-                  <div class="flex-1">
-                    <h3 class="font-semibold">Fiscal Bridge</h3>
-                    <p class="text-sm text-gray-300 mt-2">Web-based accounting software that streamlines commercial workflows — from quotations and invoicing to transaction recording and purchase orders. Stores customer and vendor data and generates financial reports for bookkeeping and tax purposes.</p>
-                    <p class="text-xs text-gray-400 italic mt-2">Client name withheld due to NDA.</p>
-                    <div class="mt-3 flex flex-wrap gap-2">
-                      <span class="badge-soft">Accounting</span>
-                      <span class="badge-soft">Invoicing</span>
-                      <span class="badge-soft">Financial Reports</span>
-                      <span class="badge-soft">Bookkeeping</span>
+            <main class="grid grid-cols-1 gap-8">
+                <!-- About card -->
+                <section class="card p-6 rounded-lg shadow">
+                    <h2 class="text-xl font-semibold mb-3 card-title"><i class="fas fa-user"></i> <span>About Me</span></h2>
+                    <div id="aboutMe" class="text-gray-300 prose">
+                        <p>I'm a passionate developer with experience in building web applications and games. I love learning new technologies and applying them to solve real-world problems. In addition to coding, I enjoy teaching and sharing knowledge with others.</p>
                     </div>
-                    <div class="mt-4">
-                      <div class="carousel-container">
-                        <button id="fb-prev" class="carousel-btn left" aria-label="Previous">
-                          <i class="fas fa-chevron-left"></i>
-                        </button>
-                        <div id="fb-carousel" class="carousel-viewport overflow-x-auto no-scrollbar">
-                          <div class="flex gap-3 py-2">
-                            <img src="img/fb/001-dashboard.png" alt="Fiscal Bridge Dashboard" data-index="0" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/fb/008-dashboard-accounting.png" alt="Fiscal Bridge Accounting Dashboard" data-index="1" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/fb/017-dashboard-admin.png" alt="Fiscal Bridge Admin Dashboard" data-index="2" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/fb/002-customer.png" alt="Fiscal Bridge Customer List" data-index="3" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/fb/003-customer-form.png" alt="Fiscal Bridge Customer Form" data-index="4" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/fb/004-customer-bank.png" alt="Fiscal Bridge Customer Bank Details" data-index="5" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/fb/010-vendor.png" alt="Fiscal Bridge Vendor List" data-index="10" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/fb/009-coa.png" alt="Fiscal Bridge Chart of Accounts" data-index="9" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/fb/011-balance.png" alt="Fiscal Bridge Balance Sheet" data-index="11" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/fb/012-balance-sheet-form.png" alt="Fiscal Bridge Balance Sheet Form" data-index="12" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/fb/013-po.png" alt="Fiscal Bridge Purchase Order List" data-index="13" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/fb/005-quotation.png" alt="Fiscal Bridge Quotation List" data-index="6" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/fb/006-quotation-form.png" alt="Fiscal Bridge Quotation Form" data-index="7" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/fb/007-quotation-item.png" alt="Fiscal Bridge Quotation Item Details" data-index="8" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/fb/014-invoice.png" alt="Fiscal Bridge Invoice List" data-index="14" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/fb/015-invoice-form.png" alt="Fiscal Bridge Invoice Form" data-index="15" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                            <img src="img/fb/016-invoice-termin.png" alt="Fiscal Bridge Invoice Payment Terms" data-index="16" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
-                          </div>
+                </section>
+
+                <!-- Technical Skills card (3-column layout) -->
+                <section class="card p-6 rounded-lg shadow">
+                    <h3 class="mt-0 text-lg font-semibold card-title"><i class="fas fa-code"></i> <span>Technical Skills</span></h3>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mt-3">
+                        <!-- ordered by most selling first -->
+                        <div class="flex items-start gap-3 p-3 border rounded">
+                            <div class="flex-shrink-0 text-yellow-400">
+                                <i class="fab fa-php fa-2x"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <h4 class="font-semibold">Web Development</h4>
+                                    <span class="badge-soft">PHP</span>
+                                </div>
+                                <p class="text-sm text-gray-300 mt-1">Backend & full-stack web apps.</p>
+                            </div>
                         </div>
-                        <button id="fb-next" class="carousel-btn right" aria-label="Next">
-                          <i class="fas fa-chevron-right"></i>
-                        </button>
-                      </div>
-                      <p class="text-xs text-gray-400 mt-2 italic">Click an image to open a larger view.</p>
+
+                        <div class="flex items-start gap-3 p-3 border rounded">
+                            <div class="flex-shrink-0 text-green-400">
+                                <i class="fab fa-python fa-2x"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <h4 class="font-semibold">Data Science</h4>
+                                    <span class="badge-soft">Python</span>
+                                </div>
+                                <p class="text-sm text-gray-300 mt-1">Analysis, ML basics, and visualization.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3 p-3 border rounded">
+                            <div class="flex-shrink-0 text-sky-400">
+                                <i class="fas fa-database fa-2x"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <h4 class="font-semibold">Data & Storage</h4>
+                                    <span class="badge-soft">SQL</span>
+                                </div>
+                                <p class="text-sm text-gray-300 mt-1">Schema design and reliable storage.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3 p-3 border rounded">
+                            <div class="flex-shrink-0 text-purple-400">
+                                <i class="fas fa-gamepad fa-2x"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <h4 class="font-semibold">Game Development</h4>
+                                    <span class="badge-soft">Ren'Py</span>
+                                </div>
+                                <p class="text-sm text-gray-300 mt-1">Visual novels & interactive experiences.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3 p-3 border rounded">
+                            <div class="flex-shrink-0 text-amber-400">
+                                <i class="fas fa-sitemap fa-2x"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <h4 class="font-semibold">Business Process</h4>
+                                    <span class="badge-soft">draw.io</span>
+                                </div>
+                                <p class="text-sm text-gray-300 mt-1">Process mapping and practical understanding.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3 p-3 border rounded">
+                            <div class="flex-shrink-0 text-indigo-400">
+                                <i class="fas fa-chalkboard-teacher fa-2x"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <h4 class="font-semibold">Teaching</h4>
+                                    <span class="badge-soft">Hybrid</span>
+                                </div>
+                                <p class="text-sm text-gray-300 mt-1">Course design, mentoring, and workshops.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3 p-3 border rounded">
+                            <div class="flex-shrink-0 text-blue-300">
+                                <i class="fas fa-image fa-2x"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <h4 class="font-semibold">Image Editing</h4>
+                                    <span class="badge-soft">Photoshop</span>
+                                </div>
+                                <p class="text-sm text-gray-300 mt-1">Retouching & web assets.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3 p-3 border rounded">
+                            <div class="flex-shrink-0 text-pink-400">
+                                <i class="fas fa-video fa-2x"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <h4 class="font-semibold">Video Editing</h4>
+                                    <span class="badge-soft">Filmora</span>
+                                </div>
+                                <p class="text-sm text-gray-300 mt-1">Promo edits and motion basics.</p>
+                            </div>
+                        </div>
+
+                        <div class="flex items-start gap-3 p-3 border rounded">
+                            <div class="flex-shrink-0 text-yellow-600">
+                                <i class="fas fa-book fa-2x"></i>
+                            </div>
+                            <div class="flex-1">
+                                <div class="flex items-center justify-between">
+                                    <h4 class="font-semibold">Academic Research</h4>
+                                    <span class="badge-soft">LaTeX</span>
+                                </div>
+                                <p class="text-sm text-gray-300 mt-1">Study design, stats, and paper writing.</p>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                </div>
-              </div>
+                </section>
 
-              <!-- Auto Dosing -->
-              <div class="p-4 border rounded bg-transparent">
-                <div class="flex items-start gap-3">
-                  <div class="text-pink-400 text-2xl">
-                    <i class="fas fa-microchip"></i>
-                  </div>
-                  <div class="flex-1">
-                    <h3 class="font-semibold">Auto Dosing</h3>
-                    <p class="text-sm text-gray-300 mt-2">Web application integrated with SCADA to monitor and control animal feed production. Clear visualizations and tabulated reports turn SCADA signals into operator-ready information, helping maintain dosing accuracy and production traceability.</p>
-                    <p class="text-xs text-gray-400 italic mt-2">Client name withheld due to NDA.</p>
-                    <div class="mt-3 flex flex-wrap gap-2">
-                      <span class="badge-soft">SCADA</span>
-                      <span class="badge-soft">Process Control</span>
-                      <span class="badge-soft">Traceability</span>
-                      <span class="badge-soft">Monitoring</span>
+                <!-- Projects + Timeline + Research + Education (stacked) -->
+                <section class="space-y-6">
+                    <div class="card p-6 rounded-lg shadow">
+                        <h2 class="text-xl font-semibold mb-3 card-title"><i class="fas fa-rocket"></i> <span>Flagship Project</span></h2>
+                        <!-- stacked like previous layout (single column) -->
+                        <div class="space-y-4 mt-3">
+                            <!-- DMS -->
+                            <div class="p-4 border rounded bg-transparent">
+                                <div class="flex items-start gap-3">
+                                    <div class="text-yellow-400 text-2xl">
+                                        <i class="fas fa-industry"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h3 class="font-semibold">Digital Manufacturing System (DMS) 👑</h3>
+                                        <p class="text-sm text-gray-300 mt-2">ERP built from scratch in PHP to augment an industrial L3 system for a steel-processing plant. DMS centralizes production data and gives operations and planners fast access to the KPIs they need to act.</p>
+                                        <p class="text-sm text-gray-300 mt-2">Features such as <strong>Daily Report</strong>, <strong>Quality Control</strong>, <strong>Capacity Planning</strong>, <strong>Manufacture Planning List</strong>, <strong>Energy Consumption</strong>, <strong>OEE Report</strong>, and <strong>Statistic Process Control</strong> convert raw production signals into actionable insights — reducing downtime, improving yield and quality, optimizing energy use, and enabling data-driven scheduling.</p>
+                                        <p class="text-xs text-gray-400 italic mt-2">Client name withheld due to NDA.</p>
+                                        <div class="mt-3 flex flex-wrap gap-2">
+                                            <span class="badge-soft">ERP</span>
+                                            <span class="badge-soft">Manufacturing</span>
+                                            <span class="badge-soft">OEE</span>
+                                            <span class="badge-soft">Energy Monitoring</span>
+                                            <span class="badge-soft">Production Planning</span>
+                                        </div>
+                                        <div class="mt-4">
+                                            <div class="carousel-container">
+                                                <button id="dms-prev" class="carousel-btn left" aria-label="Previous">
+                                                    <i class="fas fa-chevron-left"></i>
+                                                </button>
+                                                <div id="dms-carousel" class="carousel-viewport overflow-x-auto no-scrollbar">
+                                                    <div class="flex gap-3 py-2">
+                                                        <img src="img/dms/001-dashboard.png" alt="DMS Dashboard" data-index="0" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/002-dashboard.png" alt="DMS Dashboard" data-index="1" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/003-dashboard.png" alt="DMS Dashboard" data-index="2" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/004-report.png" alt="DMS Daily Report" data-index="3" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/005-report.png" alt="DMS Daily Report" data-index="4" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/006-report.png" alt="DMS Daily Report" data-index="5" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/007-report.png" alt="DMS Daily Report" data-index="6" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/008-pareto.png" alt="DMS Pareto Analysis" data-index="7" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/009-downtime.png" alt="DMS Downtime Analysis" data-index="8" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/010-list.png" alt="DMS Downtime List" data-index="9" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/011-uptime.png" alt="DMS Uptime Analysis" data-index="10" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/012-oee.png" alt="DMS OEE Report" data-index="11" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/013-scrap.png" alt="DMS Scrap Analysis" data-index="12" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/014-scrap.png" alt="DMS Scrap Analysis" data-index="13" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/015-energy.png" alt="DMS Energy Consumption" data-index="14" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/016-emission.png" alt="DMS Emission Report" data-index="15" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/017-cp.png" alt="DMS Capacity Planning Overview" data-index="16" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/018-cp.png" alt="DMS Capacity Planning Off-Production" data-index="17" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/019-cp.png" alt="DMS Capacity Planning Throughput" data-index="18" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/020-cp.png" alt="DMS Capacity Planning Details" data-index="19" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/021-cp.png" alt="DMS Capacity Planning Chart" data-index="20" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/022-cp.png" alt="DMS Capacity Planning Custom Days" data-index="21" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/023-cp.png" alt="DMS Capacity Planning Production Plan Chart" data-index="22" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/024-mpl.png" alt="DMS Manufacture Planning List" data-index="23" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/025-mpl.png" alt="DMS Manufacture Planning List Details" data-index="24" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/026-mpl.png" alt="DMS Manufacture Planning Planned Items" data-index="25" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/027-prod.png" alt="DMS Production Report Overview" data-index="26" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/028-prod.png" alt="DMS Production Report by Finished Goods" data-index="27" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/029-prod.png" alt="DMS Production Report by Color" data-index="28" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/030-consumables.png" alt="DMS Paint Consumption Report" data-index="29" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/031-consumables.png" alt="DMS Paint Consumption Details" data-index="30" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/032-paint.png" alt="DMS Paint Consumption Selection" data-index="31" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/033-paint.png" alt="DMS Paint Consumption Table" data-index="32" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/034-dd.png" alt="DMS Defect Dictionary" data-index="33" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/035-dd.png" alt="DMS Defect Dictionary Form" data-index="34" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/036-dd.png" alt="DMS Defect Dictionary Picture" data-index="35" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/037-spc.png" alt="DMS Statistical Process Control" data-index="36" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/038-spc.png" alt="DMS Statistical Process Control Chart" data-index="37" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/039-spc.png" alt="DMS Statistical Process Control Details" data-index="38" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/dms/040-log.png" alt="DMS API Log" data-index="39" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                    </div>
+                                                </div>
+                                                <button id="dms-next" class="carousel-btn right" aria-label="Next">
+                                                    <i class="fas fa-chevron-right"></i>
+                                                </button>
+                                            </div>
+                                            <p class="text-xs text-gray-400 mt-2 italic">Click an image to open a larger view.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Fiscal Bridge -->
+                            <div class="p-4 border rounded bg-transparent">
+                                <div class="flex items-start gap-3">
+                                    <div class="text-green-400 text-2xl">
+                                        <i class="fas fa-file-invoice-dollar"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h3 class="font-semibold">Fiscal Bridge</h3>
+                                        <p class="text-sm text-gray-300 mt-2">Web-based accounting software that streamlines commercial workflows — from quotations and invoicing to transaction recording and purchase orders. Stores customer and vendor data and generates financial reports for bookkeeping and tax purposes.</p>
+                                        <p class="text-xs text-gray-400 italic mt-2">Client name withheld due to NDA.</p>
+                                        <div class="mt-3 flex flex-wrap gap-2">
+                                            <span class="badge-soft">Accounting</span>
+                                            <span class="badge-soft">Invoicing</span>
+                                            <span class="badge-soft">Financial Reports</span>
+                                            <span class="badge-soft">Bookkeeping</span>
+                                        </div>
+                                        <div class="mt-4">
+                                            <div class="carousel-container">
+                                                <button id="fb-prev" class="carousel-btn left" aria-label="Previous">
+                                                    <i class="fas fa-chevron-left"></i>
+                                                </button>
+                                                <div id="fb-carousel" class="carousel-viewport overflow-x-auto no-scrollbar">
+                                                    <div class="flex gap-3 py-2">
+                                                        <img src="img/fb/001-dashboard.png" alt="Fiscal Bridge Dashboard" data-index="0" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/fb/008-dashboard-accounting.png" alt="Fiscal Bridge Accounting Dashboard" data-index="1" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/fb/017-dashboard-admin.png" alt="Fiscal Bridge Admin Dashboard" data-index="2" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/fb/002-customer.png" alt="Fiscal Bridge Customer List" data-index="3" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/fb/003-customer-form.png" alt="Fiscal Bridge Customer Form" data-index="4" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/fb/004-customer-bank.png" alt="Fiscal Bridge Customer Bank Details" data-index="5" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/fb/010-vendor.png" alt="Fiscal Bridge Vendor List" data-index="10" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/fb/009-coa.png" alt="Fiscal Bridge Chart of Accounts" data-index="9" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/fb/011-balance.png" alt="Fiscal Bridge Balance Sheet" data-index="11" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/fb/012-balance-sheet-form.png" alt="Fiscal Bridge Balance Sheet Form" data-index="12" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/fb/013-po.png" alt="Fiscal Bridge Purchase Order List" data-index="13" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/fb/005-quotation.png" alt="Fiscal Bridge Quotation List" data-index="6" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/fb/006-quotation-form.png" alt="Fiscal Bridge Quotation Form" data-index="7" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/fb/007-quotation-item.png" alt="Fiscal Bridge Quotation Item Details" data-index="8" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/fb/014-invoice.png" alt="Fiscal Bridge Invoice List" data-index="14" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/fb/015-invoice-form.png" alt="Fiscal Bridge Invoice Form" data-index="15" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                        <img src="img/fb/016-invoice-termin.png" alt="Fiscal Bridge Invoice Payment Terms" data-index="16" class="carousel-item flex-shrink-0 h-36 object-cover rounded-lg border border-gray-700 cursor-pointer" />
+                                                    </div>
+                                                </div>
+                                                <button id="fb-next" class="carousel-btn right" aria-label="Next">
+                                                    <i class="fas fa-chevron-right"></i>
+                                                </button>
+                                            </div>
+                                            <p class="text-xs text-gray-400 mt-2 italic">Click an image to open a larger view.</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Auto Dosing -->
+                            <div class="p-4 border rounded bg-transparent">
+                                <div class="flex items-start gap-3">
+                                    <div class="text-pink-400 text-2xl">
+                                        <i class="fas fa-microchip"></i>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h3 class="font-semibold">Auto Dosing</h3>
+                                        <p class="text-sm text-gray-300 mt-2">Web application integrated with SCADA to monitor and control animal feed production. Clear visualizations and tabulated reports turn SCADA signals into operator-ready information, helping maintain dosing accuracy and production traceability.</p>
+                                        <p class="text-xs text-gray-400 italic mt-2">Client name withheld due to NDA.</p>
+                                        <div class="mt-3 flex flex-wrap gap-2">
+                                            <span class="badge-soft">SCADA</span>
+                                            <span class="badge-soft">Process Control</span>
+                                            <span class="badge-soft">Traceability</span>
+                                            <span class="badge-soft">Monitoring</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
 
-          <div class="card p-6 rounded-lg shadow">
-            <h2 class="text-xl font-semibold mb-3 card-title"><i class="fas fa-briefcase"></i> <span>Work Experience</span></h2>
-            <div class="space-y-4">
-              <div class="timeline-item">
-                <div>
-                  <div class="p-4 border rounded bg-transparent">
-                    <div class="flex justify-between items-baseline">
-                      <h4 class="font-semibold">Full Stack Programmer — LMask</h4>
-                      <span class="text-sm text-gray-400">December 2023 — Present</span>
+                    <div class="card p-6 rounded-lg shadow">
+                        <h2 class="text-xl font-semibold mb-3 card-title"><i class="fas fa-briefcase"></i> <span>Work Experience</span></h2>
+                        <div class="space-y-4">
+                            <div class="timeline-item">
+                                <div>
+                                    <div class="p-4 border rounded bg-transparent">
+                                        <div class="flex justify-between items-baseline">
+                                            <h4 class="font-semibold">Full Stack Programmer — LMask</h4>
+                                            <span class="text-sm text-gray-400">December 2023 — Present</span>
+                                        </div>
+                                        <p class="text-sm text-gray-300 mt-1">Joined as an early team member at a pioneering startup focused on industrial monitoring and control systems. Designed and implemented web dashboards, backend services that ingest SCADA/MES signals, and integrations for alerts and reporting. Drove prototype-to-production deliveries and collaborated closely with operations for field validation.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div>
+                                    <div class="p-4 border rounded bg-transparent">
+                                        <div class="flex justify-between items-baseline">
+                                            <h4 class="font-semibold">Teacher — SMKS Tamansiswa Kudus</h4>
+                                            <span class="text-sm text-gray-400">October 2023 — Present</span>
+                                        </div>
+                                        <p class="text-sm text-gray-300 mt-1">Instructor for Broadcasting & Film departments and informatics topics. Teach coding and practical AI introductions, create curricula and assessments, and act as Moodle LMS administrator — supporting course delivery, student mentoring, and project supervision.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div>
+                                    <div class="p-4 border rounded bg-transparent">
+                                        <div class="flex justify-between items-baseline">
+                                            <h4 class="font-semibold">Academic Mentor & Lab Assistant — Universitas Muria Kudus</h4>
+                                            <span class="text-sm text-gray-400">September 2022 — December 2022</span>
+                                        </div>
+                                        <p class="text-sm text-gray-300 mt-1">Served as teaching assistant during laboratory practicals, mentored students in theory sessions, and assisted lecturers with research tasks including data processing and translating papers into English.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div>
+                                    <div class="p-4 border rounded bg-transparent">
+                                        <div class="flex justify-between items-baseline">
+                                            <h4 class="font-semibold">Field Admin — UD. Dadi Makmur</h4>
+                                            <span class="text-sm text-gray-400">August 2021 — August 2022</span>
+                                        </div>
+                                        <p class="text-sm text-gray-300 mt-1">Implemented automation for fertilizer redemption administration documents, reducing manual entry and improving processing speed and accuracy through lightweight web tools and process templates.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div>
+                                    <div class="p-4 border rounded bg-transparent">
+                                        <div class="flex justify-between items-baseline">
+                                            <h4 class="font-semibold">Software Engineer & Mentor — Digital Wings Code Solution</h4>
+                                            <span class="text-sm text-gray-400">April 2019 — Present</span>
+                                        </div>
+                                        <p class="text-sm text-gray-300 mt-1">At a small software house (&lt;10 people), I build web applications ranging from agency/profile sites to thesis-level systems, mentor students working on their theses, and take on project coordination duties. Roles include programmer, mentor, and project manager depending on the engagement.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <p class="text-sm text-gray-300 mt-1">Joined as an early team member at a pioneering startup focused on industrial monitoring and control systems. Designed and implemented web dashboards, backend services that ingest SCADA/MES signals, and integrations for alerts and reporting. Drove prototype-to-production deliveries and collaborated closely with operations for field validation.</p>
-                  </div>
-                </div>
-              </div>
 
-              <div class="timeline-item">
-                <div>
-                  <div class="p-4 border rounded bg-transparent">
-                    <div class="flex justify-between items-baseline">
-                      <h4 class="font-semibold">Teacher — SMKS Tamansiswa Kudus</h4>
-                      <span class="text-sm text-gray-400">October 2023 — Present</span>
+                    <div class="card p-6 rounded-lg shadow">
+                        <h2 class="text-xl font-semibold mb-3 card-title"><i class="fas fa-book"></i> <span>Research Published</span></h2>
+                        <div class="space-y-3 text-gray-300">
+                            <div class="p-4 border rounded bg-transparent">
+                                <strong>Implementation of A Wireless Sensor Network for Monitoring Air Pollutants in Urban and Industrial Areas</strong>
+                                — Environmental Engineering & Management Journal (EEMJ), 2024, Vol 23, Issue 7, p1391
+                                <p class="text-sm text-gray-300 mt-1">A prototype and field evaluation of a wireless sensor network for continuous air pollutant monitoring in mixed urban-industrial environments.</p>
+                                <p class="text-sm mt-1">
+                                    <a href="https://doi.org/10.30638/eemj.2024.113" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">DOI: 10.30638/eemj.2024.113</a>
+                                </p>
+                            </div>
+
+                            <div class="p-4 border rounded bg-transparent">
+                                <strong>Real-Time Monitoring of Gas Fields: Prototype at PT Gamma Energi Pratama Bogor</strong>
+                                — Jurnal Teknik Informatika (JTI), 2023, Vol. 16, Issue 1
+                                <p class="text-sm text-gray-300 mt-1">Design and implementation of a real-time monitoring prototype for gas field operations with data visualization and alerting.</p>
+                                <p class="text-sm mt-1">
+                                    <a href="https://doi.org/10.15408/jti.v16i1.31832" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">DOI: 10.15408/jti.v16i1.31832</a>
+                                </p>
+                            </div>
+                        </div>
                     </div>
-                    <p class="text-sm text-gray-300 mt-1">Instructor for Broadcasting & Film departments and informatics topics. Teach coding and practical AI introductions, create curricula and assessments, and act as Moodle LMS administrator — supporting course delivery, student mentoring, and project supervision.</p>
-                  </div>
-                </div>
-              </div>
 
-              <div class="timeline-item">
-                <div>
-                  <div class="p-4 border rounded bg-transparent">
-                    <div class="flex justify-between items-baseline">
-                      <h4 class="font-semibold">Academic Mentor & Lab Assistant — Universitas Muria Kudus</h4>
-                      <span class="text-sm text-gray-400">September 2022 — December 2022</span>
+                    <div class="card p-6 rounded-lg shadow">
+                        <h2 class="text-xl font-semibold mb-3 card-title">
+                            <i class="fas fa-graduation-cap"></i>
+                            <span>Academic Background</span>
+                        </h2>
+                        <div class="space-y-4">
+                            <div class="timeline-item">
+                                <div>
+                                    <div class="p-4 border rounded bg-transparent">
+                                        <div class="flex justify-between items-baseline">
+                                            <h4 class="font-semibold">Universitas Muria Kudus — Bachelor, Informatics Engineering</h4>
+                                            <span class="text-sm text-gray-400">September 2019 — February 2023</span>
+                                        </div>
+                                        <p class="text-sm text-gray-300 mt-1">Graduated with a GPA of <strong>3.69 / 4.00</strong>. Focus on software development, data processing, and applied computing.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div>
+                                    <div class="p-4 border rounded bg-transparent">
+                                        <div class="flex justify-between items-baseline">
+                                            <h4 class="font-semibold">SMKN 1 Wonosobo — Vocational, Software Engineering</h4>
+                                            <span class="text-sm text-gray-400">July 2016 — June 2019</span>
+                                        </div>
+                                        <p class="text-sm text-gray-300 mt-1">Vocational training focused on software engineering practices and practical application development.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <p class="text-sm text-gray-300 mt-1">Served as teaching assistant during laboratory practicals, mentored students in theory sessions, and assisted lecturers with research tasks including data processing and translating papers into English.</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="timeline-item">
-                <div>
-                  <div class="p-4 border rounded bg-transparent">
-                    <div class="flex justify-between items-baseline">
-                      <h4 class="font-semibold">Field Admin — UD. Dadi Makmur</h4>
-                      <span class="text-sm text-gray-400">August 2021 — August 2022</span>
-                    </div>
-                    <p class="text-sm text-gray-300 mt-1">Implemented automation for fertilizer redemption administration documents, reducing manual entry and improving processing speed and accuracy through lightweight web tools and process templates.</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="timeline-item">
-                <div>
-                  <div class="p-4 border rounded bg-transparent">
-                    <div class="flex justify-between items-baseline">
-                      <h4 class="font-semibold">Software Engineer & Mentor — Digital Wings Code Solution</h4>
-                      <span class="text-sm text-gray-400">April 2019 — Present</span>
-                    </div>
-                    <p class="text-sm text-gray-300 mt-1">At a small software house (&lt;10 people), I build web applications ranging from agency/profile sites to thesis-level systems, mentor students working on their theses, and take on project coordination duties. Roles include programmer, mentor, and project manager depending on the engagement.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="card p-6 rounded-lg shadow">
-            <h2 class="text-xl font-semibold mb-3 card-title"><i class="fas fa-book"></i> <span>Research Published</span></h2>
-            <div class="space-y-3 text-gray-300">
-              <div class="p-4 border rounded bg-transparent">
-                <strong>Implementation of A Wireless Sensor Network for Monitoring Air Pollutants in Urban and Industrial Areas</strong>
-                — Environmental Engineering & Management Journal (EEMJ), 2024, Vol 23, Issue 7, p1391
-                <p class="text-sm text-gray-300 mt-1">A prototype and field evaluation of a wireless sensor network for continuous air pollutant monitoring in mixed urban-industrial environments.</p>
-                <p class="text-sm mt-1">
-                  <a href="https://doi.org/10.30638/eemj.2024.113" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">DOI: 10.30638/eemj.2024.113</a>
-                </p>
-              </div>
-
-              <div class="p-4 border rounded bg-transparent">
-                <strong>Real-Time Monitoring of Gas Fields: Prototype at PT Gamma Energi Pratama Bogor</strong>
-                — Jurnal Teknik Informatika (JTI), 2023, Vol. 16, Issue 1
-                <p class="text-sm text-gray-300 mt-1">Design and implementation of a real-time monitoring prototype for gas field operations with data visualization and alerting.</p>
-                <p class="text-sm mt-1">
-                  <a href="https://doi.org/10.15408/jti.v16i1.31832" target="_blank" rel="noopener noreferrer" class="text-blue-600 hover:underline">DOI: 10.15408/jti.v16i1.31832</a>
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div class="card p-6 rounded-lg shadow">
-            <h2 class="text-xl font-semibold mb-3 card-title">
-              <i class="fas fa-graduation-cap"></i>
-              <span>Academic Background</span>
-            </h2>
-            <div class="space-y-4">
-              <div class="timeline-item">
-                <div>
-                  <div class="p-4 border rounded bg-transparent">
-                    <div class="flex justify-between items-baseline">
-                      <h4 class="font-semibold">Universitas Muria Kudus — Bachelor, Informatics Engineering</h4>
-                      <span class="text-sm text-gray-400">September 2019 — February 2023</span>
-                    </div>
-                    <p class="text-sm text-gray-300 mt-1">Graduated with a GPA of <strong>3.69 / 4.00</strong>. Focus on software development, data processing, and applied computing.</p>
-                  </div>
-                </div>
-              </div>
-
-              <div class="timeline-item">
-                <div>
-                  <div class="p-4 border rounded bg-transparent">
-                    <div class="flex justify-between items-baseline">
-                      <h4 class="font-semibold">SMKN 1 Wonosobo — Vocational, Software Engineering</h4>
-                      <span class="text-sm text-gray-400">July 2016 — June 2019</span>
-                    </div>
-                    <p class="text-sm text-gray-300 mt-1">Vocational training focused on software engineering practices and practical application development.</p>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
-    </div>
-    <!-- Image modal (hidden by default) -->
-    <div id="image-modal" class="hidden" aria-hidden="true">
-      <div class="img-modal-backdrop" id="img-modal-backdrop" role="dialog" aria-modal="true">
-        <div class="img-modal-content">
-          <button id="img-modal-close" class="img-modal-close" aria-label="Close">
-            <i class="fas fa-times"></i>
-          </button>
-          <button id="img-modal-prev" class="img-modal-nav left" aria-label="Previous">
-            <i class="fas fa-chevron-left"></i>
-          </button>
-          <img id="img-modal-img" src="" alt="" />
-          <div id="img-modal-title" class="text-sm text-gray-200 mt-3 text-center"></div>
-          <button id="img-modal-next" class="img-modal-nav right" aria-label="Next">
-            <i class="fas fa-chevron-right"></i>
-          </button>
+                </section>
+            </main>
         </div>
-      </div>
-    </div>
+        <!-- Image modal (hidden by default) -->
+        <div id="image-modal" class="hidden" aria-hidden="true">
+            <div class="img-modal-backdrop" id="img-modal-backdrop" role="dialog" aria-modal="true">
+                <div class="img-modal-content">
+                    <button id="img-modal-close" class="img-modal-close" aria-label="Close">
+                        <i class="fas fa-times"></i>
+                    </button>
+                    <button id="img-modal-prev" class="img-modal-nav left" aria-label="Previous">
+                        <i class="fas fa-chevron-left"></i>
+                    </button>
+                    <img id="img-modal-img" src="" alt="" />
+                    <div id="img-modal-title" class="text-sm text-gray-200 mt-3 text-center"></div>
+                    <button id="img-modal-next" class="img-modal-nav right" aria-label="Next">
+                        <i class="fas fa-chevron-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
 
-    <script>
-      // Small helper: preview uploaded profile image
-      const input = document.getElementById("imageUpload");
-      const img = document.getElementById("profileImage");
-      if (input) {
-        input.addEventListener("change", (e) => {
-          const file = e.target.files && e.target.files[0];
-          if (!file) return;
-          const url = URL.createObjectURL(file);
-          img.src = url;
-        });
-      }
+        <script>
+            // Small helper: preview uploaded profile image
+            const input = document.getElementById("imageUpload");
+            const img = document.getElementById("profileImage");
+            if (input) {
+                input.addEventListener("change", (e) => {
+                    const file = e.target.files && e.target.files[0];
+                    if (!file) return;
+                    const url = URL.createObjectURL(file);
+                    img.src = url;
+                });
+            }
 
-      // Starry background canvas
-      (function () {
-        const canvas = document.getElementById("stars");
-        if (!canvas) return;
-        const ctx = canvas.getContext("2d");
-        let w = (canvas.width = innerWidth);
-        let h = (canvas.height = innerHeight);
+            // Starry background canvas
+            (function () {
+                const canvas = document.getElementById("stars");
+                if (!canvas) return;
+                const ctx = canvas.getContext("2d");
+                let w = (canvas.width = innerWidth);
+                let h = (canvas.height = innerHeight);
 
-        const stars = [];
-        const STAR_COUNT = Math.floor((w * h) / 9000); // density
+                const stars = [];
+                const STAR_COUNT = Math.floor((w * h) / 9000); // density
 
-        function rand(min, max) {
-          return Math.random() * (max - min) + min;
-        }
+                function rand(min, max) {
+                    return Math.random() * (max - min) + min;
+                }
 
-        for (let i = 0; i < STAR_COUNT; i++) {
-          stars.push({
-            x: Math.random() * w,
-            y: Math.random() * h,
-            r: rand(0.3, 1.3),
-            phase: Math.random() * Math.PI * 2,
-            twinkle: rand(0.01, 0.04),
-          });
-        }
+                for (let i = 0; i < STAR_COUNT; i++) {
+                    stars.push({
+                        x: Math.random() * w,
+                        y: Math.random() * h,
+                        r: rand(0.3, 1.3),
+                        phase: Math.random() * Math.PI * 2,
+                        twinkle: rand(0.01, 0.04),
+                    });
+                }
 
-        function draw() {
-          ctx.clearRect(0, 0, w, h);
-          // soft gradient vignette
-          const g = ctx.createRadialGradient(w * 0.15, h * 0.05, 0, w * 0.15, h * 0.05, Math.max(w, h));
-          g.addColorStop(0, "rgba(0,230,118,0.02)");
-          g.addColorStop(1, "rgba(0,0,0,0)");
-          ctx.fillStyle = g;
-          ctx.fillRect(0, 0, w, h);
+                function draw() {
+                    ctx.clearRect(0, 0, w, h);
+                    // soft gradient vignette
+                    const g = ctx.createRadialGradient(w * 0.15, h * 0.05, 0, w * 0.15, h * 0.05, Math.max(w, h));
+                    g.addColorStop(0, "rgba(0,230,118,0.02)");
+                    g.addColorStop(1, "rgba(0,0,0,0)");
+                    ctx.fillStyle = g;
+                    ctx.fillRect(0, 0, w, h);
 
-          for (let s of stars) {
-            s.phase += s.twinkle;
-            const a = 0.4 + Math.sin(s.phase) * 0.6;
-            ctx.beginPath();
-            ctx.fillStyle = `rgba(255,255,255,${a})`;
-            ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-            ctx.fill();
-          }
-          requestAnimationFrame(draw);
-        }
+                    for (let s of stars) {
+                        s.phase += s.twinkle;
+                        const a = 0.4 + Math.sin(s.phase) * 0.6;
+                        ctx.beginPath();
+                        ctx.fillStyle = `rgba(255,255,255,${a})`;
+                        ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
+                        ctx.fill();
+                    }
+                    requestAnimationFrame(draw);
+                }
 
-        window.addEventListener("resize", () => {
-          w = canvas.width = innerWidth;
-          h = canvas.height = innerHeight;
-          // recreate stars density on resize
-          stars.length = 0;
-          const count = Math.floor((w * h) / 9000);
-          for (let i = 0; i < count; i++) {
-            stars.push({
-              x: Math.random() * w,
-              y: Math.random() * h,
-              r: rand(0.3, 1.3),
-              phase: Math.random() * Math.PI * 2,
-              twinkle: rand(0.01, 0.04),
-            });
-          }
-        });
+                window.addEventListener("resize", () => {
+                    w = canvas.width = innerWidth;
+                    h = canvas.height = innerHeight;
+                    // recreate stars density on resize
+                    stars.length = 0;
+                    const count = Math.floor((w * h) / 9000);
+                    for (let i = 0; i < count; i++) {
+                        stars.push({
+                            x: Math.random() * w,
+                            y: Math.random() * h,
+                            r: rand(0.3, 1.3),
+                            phase: Math.random() * Math.PI * 2,
+                            twinkle: rand(0.01, 0.04),
+                        });
+                    }
+                });
 
-        draw();
-      })();
+                draw();
+            })();
 
-      // --- Small autonomous battlefield: spaceship chases a bug, both throw/avoid projectiles ---
-      /*
+            // --- Small autonomous battlefield: spaceship chases a bug, both throw/avoid projectiles ---
+            /*
                                 Overview of the simulation logic (readers' quick guide):
 
                                 - Entities:
@@ -876,463 +876,476 @@
 
                                 This comment block summarizes the logic; inline comments below explain specific functions in-place.
                         */
-      (function () {
-        const canvas = document.getElementById("battlefield");
-        if (!canvas) return;
-        const ctx = canvas.getContext("2d");
-        let w = (canvas.width = innerWidth);
-        let h = (canvas.height = innerHeight);
-        ctx.imageSmoothingEnabled = false;
+            (function () {
+                const canvas = document.getElementById("battlefield");
+                if (!canvas) return;
+                const ctx = canvas.getContext("2d");
+                let w = (canvas.width = innerWidth);
+                let h = (canvas.height = innerHeight);
+                ctx.imageSmoothingEnabled = false;
 
-        // --- helpers ---
-        // simple vector helpers used across AI and movement
-        function length(x, y) {
-          return Math.hypot(x, y);
-        }
-        function normalize(x, y) {
-          const l = length(x, y) || 1;
-          return [x / l, y / l];
-        }
-        // clamp a scalar to +/- n
-        function clamp(v, n) {
-          return Math.max(-n, Math.min(n, v));
-        }
-
-        // entities
-        const ship = {
-          x: w * 0.2,
-          y: h * 0.5,
-          vx: 0,
-          vy: 0,
-          size: 8,
-          color: "rgba(0,230,118,1)",
-          fireCooldown: 0,
-        };
-
-        const bug = {
-          x: w * 0.8,
-          y: h * 0.5,
-          vx: 0,
-          vy: 0,
-          size: 10,
-          color: "rgba(255,120,80,1)",
-          throwCooldown: 0,
-        };
-
-        const projectiles = []; // {x,y,vx,vy,size,owner,life}
-
-        // respawn helper: place entity just off a random screen edge and set an entrance target
-        function respawn(ent) {
-          const edge = Math.floor(Math.random() * 4);
-          const margin = 80; // how far inside the screen the target appears
-          const startOffset = 80; // how far off-screen the entity starts
-          // pick a random target location inside the viewport
-          const targetX = Math.random() * (w - margin * 2) + margin;
-          const targetY = Math.random() * (h - margin * 2) + margin;
-          ent.entering = true;
-          ent.enterTimer = 0;
-          ent.enterDuration = 700 + Math.random() * 300; // ms
-          ent.enterTargetX = targetX;
-          ent.enterTargetY = targetY;
-          ent.vx = ent.vy = 0;
-
-          if (edge === 0) {
-            // top
-            ent.x = targetX;
-            ent.y = -startOffset;
-          } else if (edge === 1) {
-            // right
-            ent.x = w + startOffset;
-            ent.y = targetY;
-          } else if (edge === 2) {
-            // bottom
-            ent.x = targetX;
-            ent.y = h + startOffset;
-          } else {
-            // left
-            ent.x = -startOffset;
-            ent.y = targetY;
-          }
-        }
-
-        // shooting helper: spawns a small projectile from (x,y) toward (tx,ty)
-        // owner is 'ship' or 'bug' so AI can ignore friendly projectiles when avoiding
-        function shoot(x, y, tx, ty, speed, owner) {
-          const [dx, dy] = normalize(tx - x, ty - y);
-          projectiles.push({
-            x: x + dx * 12,
-            y: y + dy * 12,
-            vx: dx * speed,
-            vy: dy * speed,
-            size: 3,
-            owner,
-            life: 3000,
-            born: performance.now(),
-          });
-        }
-
-        // update loop
-        let last = performance.now();
-        function update(now) {
-          const dt = Math.min(60, now - last) / 1000;
-          last = now;
-
-          // basic steering: ship chases bug
-          (function shipAI() {
-            // shipAI: pursue the bug while avoiding enemy projectiles
-            // Steps:
-            // 1. Compute desired direction toward the bug
-            // 2. Compute avoidance vector by summing inverse-square contributions from nearby enemy projectiles
-            // 3. Apply steering forces to ship velocity, clamp speed, and integrate position
-            // 4. Keep the ship on-screen and fire occasionally (disabled during 'entering')
-            const desired = [bug.x - ship.x, bug.y - ship.y];
-            const [dx, dy] = normalize(desired[0], desired[1]);
-            // avoid nearby incoming projectiles
-            let avoidX = 0,
-              avoidY = 0;
-            for (const p of projectiles) {
-              if (p.owner === "ship") continue;
-              const px = p.x - ship.x,
-                py = p.y - ship.y;
-              const dist = length(px, py);
-              if (dist < 120) {
-                avoidX -= px / (dist * dist);
-                avoidY -= py / (dist * dist);
-              }
-            }
-            const [ax, ay] = normalize(avoidX, avoidY);
-            ship.vx += (dx * 60 + ax * 120) * dt;
-            ship.vy += (dy * 60 + ay * 120) * dt;
-            // limit speed
-            ship.vx = clamp(ship.vx, 180);
-            ship.vy = clamp(ship.vy, 180);
-            ship.x += ship.vx * dt;
-            ship.y += ship.vy * dt;
-
-            // keep on-screen
-            ship.x = Math.max(10, Math.min(w - 10, ship.x));
-            ship.y = Math.max(10, Math.min(h - 10, ship.y));
-
-            // fire at bug occasionally (disabled while entering)
-            ship.fireCooldown -= dt;
-            if (!ship.entering && ship.fireCooldown <= 0) {
-              shoot(ship.x, ship.y, bug.x + (Math.random() - 0.5) * 30, bug.y + (Math.random() - 0.5) * 30, 260, "ship");
-              ship.fireCooldown = 0.6 + Math.random() * 0.6;
-            }
-          })();
-
-          // bug AI: keep distance when ship is too close, otherwise drift + avoid projectiles
-          (function bugAI() {
-            // vector from ship to bug
-            let bx = bug.x - ship.x,
-              by = bug.y - ship.y;
-            const dist = length(bx, by) || 1;
-            const [nx, ny] = normalize(bx, by);
-
-            // avoidance from incoming projectiles (high priority)
-            let avoidX = 0,
-              avoidY = 0;
-            for (const p of projectiles) {
-              if (p.owner === "bug") continue;
-              const px = p.x - bug.x,
-                py = p.y - bug.y;
-              const d = length(px, py);
-              if (d < 140) {
-                // stronger avoidance for closer projectiles
-                avoidX -= px / (d * d);
-                avoidY -= py / (d * d);
-              }
-            }
-            const [ax, ay] = normalize(avoidX, avoidY || 0);
-            // behavior selection: flee when too close, otherwise idle drift
-            const keepDistance = 180; // desired minimum distance
-            if (dist < keepDistance) {
-              // flee more strongly the closer the ship is
-              const fleeStrength = 220 * ((keepDistance - dist) / keepDistance + 0.2);
-              bug.vx += (nx * fleeStrength + ax * 240) * dt;
-              bug.vy += (ny * fleeStrength + ay * 240) * dt;
-            } else {
-              // idle drift: gentle damping + small random jitter
-              bug.vx *= 0.985;
-              bug.vy *= 0.985;
-              bug.vx += (Math.random() - 0.5) * 18 * dt;
-              bug.vy += (Math.random() - 0.5) * 18 * dt;
-              // weakly avoid immediate projectiles
-              bug.vx += ax * 100 * dt;
-              bug.vy += ay * 100 * dt;
-            }
-
-            // speed clamp and integrate
-            bug.vx = clamp(bug.vx, 240);
-            bug.vy = clamp(bug.vy, 240);
-            bug.x += bug.vx * dt;
-            bug.y += bug.vy * dt;
-
-            // boundaries
-            if (bug.x < 20 || bug.x > w - 20 || bug.y < 20 || bug.y > h - 20) {
-              // nudge back
-              bug.x = Math.max(20, Math.min(w - 20, bug.x));
-              bug.y = Math.max(20, Math.min(h - 20, bug.y));
-              bug.vx *= -0.3;
-              bug.vy *= -0.3;
-            }
-
-            // throw projectile at ship more often when within range (disabled while entering)
-            bug.throwCooldown -= dt;
-            if (!bug.entering && bug.throwCooldown <= 0) {
-              if (dist < 380) {
-                shoot(bug.x, bug.y, ship.x + (Math.random() - 0.5) * 20, ship.y + (Math.random() - 0.5) * 20, 220, "bug");
-                bug.throwCooldown = 0.6 + Math.random() * 1.0;
-              } else {
-                bug.throwCooldown = 1.2 + Math.random() * 2.0;
-              }
-            }
-          })();
-
-          // update projectiles
-          for (let i = projectiles.length - 1; i >= 0; i--) {
-            const p = projectiles[i];
-            p.x += p.vx * dt;
-            p.y += p.vy * dt;
-            p.life -= dt * 1000;
-            // offscreen or expired
-            if (p.life <= 0 || p.x < -20 || p.x > w + 20 || p.y < -20 || p.y > h + 20) {
-              projectiles.splice(i, 1);
-              continue;
-            }
-
-            // collision with targets (ignore targets while they are entering)
-            if (p.owner === "ship") {
-              if (!bug.entering) {
-                const dx = p.x - bug.x,
-                  dy = p.y - bug.y;
-                if (length(dx, dy) < bug.size + p.size) {
-                  // hit bug -> respawn bug
-                  projectiles.splice(i, 1);
-                  respawn(bug);
-                  continue;
+                // --- helpers ---
+                // simple vector helpers used across AI and movement
+                function length(x, y) {
+                    return Math.hypot(x, y);
                 }
-              }
-            } else if (p.owner === "bug") {
-              if (!ship.entering) {
-                const dx = p.x - ship.x,
-                  dy = p.y - ship.y;
-                if (length(dx, dy) < ship.size + p.size) {
-                  projectiles.splice(i, 1);
-                  respawn(ship);
-                  continue;
+                function normalize(x, y) {
+                    const l = length(x, y) || 1;
+                    return [x / l, y / l];
                 }
-              }
-            }
-          }
-        }
+                // clamp a scalar to +/- n
+                function clamp(v, n) {
+                    return Math.max(-n, Math.min(n, v));
+                }
 
-        // draw loop
-        let flashTimer = 0;
-        let prevDraw = performance.now();
-        function drawLoop(now) {
-          // compute dt for entrance easing
-          const dtMs = Math.min(60, Math.max(0, now - prevDraw));
-          prevDraw = now;
+                // entities
+                const ship = {
+                    x: w * 0.2,
+                    y: h * 0.5,
+                    vx: 0,
+                    vy: 0,
+                    size: 8,
+                    color: "rgba(0,230,118,1)",
+                    fireCooldown: 0,
+                };
 
-          // handle entrance interpolation for entities
-          function processEntering(ent, dtMs) {
-            if (!ent.entering) return;
-            ent.enterTimer += dtMs;
-            const t = Math.min(1, ent.enterTimer / (ent.enterDuration || 600));
-            // ease-out cubic
-            const ease = 1 - Math.pow(1 - t, 3);
-            // interpolate from start position toward target smoothly using ease factor
-            ent.x = ent.x + (ent.enterTargetX - ent.x) * Math.min(1, ease);
-            ent.y = ent.y + (ent.enterTargetY - ent.y) * Math.min(1, ease);
-            if (t >= 1) {
-              ent.entering = false;
-              ent.enterTimer = 0;
-              ent.enterDuration = 0;
-            }
-          }
-          processEntering(ship, dtMs);
-          processEntering(bug, dtMs);
+                const bug = {
+                    x: w * 0.8,
+                    y: h * 0.5,
+                    vx: 0,
+                    vy: 0,
+                    size: 10,
+                    color: "rgba(255,120,80,1)",
+                    throwCooldown: 0,
+                };
 
-          update(now);
-          // clear
-          ctx.clearRect(0, 0, w, h);
+                const projectiles = []; // {x,y,vx,vy,size,owner,life}
 
-          // optionally dim content behind slightly by drawing nothing (canvas is transparent)
+                // respawn helper: place entity just off a random screen edge and set an entrance target
+                function respawn(ent) {
+                    const edge = Math.floor(Math.random() * 4);
+                    const margin = 80; // how far inside the screen the target appears
+                    const startOffset = 80; // how far off-screen the entity starts
+                    // pick a random target location inside the viewport
+                    const targetX = Math.random() * (w - margin * 2) + margin;
+                    const targetY = Math.random() * (h - margin * 2) + margin;
+                    ent.entering = true;
+                    ent.enterTimer = 0;
+                    ent.enterDuration = 700 + Math.random() * 300; // ms
+                    ent.enterTargetX = targetX;
+                    ent.enterTargetY = targetY;
+                    ent.vx = ent.vy = 0;
 
-          // draw projectiles
-          for (const p of projectiles) {
-            ctx.fillStyle = p.owner === "ship" ? "rgba(150,255,200,0.95)" : "rgba(255,180,140,0.95)";
-            ctx.fillRect(p.x - p.size / 2, p.y - p.size / 2, p.size, p.size);
-          }
+                    if (edge === 0) {
+                        // top
+                        ent.x = targetX;
+                        ent.y = -startOffset;
+                    } else if (edge === 1) {
+                        // right
+                        ent.x = w + startOffset;
+                        ent.y = targetY;
+                    } else if (edge === 2) {
+                        // bottom
+                        ent.x = targetX;
+                        ent.y = h + startOffset;
+                    } else {
+                        // left
+                        ent.x = -startOffset;
+                        ent.y = targetY;
+                    }
+                }
 
-          // draw ship (slimmer pixel-style spaceship)
-          ctx.save();
-          ctx.translate(ship.x, ship.y);
-          const angle = Math.atan2(ship.vy, ship.vx) + Math.PI / 2;
-          ctx.rotate(angle);
-          const s = Math.max(4, Math.round(ship.size * 0.5)); // slimmer base unit
-          // hull (narrow)
-          ctx.fillStyle = "rgba(0,180,100,1)";
-          ctx.fillRect(-s, -Math.floor(s * 0.6), s * 2, Math.floor(s * 1.2));
-          // cockpit (glass)
-          ctx.fillStyle = "rgba(160,255,200,1)";
-          ctx.fillRect(-1, -Math.floor(s * 0.9) - 1, 2, 2);
-          // small wings
-          ctx.fillStyle = "rgba(0,220,130,1)";
-          ctx.fillRect(-s - 1, 1, 1, Math.max(1, Math.floor(s * 0.8)));
-          ctx.fillRect(s, 1, 1, Math.max(1, Math.floor(s * 0.8)));
-          // nose (short)
-          ctx.fillStyle = "rgba(120,240,180,1)";
-          ctx.fillRect(-1, -Math.floor(s * 0.9) - 3, 2, 2);
-          // smaller thruster flame (animated by velocity magnitude)
-          const speed = Math.min(1.6, Math.hypot(ship.vx, ship.vy) / 160);
-          if (speed > 0.03) {
-            const flameLen = 1 + Math.round(speed * 4);
-            ctx.fillStyle = "rgba(255,200,100," + (0.5 + speed * 0.4) + ")";
-            for (let i = 0; i < flameLen; i++) {
-              ctx.fillRect(-1 + (i % 2), Math.floor(s * 0.8) + i, 1, 1 + (i % 2));
-            }
-          }
-          ctx.restore();
+                // shooting helper: spawns a small projectile from (x,y) toward (tx,ty)
+                // owner is 'ship' or 'bug' so AI can ignore friendly projectiles when avoiding
+                function shoot(x, y, tx, ty, speed, owner) {
+                    const [dx, dy] = normalize(tx - x, ty - y);
+                    projectiles.push({
+                        x: x + dx * 12,
+                        y: y + dy * 12,
+                        vx: dx * speed,
+                        vy: dy * speed,
+                        size: 3,
+                        owner,
+                        life: 3000,
+                        born: performance.now(),
+                    });
+                }
 
-          // draw bug (pixel-space 'space-bug')
-          const bs = Math.max(8, bug.size);
-          // body segments
-          ctx.fillStyle = "rgba(255,110,60,1)";
-          ctx.fillRect(bug.x - bs, bug.y - Math.floor(bs / 2), bs * 2, Math.floor(bs / 1.3));
-          // shell spots (darker)
-          ctx.fillStyle = "rgba(200,70,40,1)";
-          ctx.fillRect(bug.x - 2, bug.y - 3, 2, 2);
-          ctx.fillRect(bug.x + 4, bug.y - 2, 2, 2);
-          // eyes (glowing cores)
-          ctx.fillStyle = "rgba(30,10,10,1)";
-          ctx.fillRect(bug.x - 3, bug.y - 4, 2, 2);
-          ctx.fillRect(bug.x + 1, bug.y - 4, 2, 2);
-          // antennae
-          ctx.fillStyle = "rgba(255,160,120,1)";
-          ctx.fillRect(bug.x - 4, bug.y - 8, 1, 3);
-          ctx.fillRect(bug.x + 6, bug.y - 8, 1, 3);
-          // legs (small pixels)
-          ctx.fillStyle = "rgba(180,70,40,1)";
-          ctx.fillRect(bug.x - bs, bug.y + Math.floor(bs / 2), 1, 2);
-          ctx.fillRect(bug.x - bs + 4, bug.y + Math.floor(bs / 2), 1, 2);
-          ctx.fillRect(bug.x + bs - 1, bug.y + Math.floor(bs / 2), 1, 2);
+                // update loop
+                let last = performance.now();
+                function update(now) {
+                    const dt = Math.min(60, now - last) / 1000;
+                    last = now;
 
-          requestAnimationFrame(drawLoop);
-        }
+                    // basic steering: ship chases bug
+                    (function shipAI() {
+                        // shipAI: pursue the bug while avoiding enemy projectiles
+                        // Steps:
+                        // 1. Compute desired direction toward the bug
+                        // 2. Compute avoidance vector by summing inverse-square contributions from nearby enemy projectiles
+                        // 3. Apply steering forces to ship velocity, clamp speed, and integrate position
+                        // 4. Keep the ship on-screen and fire occasionally (disabled during 'entering')
+                        const desired = [bug.x - ship.x, bug.y - ship.y];
+                        const [dx, dy] = normalize(desired[0], desired[1]);
+                        // avoid nearby incoming projectiles
+                        let avoidX = 0,
+                            avoidY = 0;
+                        for (const p of projectiles) {
+                            if (p.owner === "ship") continue;
+                            const px = p.x - ship.x,
+                                py = p.y - ship.y;
+                            const dist = length(px, py);
+                            if (dist < 120) {
+                                avoidX -= px / (dist * dist);
+                                avoidY -= py / (dist * dist);
+                            }
+                        }
+                        const [ax, ay] = normalize(avoidX, avoidY);
+                        ship.vx += (dx * 60 + ax * 120) * dt;
+                        ship.vy += (dy * 60 + ay * 120) * dt;
+                        // limit speed
+                        ship.vx = clamp(ship.vx, 180);
+                        ship.vy = clamp(ship.vy, 180);
+                        ship.x += ship.vx * dt;
+                        ship.y += ship.vy * dt;
 
-        // respawn ship and bug at random screen edges
-        respawn(ship);
-        respawn(bug);
+                        // keep on-screen
+                        ship.x = Math.max(10, Math.min(w - 10, ship.x));
+                        ship.y = Math.max(10, Math.min(h - 10, ship.y));
 
-        // spawn a few initial projectiles to make things lively
-        for (let i = 0; i < 3; i++) {
-          shoot(Math.random() * w, Math.random() * h, Math.random() * w, Math.random() * h, 140 + Math.random() * 120, Math.random() < 0.5 ? "ship" : "bug");
-        }
+                        // fire at bug occasionally (disabled while entering)
+                        ship.fireCooldown -= dt;
+                        if (!ship.entering && ship.fireCooldown <= 0) {
+                            shoot(ship.x, ship.y, bug.x + (Math.random() - 0.5) * 30, bug.y + (Math.random() - 0.5) * 30, 260, "ship");
+                            ship.fireCooldown = 0.6 + Math.random() * 0.6;
+                        }
+                    })();
 
-        // resize handling
-        window.addEventListener("resize", () => {
-          w = canvas.width = innerWidth;
-          h = canvas.height = innerHeight;
-        });
+                    // bug AI: keep distance when ship is too close, otherwise drift + avoid projectiles
+                    (function bugAI() {
+                        // vector from ship to bug
+                        let bx = bug.x - ship.x,
+                            by = bug.y - ship.y;
+                        const dist = length(bx, by) || 1;
+                        const [nx, ny] = normalize(bx, by);
 
-        // reduced-motion respect
-        const reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        if (!reduced) requestAnimationFrame(drawLoop);
-      })();
+                        // avoidance from incoming projectiles (high priority)
+                        let avoidX = 0,
+                            avoidY = 0;
+                        for (const p of projectiles) {
+                            if (p.owner === "bug") continue;
+                            const px = p.x - bug.x,
+                                py = p.y - bug.y;
+                            const d = length(px, py);
+                            if (d < 140) {
+                                // stronger avoidance for closer projectiles
+                                avoidX -= px / (d * d);
+                                avoidY -= py / (d * d);
+                            }
+                        }
+                        const [ax, ay] = normalize(avoidX, avoidY || 0);
+                        // behavior selection: flee when too close, otherwise idle drift
+                        const keepDistance = 180; // desired minimum distance
+                        if (dist < keepDistance) {
+                            // flee more strongly the closer the ship is
+                            const fleeStrength = 220 * ((keepDistance - dist) / keepDistance + 0.2);
+                            bug.vx += (nx * fleeStrength + ax * 240) * dt;
+                            bug.vy += (ny * fleeStrength + ay * 240) * dt;
+                        } else {
+                            // idle drift: gentle damping + small random jitter
+                            bug.vx *= 0.985;
+                            bug.vy *= 0.985;
+                            bug.vx += (Math.random() - 0.5) * 18 * dt;
+                            bug.vy += (Math.random() - 0.5) * 18 * dt;
+                            // weakly avoid immediate projectiles
+                            bug.vx += ax * 100 * dt;
+                            bug.vy += ay * 100 * dt;
+                        }
 
-      // --- Carousel controls + image modal handlers (support multiple carousels) ---
-      (function () {
-        // modal elements (single shared modal)
-        const modalRoot = document.getElementById("image-modal");
-        const modalBackdrop = document.getElementById("img-modal-backdrop");
-        const modalImg = document.getElementById("img-modal-img");
-        const modalTitle = document.getElementById("img-modal-title");
-        const modalClose = document.getElementById("img-modal-close");
-        const modalPrev = document.getElementById("img-modal-prev");
-        const modalNext = document.getElementById("img-modal-next");
+                        // speed clamp and integrate
+                        bug.vx = clamp(bug.vx, 240);
+                        bug.vy = clamp(bug.vy, 240);
+                        bug.x += bug.vx * dt;
+                        bug.y += bug.vy * dt;
 
-        const modalController = {
-          items: [],
-          currentIndex: 0,
-          open(items, index) {
-            if (!items || !items.length) return;
-            this.items = items;
-            this.currentIndex = index || 0;
-            const it = this.items[this.currentIndex];
-            modalImg.src = it.src;
-            modalImg.alt = it.alt || "";
-            if (modalTitle) modalTitle.textContent = it.alt || "";
-            modalRoot.classList.remove("hidden");
-            modalRoot.setAttribute("aria-hidden", "false");
-            // move focus to close button for accessibility
-            if (modalClose) modalClose.focus();
-          },
-          close() {
-            modalRoot.classList.add("hidden");
-            modalRoot.setAttribute("aria-hidden", "true");
-            modalImg.src = "";
-            if (modalTitle) modalTitle.textContent = "";
-          },
-          prev() {
-            if (!this.items.length) return;
-            this.currentIndex = (this.currentIndex - 1 + this.items.length) % this.items.length;
-            this.open(this.items, this.currentIndex);
-          },
-          next() {
-            if (!this.items.length) return;
-            this.currentIndex = (this.currentIndex + 1) % this.items.length;
-            this.open(this.items, this.currentIndex);
-          },
-        };
+                        // boundaries
+                        if (bug.x < 20 || bug.x > w - 20 || bug.y < 20 || bug.y > h - 20) {
+                            // nudge back
+                            bug.x = Math.max(20, Math.min(w - 20, bug.x));
+                            bug.y = Math.max(20, Math.min(h - 20, bug.y));
+                            bug.vx *= -0.3;
+                            bug.vy *= -0.3;
+                        }
 
-        // wire modal controls
-        if (modalClose) modalClose.addEventListener("click", () => modalController.close());
-        if (modalBackdrop) modalBackdrop.addEventListener("click", (e) => { if (e.target === modalBackdrop) modalController.close(); });
-        if (modalPrev) modalPrev.addEventListener("click", (e) => { e.stopPropagation(); modalController.prev(); });
-        if (modalNext) modalNext.addEventListener("click", (e) => { e.stopPropagation(); modalController.next(); });
+                        // throw projectile at ship more often when within range (disabled while entering)
+                        bug.throwCooldown -= dt;
+                        if (!bug.entering && bug.throwCooldown <= 0) {
+                            if (dist < 380) {
+                                shoot(bug.x, bug.y, ship.x + (Math.random() - 0.5) * 20, ship.y + (Math.random() - 0.5) * 20, 220, "bug");
+                                bug.throwCooldown = 0.6 + Math.random() * 1.0;
+                            } else {
+                                bug.throwCooldown = 1.2 + Math.random() * 2.0;
+                            }
+                        }
+                    })();
 
-        document.addEventListener("keydown", (e) => {
-          if (!modalRoot || modalRoot.classList.contains("hidden")) return;
-          if (e.key === "Escape") modalController.close();
-          if (e.key === "ArrowLeft") modalController.prev();
-          if (e.key === "ArrowRight") modalController.next();
-        });
+                    // update projectiles
+                    for (let i = projectiles.length - 1; i >= 0; i--) {
+                        const p = projectiles[i];
+                        p.x += p.vx * dt;
+                        p.y += p.vy * dt;
+                        p.life -= dt * 1000;
+                        // offscreen or expired
+                        if (p.life <= 0 || p.x < -20 || p.x > w + 20 || p.y < -20 || p.y > h + 20) {
+                            projectiles.splice(i, 1);
+                            continue;
+                        }
 
-        // initialize each carousel container on the page
-        const containers = Array.from(document.querySelectorAll('.carousel-container'));
-        containers.forEach((container) => {
-          const viewport = container.querySelector('.carousel-viewport');
-          if (!viewport) return;
-          const inner = viewport.querySelector('.flex');
-          const items = Array.from(viewport.querySelectorAll('.carousel-item'));
+                        // collision with targets (ignore targets while they are entering)
+                        if (p.owner === "ship") {
+                            if (!bug.entering) {
+                                const dx = p.x - bug.x,
+                                    dy = p.y - bug.y;
+                                if (length(dx, dy) < bug.size + p.size) {
+                                    // hit bug -> respawn bug
+                                    projectiles.splice(i, 1);
+                                    respawn(bug);
+                                    continue;
+                                }
+                            }
+                        } else if (p.owner === "bug") {
+                            if (!ship.entering) {
+                                const dx = p.x - ship.x,
+                                    dy = p.y - ship.y;
+                                if (length(dx, dy) < ship.size + p.size) {
+                                    projectiles.splice(i, 1);
+                                    respawn(ship);
+                                    continue;
+                                }
+                            }
+                        }
+                    }
+                }
 
-          // compute item width + gap; fallback to measured neighbor distance
-          function computeItemWidth() {
-            if (!items.length) return 260;
-            const w = items[0].getBoundingClientRect().width;
-            const gap = parseFloat(getComputedStyle(inner).gap) || parseFloat(getComputedStyle(inner).columnGap) || 12;
-            return w + gap;
-          }
+                // draw loop
+                let flashTimer = 0;
+                let prevDraw = performance.now();
+                function drawLoop(now) {
+                    // compute dt for entrance easing
+                    const dtMs = Math.min(60, Math.max(0, now - prevDraw));
+                    prevDraw = now;
 
-          let itemWidth = computeItemWidth();
-          // recalc on resize
-          window.addEventListener('resize', () => { itemWidth = computeItemWidth(); });
+                    // handle entrance interpolation for entities
+                    function processEntering(ent, dtMs) {
+                        if (!ent.entering) return;
+                        ent.enterTimer += dtMs;
+                        const t = Math.min(1, ent.enterTimer / (ent.enterDuration || 600));
+                        // ease-out cubic
+                        const ease = 1 - Math.pow(1 - t, 3);
+                        // interpolate from start position toward target smoothly using ease factor
+                        ent.x = ent.x + (ent.enterTargetX - ent.x) * Math.min(1, ease);
+                        ent.y = ent.y + (ent.enterTargetY - ent.y) * Math.min(1, ease);
+                        if (t >= 1) {
+                            ent.entering = false;
+                            ent.enterTimer = 0;
+                            ent.enterDuration = 0;
+                        }
+                    }
+                    processEntering(ship, dtMs);
+                    processEntering(bug, dtMs);
 
-          const prev = container.querySelector('.carousel-btn.left');
-          const next = container.querySelector('.carousel-btn.right');
-          if (prev) prev.addEventListener('click', () => viewport.scrollBy({ left: -itemWidth, behavior: 'smooth' }));
-          if (next) next.addEventListener('click', () => viewport.scrollBy({ left: itemWidth, behavior: 'smooth' }));
+                    update(now);
+                    // clear
+                    ctx.clearRect(0, 0, w, h);
 
-          // clicking an item opens the shared modal with this carousel's items
-          items.forEach((it, idx) => {
-            it.addEventListener('click', () => {
-              modalController.open(items, idx);
-            });
-          });
-        });
-      })();
-    </script>
-  </body>
+                    // optionally dim content behind slightly by drawing nothing (canvas is transparent)
+
+                    // draw projectiles
+                    for (const p of projectiles) {
+                        ctx.fillStyle = p.owner === "ship" ? "rgba(150,255,200,0.95)" : "rgba(255,180,140,0.95)";
+                        ctx.fillRect(p.x - p.size / 2, p.y - p.size / 2, p.size, p.size);
+                    }
+
+                    // draw ship (slimmer pixel-style spaceship)
+                    ctx.save();
+                    ctx.translate(ship.x, ship.y);
+                    const angle = Math.atan2(ship.vy, ship.vx) + Math.PI / 2;
+                    ctx.rotate(angle);
+                    const s = Math.max(4, Math.round(ship.size * 0.5)); // slimmer base unit
+                    // hull (narrow)
+                    ctx.fillStyle = "rgba(0,180,100,1)";
+                    ctx.fillRect(-s, -Math.floor(s * 0.6), s * 2, Math.floor(s * 1.2));
+                    // cockpit (glass)
+                    ctx.fillStyle = "rgba(160,255,200,1)";
+                    ctx.fillRect(-1, -Math.floor(s * 0.9) - 1, 2, 2);
+                    // small wings
+                    ctx.fillStyle = "rgba(0,220,130,1)";
+                    ctx.fillRect(-s - 1, 1, 1, Math.max(1, Math.floor(s * 0.8)));
+                    ctx.fillRect(s, 1, 1, Math.max(1, Math.floor(s * 0.8)));
+                    // nose (short)
+                    ctx.fillStyle = "rgba(120,240,180,1)";
+                    ctx.fillRect(-1, -Math.floor(s * 0.9) - 3, 2, 2);
+                    // smaller thruster flame (animated by velocity magnitude)
+                    const speed = Math.min(1.6, Math.hypot(ship.vx, ship.vy) / 160);
+                    if (speed > 0.03) {
+                        const flameLen = 1 + Math.round(speed * 4);
+                        ctx.fillStyle = "rgba(255,200,100," + (0.5 + speed * 0.4) + ")";
+                        for (let i = 0; i < flameLen; i++) {
+                            ctx.fillRect(-1 + (i % 2), Math.floor(s * 0.8) + i, 1, 1 + (i % 2));
+                        }
+                    }
+                    ctx.restore();
+
+                    // draw bug (pixel-space 'space-bug')
+                    const bs = Math.max(8, bug.size);
+                    // body segments
+                    ctx.fillStyle = "rgba(255,110,60,1)";
+                    ctx.fillRect(bug.x - bs, bug.y - Math.floor(bs / 2), bs * 2, Math.floor(bs / 1.3));
+                    // shell spots (darker)
+                    ctx.fillStyle = "rgba(200,70,40,1)";
+                    ctx.fillRect(bug.x - 2, bug.y - 3, 2, 2);
+                    ctx.fillRect(bug.x + 4, bug.y - 2, 2, 2);
+                    // eyes (glowing cores)
+                    ctx.fillStyle = "rgba(30,10,10,1)";
+                    ctx.fillRect(bug.x - 3, bug.y - 4, 2, 2);
+                    ctx.fillRect(bug.x + 1, bug.y - 4, 2, 2);
+                    // antennae
+                    ctx.fillStyle = "rgba(255,160,120,1)";
+                    ctx.fillRect(bug.x - 4, bug.y - 8, 1, 3);
+                    ctx.fillRect(bug.x + 6, bug.y - 8, 1, 3);
+                    // legs (small pixels)
+                    ctx.fillStyle = "rgba(180,70,40,1)";
+                    ctx.fillRect(bug.x - bs, bug.y + Math.floor(bs / 2), 1, 2);
+                    ctx.fillRect(bug.x - bs + 4, bug.y + Math.floor(bs / 2), 1, 2);
+                    ctx.fillRect(bug.x + bs - 1, bug.y + Math.floor(bs / 2), 1, 2);
+
+                    requestAnimationFrame(drawLoop);
+                }
+
+                // respawn ship and bug at random screen edges
+                respawn(ship);
+                respawn(bug);
+
+                // spawn a few initial projectiles to make things lively
+                for (let i = 0; i < 3; i++) {
+                    shoot(Math.random() * w, Math.random() * h, Math.random() * w, Math.random() * h, 140 + Math.random() * 120, Math.random() < 0.5 ? "ship" : "bug");
+                }
+
+                // resize handling
+                window.addEventListener("resize", () => {
+                    w = canvas.width = innerWidth;
+                    h = canvas.height = innerHeight;
+                });
+
+                // reduced-motion respect
+                const reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+                if (!reduced) requestAnimationFrame(drawLoop);
+            })();
+
+            // --- Carousel controls + image modal handlers (support multiple carousels) ---
+            (function () {
+                // modal elements (single shared modal)
+                const modalRoot = document.getElementById("image-modal");
+                const modalBackdrop = document.getElementById("img-modal-backdrop");
+                const modalImg = document.getElementById("img-modal-img");
+                const modalTitle = document.getElementById("img-modal-title");
+                const modalClose = document.getElementById("img-modal-close");
+                const modalPrev = document.getElementById("img-modal-prev");
+                const modalNext = document.getElementById("img-modal-next");
+
+                const modalController = {
+                    items: [],
+                    currentIndex: 0,
+                    open(items, index) {
+                        if (!items || !items.length) return;
+                        this.items = items;
+                        this.currentIndex = index || 0;
+                        const it = this.items[this.currentIndex];
+                        modalImg.src = it.src;
+                        modalImg.alt = it.alt || "";
+                        if (modalTitle) modalTitle.textContent = it.alt || "";
+                        modalRoot.classList.remove("hidden");
+                        modalRoot.setAttribute("aria-hidden", "false");
+                        // move focus to close button for accessibility
+                        if (modalClose) modalClose.focus();
+                    },
+                    close() {
+                        modalRoot.classList.add("hidden");
+                        modalRoot.setAttribute("aria-hidden", "true");
+                        modalImg.src = "";
+                        if (modalTitle) modalTitle.textContent = "";
+                    },
+                    prev() {
+                        if (!this.items.length) return;
+                        this.currentIndex = (this.currentIndex - 1 + this.items.length) % this.items.length;
+                        this.open(this.items, this.currentIndex);
+                    },
+                    next() {
+                        if (!this.items.length) return;
+                        this.currentIndex = (this.currentIndex + 1) % this.items.length;
+                        this.open(this.items, this.currentIndex);
+                    },
+                };
+
+                // wire modal controls
+                if (modalClose) modalClose.addEventListener("click", () => modalController.close());
+                if (modalBackdrop)
+                    modalBackdrop.addEventListener("click", (e) => {
+                        if (e.target === modalBackdrop) modalController.close();
+                    });
+                if (modalPrev)
+                    modalPrev.addEventListener("click", (e) => {
+                        e.stopPropagation();
+                        modalController.prev();
+                    });
+                if (modalNext)
+                    modalNext.addEventListener("click", (e) => {
+                        e.stopPropagation();
+                        modalController.next();
+                    });
+
+                document.addEventListener("keydown", (e) => {
+                    if (!modalRoot || modalRoot.classList.contains("hidden")) return;
+                    if (e.key === "Escape") modalController.close();
+                    if (e.key === "ArrowLeft") modalController.prev();
+                    if (e.key === "ArrowRight") modalController.next();
+                });
+
+                // initialize each carousel container on the page
+                const containers = Array.from(document.querySelectorAll(".carousel-container"));
+                containers.forEach((container) => {
+                    const viewport = container.querySelector(".carousel-viewport");
+                    if (!viewport) return;
+                    const inner = viewport.querySelector(".flex");
+                    const items = Array.from(viewport.querySelectorAll(".carousel-item"));
+
+                    // compute item width + gap; fallback to measured neighbor distance
+                    function computeItemWidth() {
+                        if (!items.length) return 260;
+                        const w = items[0].getBoundingClientRect().width;
+                        const gap = parseFloat(getComputedStyle(inner).gap) || parseFloat(getComputedStyle(inner).columnGap) || 12;
+                        return w + gap;
+                    }
+
+                    let itemWidth = computeItemWidth();
+                    // recalc on resize
+                    window.addEventListener("resize", () => {
+                        itemWidth = computeItemWidth();
+                    });
+
+                    const prev = container.querySelector(".carousel-btn.left");
+                    const next = container.querySelector(".carousel-btn.right");
+                    if (prev) prev.addEventListener("click", () => viewport.scrollBy({ left: -itemWidth, behavior: "smooth" }));
+                    if (next) next.addEventListener("click", () => viewport.scrollBy({ left: itemWidth, behavior: "smooth" }));
+
+                    // clicking an item opens the shared modal with this carousel's items
+                    items.forEach((it, idx) => {
+                        it.addEventListener("click", () => {
+                            modalController.open(items, idx);
+                        });
+                    });
+                });
+            })();
+        </script>
+    </body>
 </html>
