@@ -95,6 +95,7 @@
 
     // entities
     const ship = {
+        type: 'ship',
         x: w * 0.2,
         y: h * 0.5,
         vx: 0,
@@ -102,9 +103,12 @@
         size: 8,
         color: "rgba(0,230,118,1)",
         fireCooldown: 1.0,
+        say: "",
+        sayTimer: 0
     };
 
     const bug = {
+        type: 'bug',
         x: w * 0.8,
         y: h * 0.5,
         vx: 0,
@@ -112,7 +116,35 @@
         size: 10,
         color: "rgba(255,120,80,1)",
         throwCooldown: 1.0,
+        say: "",
+        sayTimer: 0
     };
+
+    const dialogs = {
+        ship: {
+            chase: ["TARGET LOCKED", "GET OVER HERE", "GOTTA GO FAST", "I SEE YOU", "BING CHILLING"],
+            shoot: ["PEW PEW!", "DELET DIS", "NO U", "DIE!", "EMOTIONAL DAMAGE"],
+            evade: ["NANI?!", "TOO SLOW", "NOPE", "MISS ME?", "STAY CALM"],
+            kill: ["GG EZ", "SKILL ISSUE", "PWNED", "VICTORY ROYALE", "L + RATIO"],
+            wall: ["BONK!", "LAG!", "OUCH!", "BRUH", "PHYSICS PLS"],
+            spawn: ["AW SHIT, AGAIN?", "NOT AGAIN...", "WHO KILLED ME?", "HACKER!", "LATENCY!"]
+        },
+        bug: {
+            idle: ["ZUG ZUG", "DAKKA DAKKA", "WRYYY!", "MONKE", "POG"],
+            evade: ["MISSED!", "HEH", "CALCULATED", "BAMBOOZLED", "COWABUNGA"],
+            panic: ["WAAAGGHH!", "OH LAWD", "PANIK!", "NIGERUNDAYO!", "HELIKOPTER"],
+            kill: ["LMAO", "GIT GUD", "UMAD?", "EZZZZ", "OH NO NO NO"],
+            wall: ["BLYAT!", "OOF", "BRUH", "STONKS", "STUPID WALL"],
+            spawn: ["REEEEEE", "I'LL BE BACK!", "STONKS DOWN", "WAIT FOR ME!", "U CHEATER"]
+        }
+    };
+
+    function speak(ent, type, force = false) {
+        if (!force && ent.sayTimer > 0) return;
+        const lines = dialogs[ent.type][type];
+        ent.say = lines[Math.floor(Math.random() * lines.length)];
+        ent.sayTimer = 1.5;
+    }
 
     const projectiles = []; // {x,y,vx,vy,size,owner,life}
     const explosions = []; // {x, y, particles}
@@ -136,7 +168,7 @@
         explosions.push({ x, y, particles });
     }
 
-    function respawn(ent) {
+    function respawn(ent, isInitial = false) {
         const edge = Math.floor(Math.random() * 4);
         const margin = 80;
         const startOffset = 80;
@@ -162,6 +194,8 @@
             ent.x = -startOffset;
             ent.y = targetY;
         }
+
+        if (!isInitial) speak(ent, "spawn", true);
     }
 
     function shoot(x, y, tx, ty, speed, owner) {
@@ -183,6 +217,9 @@
         const dt = Math.min(60, now - last) / 1000;
         last = now;
 
+        ship.sayTimer -= dt;
+        bug.sayTimer -= dt;
+
         (function shipAI() {
             const desired = [bug.x - ship.x, bug.y - ship.y];
             const [dx, dy] = normalize(desired[0], desired[1]);
@@ -196,6 +233,7 @@
                 if (dist < 120) {
                     avoidX -= px / (dist * dist);
                     avoidY -= py / (dist * dist);
+                    speak(ship, "evade");
                 }
             }
             const [ax, ay] = normalize(avoidX, avoidY);
@@ -207,16 +245,17 @@
             ship.x += ship.vx * dt;
             ship.y += ship.vy * dt;
 
-            if (ship.x < 15) { ship.x = 15; ship.vx *= -0.6; }
-            else if (ship.x > w - 15) { ship.x = w - 15; ship.vx *= -0.6; }
-            if (ship.y < 15) { ship.y = 15; ship.vy *= -0.6; }
-            else if (ship.y > h - 15) { ship.y = h - 15; ship.vy *= -0.6; }
+            if (ship.x < 15) { ship.x = 15; ship.vx *= -0.6; speak(ship, "wall"); }
+            else if (ship.x > w - 15) { ship.x = w - 15; ship.vx *= -0.6; speak(ship, "wall"); }
+            if (ship.y < 15) { ship.y = 15; ship.vy *= -0.6; speak(ship, "wall"); }
+            else if (ship.y > h - 15) { ship.y = h - 15; ship.vy *= -0.6; speak(ship, "wall"); }
 
             const dToBug = length(bug.x - ship.x, bug.y - ship.y);
             ship.fireCooldown -= dt;
             if (!ship.entering && ship.fireCooldown <= 0 && dToBug < 400) {
                 shoot(ship.x, ship.y, bug.x + (Math.random() - 0.5) * 30, bug.y + (Math.random() - 0.5) * 30, 320, "ship");
                 ship.fireCooldown = 0.8 + Math.random() * 1.2;
+                speak(ship, dToBug < 150 ? "shoot" : "chase");
             }
         })();
 
@@ -236,6 +275,7 @@
                 if (d < 220) {
                     avoidX -= px / (d * d);
                     avoidY -= py / (d * d);
+                    speak(bug, "evade");
                 }
             }
             const [ax, ay] = normalize(avoidX, avoidY || 0);
@@ -247,6 +287,7 @@
                 const fleeStrength = 220 * ((keepDistance - dist) / keepDistance + 0.2);
                 bug.vx += (nx * fleeStrength + ax * 500 * panicMult + cx) * dt;
                 bug.vy += (ny * fleeStrength + ay * 500 * panicMult + cy) * dt;
+                speak(bug, "panic");
             } else {
                 bug.vx *= 0.985;
                 bug.vy *= 0.985;
@@ -254,6 +295,7 @@
                 bug.vy += (Math.random() - 0.5) * 40 * dt;
                 bug.vx += (ax * 250 * panicMult + cx) * dt;
                 bug.vy += (ay * 250 * panicMult + cy) * dt;
+                if (Math.random() < 0.005) speak(bug, "idle");
             }
 
             bug.vx = clamp(bug.vx, 380);
@@ -261,10 +303,10 @@
             bug.x += bug.vx * dt;
             bug.y += bug.vy * dt;
 
-            if (bug.x < 15) { bug.x = 15; bug.vx *= -0.6; }
-            else if (bug.x > w - 15) { bug.x = w - 15; bug.vx *= -0.6; }
-            if (bug.y < 15) { bug.y = 15; bug.vy *= -0.6; }
-            else if (bug.y > h - 15) { bug.y = h - 15; bug.vy *= -0.6; }
+            if (bug.x < 15) { bug.x = 15; bug.vx *= -0.6; speak(bug, "wall"); }
+            else if (bug.x > w - 15) { bug.x = w - 15; bug.vx *= -0.6; speak(bug, "wall"); }
+            if (bug.y < 15) { bug.y = 15; bug.vy *= -0.6; speak(bug, "wall"); }
+            else if (bug.y > h - 15) { bug.y = h - 15; bug.vy *= -0.6; speak(bug, "wall"); }
 
             bug.throwCooldown -= dt;
             if (!bug.entering && bug.throwCooldown <= 0) {
@@ -294,6 +336,7 @@
                     if (length(dx, dy) < bug.size + p.size) {
                         createExplosion(bug.x, bug.y, "rgba(255, 100, 50, 0.8)");
                         projectiles.splice(i, 1);
+                        speak(ship, "kill", true);
                         respawn(bug);
                         continue;
                     }
@@ -305,6 +348,7 @@
                     if (length(dx, dy) < ship.size + p.size) {
                         createExplosion(ship.x, ship.y, "rgba(0, 255, 163, 0.8)");
                         projectiles.splice(i, 1);
+                        speak(bug, "kill", true);
                         respawn(ship);
                         continue;
                     }
@@ -323,6 +367,39 @@
             }
             if (ex.particles.length === 0) explosions.splice(i, 1);
         }
+    }
+
+    function drawSay(ent) {
+        if (!ent.say || ent.sayTimer <= 0) return;
+        ctx.save();
+        ctx.font = "bold 9px 'Inter', sans-serif";
+        const textWidth = ctx.measureText(ent.say).width;
+        const pad = 5;
+        const rx = Math.round(ent.x - textWidth / 2 - pad);
+        const rw = Math.round(textWidth + pad * 2);
+        const rh = 14;
+        let ry = Math.round(ent.y - ent.size - 24);
+        
+        // If bubble is too high, move it below the ship
+        if (ry < 5) {
+            ry = Math.round(ent.y + ent.size + 12);
+        }
+
+        ctx.fillStyle = "rgba(3, 7, 18, 0.9)";
+        ctx.strokeStyle = ent.color;
+        ctx.lineWidth = 1;
+        
+        // Background bubble
+        ctx.beginPath();
+        ctx.roundRect ? ctx.roundRect(rx, ry, rw, rh, 4) : ctx.rect(rx, ry, rw, rh);
+        ctx.fill();
+        ctx.stroke();
+
+        ctx.fillStyle = "#fff";
+        ctx.textAlign = "center";
+        ctx.textBaseline = "middle";
+        ctx.fillText(ent.say, Math.round(ent.x), ry + 7.5);
+        ctx.restore();
     }
 
     let prevDraw = performance.now();
@@ -424,11 +501,14 @@
         ctx.fillRect(bug.x - bs + 4, bug.y + Math.floor(bs / 2), 1, 2);
         ctx.fillRect(bug.x + bs - 1, bug.y + Math.floor(bs / 2), 1, 2);
 
+        drawSay(ship);
+        drawSay(bug);
+
         requestAnimationFrame(drawLoop);
     }
 
-    respawn(ship);
-    respawn(bug);
+    respawn(ship, true);
+    respawn(bug, true);
 
     window.addEventListener("resize", () => {
         w = canvas.width = innerWidth;
