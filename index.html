@@ -3,8 +3,8 @@
 
     <head>
         <meta charset="UTF-8" />
-        <meta name="viewport" content="width=800" />
-        <title data-i18n="page.title">Firman Adi Nur Fatin, S.Kom. Gr. - Profil Saya</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title data-i18n="page.title">Firman Adi Nur Fatin, S.Kom., Gr. - Profil Saya</title>
         <script src="https://cdn.tailwindcss.com"></script>
 
         <!-- Font Awesome for brand / skill icons -->
@@ -39,7 +39,7 @@
           -->
         <canvas id="battlefield" aria-hidden="true"></canvas>
         <div class="max-w-5xl mx-auto p-6 site-content">
-            <header class="flex items-center gap-6 mb-8">
+            <header class="flex flex-col md:flex-row items-center gap-8 mb-12 reveal">
                 <!-- Profile picture + basic info -->
                 <div class="flex items-center gap-4">
                     <div class="relative avatar-wrapper">
@@ -48,7 +48,8 @@
                     </div>
 
                     <div>
-                        <h1 id="displayName" class="text-3xl font-bold text-gray-100">Firman Adi Nur Fatin, S.Kom. Gr.
+                        <h1 id="displayName" class="text-4xl md:text-5xl font-bold text-gradient glow">Firman Adi Nur
+                            Fatin, S.Kom., Gr.
                         </h1>
                         <p id="headline" class="text-gray-300 mt-1" data-i18n="headline">Full Stack Developer | Game
                             Developer | Educator</p>
@@ -86,9 +87,9 @@
                 </div>
             </header>
 
-            <main class="grid grid-cols-1 gap-8">
+            <main class="grid grid-cols-1 gap-12">
                 <!-- About card -->
-                <section class="card p-6 rounded-lg shadow">
+                <section class="card p-8 rounded-2xl reveal">
                     <h2 class="text-xl font-semibold mb-3 card-title"><i class="fas fa-user"></i> <span
                             data-i18n="about.title">About Me</span></h2>
                     <div id="aboutMe" class="text-gray-300 prose">
@@ -99,12 +100,12 @@
                 </section>
 
                 <!-- Technical Skills card (3-column layout) -->
-                <section class="card p-6 rounded-lg shadow">
+                <section class="card p-8 rounded-2xl reveal">
                     <h3 class="mt-0 text-lg font-semibold card-title"><i class="fas fa-code"></i> <span
                             data-i18n="skills.title">Technical Skills</span></h3>
                     <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 mt-3">
                         <!-- ordered by most selling first -->
-                        <div class="flex items-start gap-3 p-3 border rounded">
+                        <div class="flex items-start gap-3 p-4 inner-item">
                             <div class="flex-shrink-0 text-yellow-400">
                                 <i class="fab fa-php fa-2x"></i>
                             </div>
@@ -118,7 +119,7 @@
                             </div>
                         </div>
 
-                        <div class="flex items-start gap-3 p-3 border rounded">
+                        <div class="flex items-start gap-3 p-4 inner-item">
                             <div class="flex-shrink-0 text-green-400">
                                 <i class="fab fa-python fa-2x"></i>
                             </div>
@@ -132,7 +133,7 @@
                             </div>
                         </div>
 
-                        <div class="flex items-start gap-3 p-3 border rounded">
+                        <div class="flex items-start gap-3 p-4 inner-item">
                             <div class="flex-shrink-0 text-sky-400">
                                 <i class="fas fa-database fa-2x"></i>
                             </div>
@@ -146,7 +147,7 @@
                             </div>
                         </div>
 
-                        <div class="flex items-start gap-3 p-3 border rounded">
+                        <div class="flex items-start gap-3 p-4 inner-item">
                             <div class="flex-shrink-0 text-purple-400">
                                 <i class="fas fa-gamepad fa-2x"></i>
                             </div>
@@ -160,7 +161,7 @@
                             </div>
                         </div>
 
-                        <div class="flex items-start gap-3 p-3 border rounded">
+                        <div class="flex items-start gap-3 p-4 inner-item">
                             <div class="flex-shrink-0 text-amber-400">
                                 <i class="fas fa-sitemap fa-2x"></i>
                             </div>
@@ -174,7 +175,7 @@
                             </div>
                         </div>
 
-                        <div class="flex items-start gap-3 p-3 border rounded">
+                        <div class="flex items-start gap-3 p-4 inner-item">
                             <div class="flex-shrink-0 text-indigo-400">
                                 <i class="fas fa-chalkboard-teacher fa-2x"></i>
                             </div>
@@ -188,7 +189,7 @@
                             </div>
                         </div>
 
-                        <div class="flex items-start gap-3 p-3 border rounded">
+                        <div class="flex items-start gap-3 p-4 inner-item">
                             <div class="flex-shrink-0 text-blue-300">
                                 <i class="fas fa-image fa-2x"></i>
                             </div>
@@ -202,7 +203,7 @@
                             </div>
                         </div>
 
-                        <div class="flex items-start gap-3 p-3 border rounded">
+                        <div class="flex items-start gap-3 p-4 inner-item">
                             <div class="flex-shrink-0 text-pink-400">
                                 <i class="fas fa-video fa-2x"></i>
                             </div>
@@ -216,7 +217,7 @@
                             </div>
                         </div>
 
-                        <div class="flex items-start gap-3 p-3 border rounded">
+                        <div class="flex items-start gap-3 p-4 inner-item">
                             <div class="flex-shrink-0 text-yellow-600">
                                 <i class="fas fa-book fa-2x"></i>
                             </div>
@@ -233,14 +234,14 @@
                 </section>
 
                 <!-- Projects + Timeline + Research + Education (stacked) -->
-                <section class="space-y-6">
-                    <div class="card p-6 rounded-lg shadow">
+                <section class="space-y-12">
+                    <div class="card p-8 rounded-2xl reveal">
                         <h2 class="text-xl font-semibold mb-3 card-title"><i class="fas fa-rocket"></i> <span
                                 data-i18n="project.flagship">Flagship Project</span></h2>
                         <!-- stacked like previous layout (single column) -->
                         <div class="space-y-4 mt-3">
                             <!-- DMS -->
-                            <div class="p-4 border rounded bg-transparent">
+                            <div class="p-6 inner-item">
                                 <div class="flex items-start gap-3">
                                     <div class="text-yellow-400 text-2xl">
                                         <i class="fas fa-industry"></i>
@@ -415,7 +416,7 @@
                             </div>
 
                             <!-- Fiscal Bridge -->
-                            <div class="p-4 border rounded bg-transparent">
+                            <div class="p-6 inner-item">
                                 <div class="flex items-start gap-3">
                                     <div class="text-green-400 text-2xl">
                                         <i class="fas fa-file-invoice-dollar"></i>
@@ -508,7 +509,7 @@
                             </div>
 
                             <!-- Auto Dosing -->
-                            <div class="p-4 border rounded bg-transparent">
+                            <div class="p-6 inner-item">
                                 <div class="flex items-start gap-3">
                                     <div class="text-pink-400 text-2xl">
                                         <i class="fas fa-microchip"></i>
@@ -563,31 +564,13 @@
                         </div>
                     </div>
 
-                    <div class="card p-6 rounded-lg shadow">
+                    <div class="card p-8 rounded-2xl reveal">
                         <h2 class="text-xl font-semibold mb-3 card-title"><i class="fas fa-briefcase"></i> <span
                                 data-i18n="project.work">Work Experience</span></h2>
                         <div class="space-y-4">
                             <div class="timeline-item">
                                 <div>
-                                    <div class="p-4 border rounded bg-transparent">
-                                        <div class="flex justify-between items-baseline">
-                                            <h4 class="font-semibold" data-i18n="work.job1.title">Full Stack Programmer
-                                                — LMask</h4>
-                                            <span class="text-sm text-gray-400">December 2023 — Present</span>
-                                        </div>
-                                        <p class="text-sm text-gray-300 mt-1" data-i18n="work.job1.desc">Joined as an
-                                            early team member at a pioneering startup focused on industrial monitoring
-                                            and control systems. Designed and implemented web dashboards, backend
-                                            services that ingest SCADA/MES signals, and integrations for alerts and
-                                            reporting. Drove prototype-to-production deliveries and collaborated closely
-                                            with operations for field validation.</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="timeline-item">
-                                <div>
-                                    <div class="p-4 border rounded bg-transparent">
+                                    <div class="p-6 inner-item">
                                         <div class="flex justify-between items-baseline">
                                             <h4 class="font-semibold" data-i18n="work.job6.title">Full Stack Programmer
                                                 — PT. Tawang Nuswantoro Nugroho</h4>
@@ -606,7 +589,25 @@
 
                             <div class="timeline-item">
                                 <div>
-                                    <div class="p-4 border rounded bg-transparent">
+                                    <div class="p-6 inner-item">
+                                        <div class="flex justify-between items-baseline">
+                                            <h4 class="font-semibold" data-i18n="work.job1.title">Full Stack Programmer
+                                                — LMask</h4>
+                                            <span class="text-sm text-gray-400">December 2023 — Present</span>
+                                        </div>
+                                        <p class="text-sm text-gray-300 mt-1" data-i18n="work.job1.desc">Joined as an
+                                            early team member at a pioneering startup focused on industrial monitoring
+                                            and control systems. Designed and implemented web dashboards, backend
+                                            services that ingest SCADA/MES signals, and integrations for alerts and
+                                            reporting. Drove prototype-to-production deliveries and collaborated closely
+                                            with operations for field validation.</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="timeline-item">
+                                <div>
+                                    <div class="p-6 inner-item">
                                         <div class="flex justify-between items-baseline">
                                             <h4 class="font-semibold" data-i18n="work.job2.title">Teacher — SMKS
                                                 Tamansiswa Kudus</h4>
@@ -623,7 +624,7 @@
 
                             <div class="timeline-item">
                                 <div>
-                                    <div class="p-4 border rounded bg-transparent">
+                                    <div class="p-6 inner-item">
                                         <div class="flex justify-between items-baseline">
                                             <h4 class="font-semibold" data-i18n="work.job3.title">Academic Mentor & Lab
                                                 Assistant — Universitas Muria Kudus</h4>
@@ -639,7 +640,7 @@
 
                             <div class="timeline-item">
                                 <div>
-                                    <div class="p-4 border rounded bg-transparent">
+                                    <div class="p-6 inner-item">
                                         <div class="flex justify-between items-baseline">
                                             <h4 class="font-semibold" data-i18n="work.job4.title">Field Admin — UD. Dadi
                                                 Makmur</h4>
@@ -655,7 +656,7 @@
 
                             <div class="timeline-item">
                                 <div>
-                                    <div class="p-4 border rounded bg-transparent">
+                                    <div class="p-6 inner-item">
                                         <div class="flex justify-between items-baseline">
                                             <h4 class="font-semibold" data-i18n="work.job5.title">Software Engineer &
                                                 Mentor — Digital Wings Code Solution</h4>
@@ -672,11 +673,11 @@
                         </div>
                     </div>
 
-                    <div class="card p-6 rounded-lg shadow">
+                    <div class="card p-8 rounded-2xl reveal">
                         <h2 class="text-xl font-semibold mb-3 card-title"><i class="fas fa-book"></i> <span
                                 data-i18n="project.research">Research Published</span></h2>
                         <div class="space-y-3 text-gray-300">
-                            <div class="p-4 border rounded bg-transparent">
+                            <div class="p-6 inner-item">
                                 <p><strong data-i18n="research.pub1.title">Implementation of A Wireless Sensor Network
                                         for Monitoring Air Pollutants in Urban and Industrial Areas</strong> <span
                                         data-i18n="research.pub1.journal">— Environmental Engineering & Management
@@ -691,7 +692,7 @@
                                 </p>
                             </div>
 
-                            <div class="p-4 border rounded bg-transparent">
+                            <div class="p-6 inner-item">
                                 <p><strong data-i18n="research.pub2.title">Real-Time Monitoring of Gas Fields: Prototype
                                         at PT Gamma Energi Pratama Bogor</strong> <span
                                         data-i18n="research.pub2.journal">— Jurnal Teknik Informatika (JTI), 2023, Vol.
@@ -708,7 +709,7 @@
                         </div>
                     </div>
 
-                    <div class="card p-6 rounded-lg shadow">
+                    <div class="card p-8 rounded-2xl reveal">
                         <h2 class="text-xl font-semibold mb-3 card-title">
                             <i class="fas fa-graduation-cap"></i>
                             <span data-i18n="project.academic">Academic Background</span>
@@ -716,7 +717,7 @@
                         <div class="space-y-4">
                             <div class="timeline-item">
                                 <div>
-                                    <div class="p-4 border rounded bg-transparent">
+                                    <div class="p-6 inner-item">
                                         <div class="flex justify-between items-baseline">
                                             <h4 class="font-semibold" data-i18n="academic.edu1.title">Universitas Muria
                                                 Kudus — Bachelor, Informatics Engineering</h4>
@@ -731,7 +732,7 @@
 
                             <div class="timeline-item">
                                 <div>
-                                    <div class="p-4 border rounded bg-transparent">
+                                    <div class="p-6 inner-item">
                                         <div class="flex justify-between items-baseline">
                                             <h4 class="font-semibold" data-i18n="academic.edu2.title">SMKN 1 Wonosobo —
                                                 Vocational, Software Engineering</h4>
