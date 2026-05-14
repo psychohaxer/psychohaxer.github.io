@@ -215,10 +215,47 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 .carousel-btn:hover {
-    opacity: 1;
     background: var(--accent);
     color: var(--bg);
     border-color: var(--accent);
+}
+
+/* Glow Card Logic */
+.inner-item {
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    border: 1px solid var(--glass-border) !important;
+}
+
+.inner-item:hover {
+    background: rgba(255, 255, 255, 0.05) !important;
+    border-color: var(--glow-color, var(--accent)) !important;
+    transform: translateY(-5px);
+    box-shadow: 0 10px 30px -15px var(--glow-color, var(--accent));
+}
+
+.inner-item.glow-intense:hover {
+    box-shadow: 0 15px 40px -10px var(--glow-color, var(--accent));
+    border-color: var(--glow-color, var(--accent)) !important;
+    background: rgba(255, 255, 255, 0.08) !important;
+}
+
+.inner-item .icon-box {
+    transition: all 0.4s ease;
+}
+
+.inner-item:hover .icon-box {
+    transform: scale(1.1) rotate(8deg);
+    filter: drop-shadow(0 0 12px var(--glow-color, var(--accent)));
+}
+
+.inner-item:hover h4 {
+    color: var(--glow-color, var(--accent));
+}
+
+.inner-item:hover .badge-soft {
+    background: var(--glow-color, var(--accent));
+    color: #0f172a;
+    border-color: var(--glow-color, var(--accent));
 }
 
 /* Image Modal - User requested improvements */
