@@ -84,6 +84,15 @@
         return Math.max(-n, Math.min(n, v));
     }
 
+    function getContainmentForce(ent, margin = 100) {
+        let fx = 0, fy = 0;
+        if (ent.x < margin) fx = (margin - ent.x) * 1.5;
+        else if (ent.x > w - margin) fx = (w - margin - ent.x) * 1.5;
+        if (ent.y < margin) fy = (margin - ent.y) * 1.5;
+        else if (ent.y > h - margin) fy = (h - margin - ent.y) * 1.5;
+        return [fx, fy];
+    }
+
     // entities
     const ship = {
         x: w * 0.2,
@@ -92,7 +101,7 @@
         vy: 0,
         size: 8,
         color: "rgba(0,230,118,1)",
-        fireCooldown: 0,
+        fireCooldown: 1.0,
     };
 
     const bug = {
@@ -102,7 +111,7 @@
         vy: 0,
         size: 10,
         color: "rgba(255,120,80,1)",
-        throwCooldown: 0,
+        throwCooldown: 1.0,
     };
 
     const projectiles = []; // {x,y,vx,vy,size,owner,life}
@@ -190,15 +199,18 @@
                 }
             }
             const [ax, ay] = normalize(avoidX, avoidY);
-            ship.vx += (dx * 60 + ax * 120) * dt;
-            ship.vy += (dy * 60 + ay * 120) * dt;
+            const [cx, cy] = getContainmentForce(ship, 120);
+            ship.vx += (dx * 60 + ax * 120 + cx) * dt;
+            ship.vy += (dy * 60 + ay * 120 + cy) * dt;
             ship.vx = clamp(ship.vx, 180);
             ship.vy = clamp(ship.vy, 180);
             ship.x += ship.vx * dt;
             ship.y += ship.vy * dt;
 
-            ship.x = Math.max(10, Math.min(w - 10, ship.x));
-            ship.y = Math.max(10, Math.min(h - 10, ship.y));
+            if (ship.x < 15) { ship.x = 15; ship.vx *= -0.6; }
+            else if (ship.x > w - 15) { ship.x = w - 15; ship.vx *= -0.6; }
+            if (ship.y < 15) { ship.y = 15; ship.vy *= -0.6; }
+            else if (ship.y > h - 15) { ship.y = h - 15; ship.vy *= -0.6; }
 
             const dToBug = length(bug.x - ship.x, bug.y - ship.y);
             ship.fireCooldown -= dt;
@@ -221,39 +233,38 @@
                 const px = p.x - bug.x,
                     py = p.y - bug.y;
                 const d = length(px, py);
-                if (d < 180) {
+                if (d < 220) {
                     avoidX -= px / (d * d);
                     avoidY -= py / (d * d);
                 }
             }
             const [ax, ay] = normalize(avoidX, avoidY || 0);
+            const [cx, cy] = getContainmentForce(bug, 120);
             const panicMult = Math.max(1, 450 / (dist + 50)); // Panic increases as ship gets closer
             
             const keepDistance = 180;
             if (dist < keepDistance) {
                 const fleeStrength = 220 * ((keepDistance - dist) / keepDistance + 0.2);
-                bug.vx += (nx * fleeStrength + ax * 300 * panicMult) * dt;
-                bug.vy += (ny * fleeStrength + ay * 300 * panicMult) * dt;
+                bug.vx += (nx * fleeStrength + ax * 500 * panicMult + cx) * dt;
+                bug.vy += (ny * fleeStrength + ay * 500 * panicMult + cy) * dt;
             } else {
                 bug.vx *= 0.985;
                 bug.vy *= 0.985;
                 bug.vx += (Math.random() - 0.5) * 40 * dt;
                 bug.vy += (Math.random() - 0.5) * 40 * dt;
-                bug.vx += ax * 150 * panicMult * dt;
-                bug.vy += ay * 150 * panicMult * dt;
+                bug.vx += (ax * 250 * panicMult + cx) * dt;
+                bug.vy += (ay * 250 * panicMult + cy) * dt;
             }
 
-            bug.vx = clamp(bug.vx, 320);
-            bug.vy = clamp(bug.vy, 320);
+            bug.vx = clamp(bug.vx, 380);
+            bug.vy = clamp(bug.vy, 380);
             bug.x += bug.vx * dt;
             bug.y += bug.vy * dt;
 
-            if (bug.x < 20 || bug.x > w - 20 || bug.y < 20 || bug.y > h - 20) {
-                bug.x = Math.max(20, Math.min(w - 20, bug.x));
-                bug.y = Math.max(20, Math.min(h - 20, bug.y));
-                bug.vx *= -0.3;
-                bug.vy *= -0.3;
-            }
+            if (bug.x < 15) { bug.x = 15; bug.vx *= -0.6; }
+            else if (bug.x > w - 15) { bug.x = w - 15; bug.vx *= -0.6; }
+            if (bug.y < 15) { bug.y = 15; bug.vy *= -0.6; }
+            else if (bug.y > h - 15) { bug.y = h - 15; bug.vy *= -0.6; }
 
             bug.throwCooldown -= dt;
             if (!bug.entering && bug.throwCooldown <= 0) {
@@ -418,10 +429,6 @@
 
     respawn(ship);
     respawn(bug);
-
-    for (let i = 0; i < 3; i++) {
-        shoot(Math.random() * w, Math.random() * h, Math.random() * w, Math.random() * h, 140 + Math.random() * 120, Math.random() < 0.5 ? "ship" : "bug");
-    }
 
     window.addEventListener("resize", () => {
         w = canvas.width = innerWidth;
