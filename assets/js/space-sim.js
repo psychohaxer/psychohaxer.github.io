@@ -385,7 +385,7 @@
             ry = Math.round(ent.y + ent.size + 12);
         }
 
-        ctx.fillStyle = "rgba(3, 7, 18, 0.9)";
+        ctx.fillStyle = "rgba(15, 23, 42, 0.95)";
         ctx.strokeStyle = ent.color;
         ctx.lineWidth = 1;
         
