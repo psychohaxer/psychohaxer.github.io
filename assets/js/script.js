@@ -268,27 +268,37 @@ if (input) {
             }
         });
         document.documentElement.lang = lang;
-        const btn = document.getElementById('langToggle');
-        if (btn) {
-            btn.textContent = lang.toUpperCase();
-            btn.setAttribute('aria-label', lang === 'id' ? 'Bahasa' : 'Language');
+        
+        // Update new segmented switcher
+        const switcher = document.getElementById('langSwitcher');
+        if (switcher) {
+            switcher.querySelectorAll('.lang-btn').forEach(b => {
+                b.classList.toggle('active', b.getAttribute('data-lang') === lang);
+                b.setAttribute('aria-pressed', b.getAttribute('data-lang') === lang);
+            });
         }
+        
         localStorage.setItem('lang', lang);
     }
 
     document.addEventListener('DOMContentLoaded', function () {
-        let btn = document.getElementById('langToggle');
-        if (!btn) {
-            btn = document.createElement('button');
-            btn.id = 'langToggle';
-            btn.className = 'lang-toggle';
-            btn.type = 'button';
-            document.body.appendChild(btn);
+        let switcher = document.getElementById('langSwitcher');
+        if (!switcher) {
+            switcher = document.createElement('div');
+            switcher.id = 'langSwitcher';
+            switcher.className = 'lang-switcher';
+            switcher.innerHTML = `
+                <div class="lang-icon"><i class="fas fa-globe"></i></div>
+                <button class="lang-btn" data-lang="id" aria-label="Bahasa Indonesia">ID</button>
+                <button class="lang-btn" data-lang="en" aria-label="English">EN</button>
+            `;
+            document.body.appendChild(switcher);
         }
 
-        btn.addEventListener('click', function () {
-            const next = lang === 'id' ? 'en' : 'id';
-            applyLang(next);
+        switcher.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.addEventListener('click', function () {
+                applyLang(this.getAttribute('data-lang'));
+            });
         });
 
         applyLang(lang);
