@@ -140,8 +140,7 @@ if (input) {
             'project.academic': 'Academic Background',
 
             'project.dms.title': 'Digital Manufacturing System (DMS) 👑',
-            'project.dms.desc1': 'ERP built from scratch in PHP to augment an industrial L3 system for a steel-processing plant. DMS centralizes production data and gives operations and planners fast access to the KPIs they need to act.',
-            'project.dms.desc2': 'Features such as <strong>Daily Report</strong>, <strong>Quality Control</strong>, <strong>Capacity Planning</strong>, <strong>Manufacture Planning List</strong>, <strong>Energy Consumption</strong>, <strong>OEE Report</strong>, and <strong>Statistic Process Control</strong> convert raw production signals into actionable insights — reducing downtime, improving yield and quality, optimizing energy use, and enabling data-driven scheduling.',
+            'project.dms.desc1': 'ERP built from scratch in PHP to augment an industrial L3 system for a steel-processing plant. DMS centralizes production data and gives operations and planners fast access to the KPIs they need to act.<br/><br/>Features such as <strong>Daily Report</strong>, <strong>Quality Control</strong>, <strong>Capacity Planning</strong>, <strong>Manufacture Planning List</strong>, <strong>Energy Consumption</strong>, <strong>OEE Report</strong>, and <strong>Statistic Process Control</strong> convert raw production signals into actionable insights — reducing downtime, improving yield and quality, optimizing energy use, and enabling data-driven scheduling.',
 
             'project.fb.title': 'Fiscal Bridge',
             'project.fb.desc1': 'Web-based accounting software that streamlines commercial workflows — from quotations and invoicing to transaction recording and purchase orders. Stores customer and vendor data and generates financial reports for bookkeeping and tax purposes.',
@@ -211,8 +210,7 @@ if (input) {
             'project.academic': 'Latar Belakang Akademik',
 
             'project.dms.title': 'Digital Manufacturing System (DMS) 👑',
-            'project.dms.desc1': 'ERP yang dibangun dari awal menggunakan PHP untuk melengkapi sistem L3 industri pada pabrik pengolahan baja. DMS memusatkan data produksi dan memberi akses cepat kepada operasional dan perencana terhadap KPI yang diperlukan untuk bertindak.',
-            'project.dms.desc2': 'Fitur seperti <strong>Daily Report</strong>, <strong>Quality Control</strong>, <strong>Capacity Planning</strong>, <strong>Manufacture Planning List</strong>, <strong>Energy Consumption</strong>, <strong>OEE Report</strong>, dan <strong>Statistic Process Control</strong> mengubah sinyal produksi mentah menjadi wawasan yang dapat ditindaklanjuti — mengurangi downtime, meningkatkan hasil dan kualitas, mengoptimalkan penggunaan energi, dan memungkinkan penjadwalan berbasis data.',
+            'project.dms.desc1': 'ERP yang dibangun dari awal menggunakan PHP untuk melengkapi sistem L3 industri pada pabrik pengolahan baja. DMS memusatkan data produksi dan memberi akses cepat kepada operasional dan perencana terhadap KPI yang diperlukan untuk bertindak.<br/><br/>Fitur seperti <strong>Daily Report</strong>, <strong>Quality Control</strong>, <strong>Capacity Planning</strong>, <strong>Manufacture Planning List</strong>, <strong>Energy Consumption</strong>, <strong>OEE Report</strong>, dan <strong>Statistic Process Control</strong> mengubah sinyal produksi mentah menjadi wawasan yang dapat ditindaklanjuti — mengurangi downtime, meningkatkan hasil dan kualitas, mengoptimalkan penggunaan energi, dan memungkinkan penjadwalan berbasis data.',
 
             'project.fb.title': 'Fiscal Bridge',
             'project.fb.desc1': 'Perangkat lunak akuntansi berbasis web yang menyederhanakan alur kerja komersial — dari penawaran dan penagihan hingga pencatatan transaksi dan purchase order. Menyimpan data pelanggan dan vendor serta menghasilkan laporan keuangan untuk pembukuan dan pajak.',
