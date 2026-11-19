@@ -1,320 +1,260 @@
-// Small helper: preview uploaded profile image
-const input = document.getElementById("imageUpload");
-const img = document.getElementById("profileImage");
-if (input) {
-    input.addEventListener("change", (e) => {
-        const file = e.target.files && e.target.files[0];
-        if (!file) return;
-        const url = URL.createObjectURL(file);
-        img.src = url;
-    });
-}
-
-// Space Sim Logic Moved to space-sim.js
-
-// --- Carousel controls + image modal handlers (support multiple carousels) ---
+// --- Image modal + galleries ---
 (function () {
-    const modalRoot = document.getElementById("image-modal");
-    const modalBackdrop = document.getElementById("img-modal-backdrop");
-    const modalImg = document.getElementById("img-modal-img");
-    const modalTitle = document.getElementById("img-modal-title");
-    const modalClose = document.getElementById("img-modal-close");
-    const modalPrev = document.getElementById("img-modal-prev");
-    const modalNext = document.getElementById("img-modal-next");
+    const root = document.getElementById("image-modal");
+    const backdrop = document.getElementById("img-modal-backdrop");
+    const img = document.getElementById("img-modal-img");
+    const title = document.getElementById("img-modal-title");
+    const closeBtn = document.getElementById("img-modal-close");
+    const prevBtn = document.getElementById("img-modal-prev");
+    const nextBtn = document.getElementById("img-modal-next");
+    if (!root) return;
 
-    const modalController = {
-        items: [],
-        currentIndex: 0,
-        open(items, index) {
-            if (!items || !items.length) return;
-            this.items = items;
-            this.currentIndex = index || 0;
-            const it = this.items[this.currentIndex];
-            modalImg.src = it.src;
-            modalImg.alt = it.alt || "";
-            if (modalTitle) modalTitle.textContent = it.alt || "";
-            modalRoot.classList.remove("hidden");
-            modalRoot.setAttribute("aria-hidden", "false");
-            if (modalClose) modalClose.focus();
-        },
-        close() {
-            modalRoot.classList.add("hidden");
-            modalRoot.setAttribute("aria-hidden", "true");
-            modalImg.src = "";
-            if (modalTitle) modalTitle.textContent = "";
-        },
-        prev() {
-            if (!this.items.length) return;
-            this.currentIndex = (this.currentIndex - 1 + this.items.length) % this.items.length;
-            this.open(this.items, this.currentIndex);
-        },
-        next() {
-            if (!this.items.length) return;
-            this.currentIndex = (this.currentIndex + 1) % this.items.length;
-            this.open(this.items, this.currentIndex);
-        },
-    };
+    let items = [];
+    let index = 0;
+    let opener = null;
 
-    if (modalClose) modalClose.addEventListener("click", () => modalController.close());
-    if (modalBackdrop)
-        modalBackdrop.addEventListener("click", (e) => {
-            if (e.target === modalBackdrop) modalController.close();
-        });
-    if (modalPrev)
-        modalPrev.addEventListener("click", (e) => {
-            e.stopPropagation();
-            modalController.prev();
-        });
-    if (modalNext)
-        modalNext.addEventListener("click", (e) => {
-            e.stopPropagation();
-            modalController.next();
-        });
+    function show() {
+        const it = items[index];
+        img.src = it.src;
+        img.alt = it.alt || "";
+        title.textContent = it.alt || "";
+    }
+
+    function open(list, i, trigger) {
+        items = list;
+        index = i;
+        opener = trigger || null;
+        show();
+        root.classList.remove("hidden");
+        root.setAttribute("aria-hidden", "false");
+        closeBtn.focus();
+    }
+
+    function close() {
+        root.classList.add("hidden");
+        root.setAttribute("aria-hidden", "true");
+        img.src = "";
+        title.textContent = "";
+        if (opener) opener.focus();
+    }
+
+    function step(d) {
+        if (!items.length) return;
+        index = (index + d + items.length) % items.length;
+        show();
+    }
+
+    closeBtn.addEventListener("click", close);
+    backdrop.addEventListener("click", (e) => {
+        if (e.target === backdrop) close();
+    });
+    prevBtn.addEventListener("click", (e) => { e.stopPropagation(); step(-1); });
+    nextBtn.addEventListener("click", (e) => { e.stopPropagation(); step(1); });
 
     document.addEventListener("keydown", (e) => {
-        if (!modalRoot || modalRoot.classList.contains("hidden")) return;
-        if (e.key === "Escape") modalController.close();
-        if (e.key === "ArrowLeft") modalController.prev();
-        if (e.key === "ArrowRight") modalController.next();
+        if (root.classList.contains("hidden")) return;
+        if (e.key === "Escape") close();
+        if (e.key === "ArrowLeft") step(-1);
+        if (e.key === "ArrowRight") step(1);
     });
 
-    const containers = Array.from(document.querySelectorAll(".carousel-container"));
-    containers.forEach((container) => {
-        const viewport = container.querySelector(".carousel-viewport");
-        if (!viewport) return;
-        const inner = viewport.querySelector(".flex");
-        const items = Array.from(viewport.querySelectorAll(".carousel-item"));
+    document.querySelectorAll("[data-gallery]").forEach((gallery) => {
+        const shots = Array.from(gallery.querySelectorAll(".shot"));
+        const list = shots.map((s) => s.querySelector("img"));
 
-        function computeItemWidth() {
-            if (!items.length) return 260;
-            const w = items[0].getBoundingClientRect().width;
-            const gap = parseFloat(getComputedStyle(inner).gap) || parseFloat(getComputedStyle(inner).columnGap) || 12;
-            return w + gap;
-        }
-
-        let itemWidth = computeItemWidth();
-        window.addEventListener("resize", () => {
-            itemWidth = computeItemWidth();
+        // Prev/next buttons for mouse users; hidden when everything already fits.
+        const nav = document.createElement("div");
+        nav.className = "shots-nav";
+        [["‹", -1, "Previous"], ["›", 1, "Next"]].forEach(([label, dir, name]) => {
+            const b = document.createElement("button");
+            b.type = "button";
+            b.textContent = label;
+            b.setAttribute("aria-label", name);
+            b.addEventListener("click", () =>
+                gallery.scrollBy({ left: dir * gallery.clientWidth * 0.8, behavior: "smooth" })
+            );
+            nav.appendChild(b);
         });
+        gallery.after(nav);
+        const toggleNav = () => nav.classList.toggle("hidden", gallery.scrollWidth <= gallery.clientWidth + 1);
+        toggleNav();
+        window.addEventListener("resize", toggleNav);
+        gallery.querySelectorAll("img").forEach((im) => im.addEventListener("load", toggleNav));
 
-        const prev = container.querySelector(".carousel-btn.left");
-        const next = container.querySelector(".carousel-btn.right");
-        if (prev) prev.addEventListener("click", () => viewport.scrollBy({ left: -itemWidth, behavior: "smooth" }));
-        if (next) next.addEventListener("click", () => viewport.scrollBy({ left: itemWidth, behavior: "smooth" }));
-
-        items.forEach((it, idx) => {
-            it.addEventListener("click", () => {
-                modalController.open(items, idx);
+        shots.forEach((shot, i) => {
+            shot.tabIndex = 0;
+            shot.setAttribute("role", "button");
+            shot.addEventListener("click", () => open(list, i, shot));
+            shot.addEventListener("keydown", (e) => {
+                if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    open(list, i, shot);
+                }
             });
         });
     });
 })();
 
-// --- Localization / Translation system ---
+// --- Localization (ID default, EN alternative) ---
 (function () {
-    const translations = {
-        en: {
-            'page.title': 'Firman Adi Nur Fatin, S.Kom. - Profile',
-            'headline': 'Full Stack Developer | Game Developer | Educator',
-            'about.title': 'About Me',
-            'about.bio': "I'm a passionate developer with experience in building web applications and games. I love learning new technologies and applying them to solve real-world problems. In addition to coding, I enjoy teaching and sharing knowledge with others.",
-            'contact.github': 'GitHub',
-            'contact.linkedin': 'LinkedIn',
-            'contact.itch': 'Itch.io',
-            'contact.email': 'Email',
-            'contact.wa': 'WhatsApp',
-            'skills.title': 'Technical Skills',
-            'skills.item1': 'Backend & full-stack web apps.',
-            'skills.item2': 'Analysis, ML basics, and visualization.',
-            'skills.item3': 'Schema design and reliable storage.',
-            'skills.item4': 'Visual novels & interactive experiences.',
-            'skills.item5': 'Process mapping and practical understanding.',
-            'skills.item6': 'Course design, mentoring, and workshops.',
-            'skills.item7': 'Retouching & web assets.',
-            'skills.item8': 'Promo edits and motion basics.',
-            'skills.item9': 'Study design, stats, and paper writing.',
-
-            'project.flagship': 'Flagship Project',
-            'project.work': 'Work Experience',
-            'project.research': 'Research Published',
-            'project.academic': 'Academic Background',
-
-            'project.dms.title': 'Digital Manufacturing System (DMS) 👑',
-            'project.dms.desc1': 'ERP built from scratch in PHP to augment an industrial L3 system for a steel-processing plant. DMS centralizes production data and gives operations and planners fast access to the KPIs they need to act.<br/><br/>Features such as <strong>Daily Report</strong>, <strong>Quality Control</strong>, <strong>Capacity Planning</strong>, <strong>Manufacture Planning List</strong>, <strong>Energy Consumption</strong>, <strong>OEE Report</strong>, and <strong>Statistic Process Control</strong> convert raw production signals into actionable insights — reducing downtime, improving yield and quality, optimizing energy use, and enabling data-driven scheduling.',
-
-            'project.fb.title': 'Fiscal Bridge',
-            'project.fb.desc1': 'Web-based accounting software that streamlines commercial workflows — from quotations and invoicing to transaction recording and purchase orders. Stores customer and vendor data and generates financial reports for bookkeeping and tax purposes.',
-
-            'project.ad.title': 'Auto Dosing',
-            'project.ad.desc1': 'Web application integrated with SCADA to monitor and control animal feed production. Clear visualizations and tabulated reports turn SCADA signals into operator-ready information, helping maintain dosing accuracy and production traceability.',
-
-            'project.client_nd': 'Client name withheld due to NDA.',
-            'ui.click_image': 'Click an image to open a larger view.',
-
-            'work.job1.title': 'Full Stack Programmer — LMask',
-            'work.job1.desc': 'Joined as an early team member at a pioneering startup focused on industrial monitoring and control systems. Designed and implemented web dashboards, backend services that ingest SCADA/MES signals, and integrations for alerts and reporting. Drove prototype-to-production deliveries and collaborated closely with operations for field validation.',
-
-            'work.job2.title': 'Teacher — SMKS Tamansiswa Kudus',
-            'work.job2.desc': 'Instructor for Broadcasting & Film departments and informatics topics. Teach coding and practical AI introductions, create curricula and assessments, and act as Moodle LMS administrator — supporting course delivery, student mentoring, and project supervision.',
-
-            'work.job3.title': 'Academic Mentor & Lab Assistant — Universitas Muria Kudus',
-            'work.job3.desc': 'Served as teaching assistant during laboratory practicals, mentored students in theory sessions, and assisted lecturers with research tasks including data processing and translating papers into English.',
-
-            'work.job4.title': 'Field Admin — UD. Dadi Makmur',
-            'work.job4.desc': 'Implemented automation for fertilizer redemption administration documents, reducing manual entry and improving processing speed and accuracy through lightweight web tools and process templates.',
-
-            'work.job5.title': 'Software Engineer & Mentor — Digital Wings Code Solution',
-            'work.job5.desc': 'At a small software house (<10 people), I build web applications ranging from agency/profile sites to thesis-level systems, mentor students working on their theses, and take on project coordination duties. Roles include programmer, mentor, and project manager depending on the engagement.',
-
-            'work.job6.title': 'Full Stack Programmer — PT. Tawang Nuswantoro Nugroho',
-            'work.job6.desc': 'Developing and maintaining web applications for industrial clients, including dashboards, ERP modules, and custom tools. Responsibilities include full stack development, client communication, and project coordination to ensure timely delivery of solutions that meet operational needs.',
-
-            'research.pub1.title': 'Implementation of A Wireless Sensor Network for Monitoring Air Pollutants in Urban and Industrial Areas',
-            'research.pub1.journal': '— Environmental Engineering & Management Journal (EEMJ), 2024, Vol 23, Issue 7, p1391',
-            'research.pub1.desc': 'A prototype and field evaluation of a wireless sensor network for continuous air pollutant monitoring in mixed urban-industrial environments.',
-
-            'research.pub2.title': 'Real-Time Monitoring of Gas Fields: Prototype at PT Gamma Energi Pratama Bogor',
-            'research.pub2.journal': '— Jurnal Teknik Informatika (JTI), 2023, Vol. 16, Issue 1',
-            'research.pub2.desc': 'Design and implementation of a real-time monitoring prototype for gas field operations with data visualization and alerting.',
-
-            'academic.edu1.title': 'Universitas Muria Kudus — Bachelor, Informatics Engineering',
-            'academic.edu1.desc': 'Graduated with a GPA of <strong>3.69 / 4.00</strong>. Focus on software development, data processing, and applied computing.',
-
-            'academic.edu2.title': 'SMKN 1 Wonosobo — Vocational, Software Engineering',
-            'academic.edu2.desc': 'Vocational training focused on software engineering practices and practical application development.'
-        },
+    const T = {
         id: {
-            'page.title': 'Firman Adi Nur Fatin, S.Kom. - Profil Saya',
-            'headline': 'Full Stack Developer | Game Developer | Educator',
-            'about.title': 'Tentang Saya',
-            'about.bio': "Saya seorang programmer yang bersemangat dengan pengalaman membangun aplikasi web dan game. Saya suka mempelajari teknologi baru dan menerapkannya untuk menyelesaikan masalah nyata. Selain coding, saya menikmati mengajar dan berbagi pengetahuan dengan orang lain.",
-            'contact.github': 'GitHub',
-            'contact.linkedin': 'LinkedIn',
-            'contact.itch': 'Itch.io',
-            'contact.email': 'Email',
-            'contact.wa': 'WhatsApp',
-            'skills.title': 'Keahlian Teknis',
-            'skills.item1': 'Backend & aplikasi web full-stack.',
-            'skills.item2': 'Analisis, dasar ML, dan visualisasi.',
-            'skills.item3': 'Desain skema dan penyimpanan andal.',
-            'skills.item4': 'Visual novel & pengalaman interaktif.',
-            'skills.item5': 'Pemetaan proses dan pemahaman praktis.',
-            'skills.item6': 'Desain kursus, mentoring, dan workshop.',
-            'skills.item7': 'Retouching & aset web.',
-            'skills.item8': 'Edit promo dan dasar motion.',
-            'skills.item9': 'Desain studi, statistik, dan penulisan makalah.',
-
-            'project.flagship': 'Proyek Unggulan',
-            'project.work': 'Pengalaman Kerja',
-            'project.research': 'Penelitian yang Diterbitkan',
-            'project.academic': 'Latar Belakang Akademik',
-
-            'project.dms.title': 'Digital Manufacturing System (DMS) 👑',
-            'project.dms.desc1': 'ERP yang dibangun dari awal menggunakan PHP untuk melengkapi sistem L3 industri pada pabrik pengolahan baja. DMS memusatkan data produksi dan memberi akses cepat kepada operasional dan perencana terhadap KPI yang diperlukan untuk bertindak.<br/><br/>Fitur seperti <strong>Daily Report</strong>, <strong>Quality Control</strong>, <strong>Capacity Planning</strong>, <strong>Manufacture Planning List</strong>, <strong>Energy Consumption</strong>, <strong>OEE Report</strong>, dan <strong>Statistic Process Control</strong> mengubah sinyal produksi mentah menjadi wawasan yang dapat ditindaklanjuti — mengurangi downtime, meningkatkan hasil dan kualitas, mengoptimalkan penggunaan energi, dan memungkinkan penjadwalan berbasis data.',
-
-            'project.fb.title': 'Fiscal Bridge',
-            'project.fb.desc1': 'Perangkat lunak akuntansi berbasis web yang menyederhanakan alur kerja komersial — dari penawaran dan penagihan hingga pencatatan transaksi dan purchase order. Menyimpan data pelanggan dan vendor serta menghasilkan laporan keuangan untuk pembukuan dan pajak.',
-
-            'project.ad.title': 'Auto Dosing',
-            'project.ad.desc1': 'Aplikasi web yang terintegrasi dengan SCADA untuk memantau dan mengendalikan produksi pakan ternak. Visualisasi yang jelas dan laporan berbentuk tabel mengubah sinyal SCADA menjadi informasi siap-operator, membantu menjaga akurasi dosis dan keterlacakan produksi.',
-
-            'project.client_nd': 'Nama klien disembunyikan karena NDA.',
-            'ui.click_image': 'Klik gambar untuk membuka tampilan lebih besar.',
-
-            'work.job1.title': 'Full Stack Programmer — LMask',
-            'work.job1.desc': 'Bergabung sebagai anggota awal di startup yang berfokus pada monitoring industri dan sistem kontrol. Merancang dan mengimplementasikan dashboard web, layanan backend yang mengonsumsi sinyal SCADA/MES, serta integrasi untuk notifikasi dan pelaporan. Mengelola pengiriman dari prototipe ke produksi dan berkolaborasi erat dengan tim operasional untuk validasi lapangan.',
-
-            'work.job2.title': 'Guru — SMKS Tamansiswa Kudus',
-            'work.job2.desc': 'Instruktur untuk jurusan Broadcasting & Film serta topik informatika. Mengajar coding dan pengenalan AI praktis, menyusun kurikulum dan asesmen, serta menjadi administrator Moodle LMS — mendukung penyampaian materi, pembimbingan siswa, dan supervisi proyek.',
-
-            'work.job3.title': 'Mentor Akademik dan Asisten Lab — Universitas Muria Kudus',
-            'work.job3.desc': 'Bertugas sebagai asisten pengajar selama praktikum laboratorium, membimbing mahasiswa pada sesi teori, dan membantu dosen dalam tugas penelitian termasuk pengolahan data dan menerjemahkan makalah ke Bahasa Inggris.',
-
-            'work.job4.title': 'Administrator Lapangan — UD. Dadi Makmur',
-            'work.job4.desc': 'Mengimplementasikan otomatisasi pada dokumen administrasi penebusan pupuk, mengurangi entri manual dan meningkatkan kecepatan serta akurasi proses melalui alat web ringan dan template proses.',
-
-            'work.job5.title': 'Insinyur Perangkat Lunak & Mentor — Digital Wings Code Solution',
-            'work.job5.desc': 'Di sebuah software house kecil (<10 orang), saya membuat aplikasi web mulai dari situs agency/profil hingga sistem setingkat tugas akhir, membimbing mahasiswa yang mengerjakan skripsi, dan mengambil peran koordinasi proyek. Peran meliputi programmer, mentor, dan manajer proyek tergantung keterlibatan.',
-
-            'work.job6.title': 'Full Stack Programmer — PT. Tawang Nuswantoro Nugroho',
-            'work.job6.desc': 'Mengembangkan dan memelihara aplikasi web untuk klien industri, termasuk dashboard, modul ERP, dan alat kustom. Tanggung jawab meliputi pengembangan full stack, komunikasi klien, dan koordinasi proyek untuk memastikan pengiriman solusi tepat waktu yang memenuhi kebutuhan operasional.',
-
-            'research.pub1.title': 'Implementation of A Wireless Sensor Network for Monitoring Air Pollutants in Urban and Industrial Areas',
-            'research.pub1.journal': '— Environmental Engineering & Management Journal (EEMJ), 2024, Vol 23, Issue 7, p1391',
-            'research.pub1.desc': 'Sebuah prototipe dan evaluasi lapangan jaringan sensor nirkabel untuk pemantauan polutan udara berkelanjutan di lingkungan perkotaan-industri campuran.',
-
-            'research.pub2.title': 'Real-Time Monitoring of Gas Fields: Prototype at PT Gamma Energi Pratama Bogor',
-            'research.pub2.journal': '— Jurnal Teknik Informatika (JTI), 2023, Vol. 16, Issue 1',
-            'research.pub2.desc': 'Perancangan dan implementasi prototipe pemantauan real-time untuk operasi lapangan gas dengan visualisasi data dan sistem peringatan.',
-
-            'academic.edu1.title': 'Universitas Muria Kudus — Sarjana, Teknik Informatika',
-            'academic.edu1.desc': 'Lulus dengan IPK <strong>3.69 / 4.00</strong>. Fokus pada pengembangan perangkat lunak, pengolahan data, dan komputasi terapan.',
-
-            'academic.edu2.title': 'SMKN 1 Wonosobo — Kejuruan, Rekayasa Perangkat Lunak',
-            'academic.edu2.desc': 'Pelatihan vokasi yang fokus pada praktik rekayasa perangkat lunak dan pengembangan aplikasi praktis.'
+            'page.title': 'Firman Adi Nur Fatin — Software engineer untuk manufaktur & instrumentasi',
+            'nav.projects': 'Proyek',
+            'nav.research': 'Riset',
+            'nav.experience': 'Pengalaman',
+            'nav.skills': 'Keahlian',
+            'nav.education': 'Pendidikan',
+            'nav.beyond': 'Di luar kerja',
+            'hero.role': 'Software engineer · Manufaktur & instrumentasi',
+            'hero.lead': 'Saya menghubungkan sinyal SCADA dan MES ke dashboard, laporan, dan alat perencanaan yang dipakai orang di lantai produksi: dari ERP untuk pabrik pengolahan baja sampai kontrol dosing pakan ternak.',
+            'hero.sub': 'Dua riset saya tentang monitoring berbasis sensor sudah terbit di jurnal, salah satunya jurnal internasional. Saya juga mengajar, jadi terbiasa menjelaskan sistem teknis ke orang non-teknis.',
+            'projects.title': 'Proyek terpilih',
+            'nda': 'Nama klien disembunyikan karena NDA.',
+            'dms.meta': 'ERP · Pabrik pengolahan baja',
+            'dms.p1': 'ERP yang dibangun dari nol dengan PHP untuk melengkapi sistem L3 industri di pabrik pengolahan baja. DMS memusatkan data produksi dan memberi bagian operasional serta perencana akses cepat ke KPI yang mereka butuhkan.',
+            'dms.p2': 'Modulnya: Daily Report, Quality Control, Capacity Planning, Manufacture Planning List, Energy Consumption, OEE Report, dan Statistical Process Control. Semuanya mengubah sinyal produksi mentah menjadi informasi untuk menekan downtime, menjaga kualitas, mengatur energi, dan menjadwalkan produksi berbasis data.',
+            'ad.meta': 'SCADA · Produksi pakan ternak',
+            'ad.p1': 'Aplikasi web yang terintegrasi dengan SCADA untuk memantau dan mengendalikan produksi pakan ternak. Visualisasi dan laporan tabel mengubah sinyal SCADA menjadi informasi siap-operator, untuk menjaga akurasi dosis dan keterlacakan produksi.',
+            'fb.meta': 'Akuntansi berbasis web',
+            'fb.p1': 'Perangkat lunak akuntansi berbasis web yang menyederhanakan alur kerja komersial, dari penawaran dan penagihan sampai pencatatan transaksi dan purchase order. Menyimpan data pelanggan dan vendor serta menghasilkan laporan keuangan untuk pembukuan dan pajak.',
+            'research.title': 'Riset terbit',
+            'research.note': 'Keduanya tentang monitoring berbasis sensor, topik yang sama dengan pekerjaan saya sehari-hari.',
+            'research.pub1.desc': 'Prototipe dan evaluasi lapangan jaringan sensor nirkabel untuk pemantauan polutan udara secara kontinu di lingkungan perkotaan dan industri.',
+            'research.pub2.desc': 'Perancangan dan implementasi prototipe monitoring real-time untuk operasi lapangan gas, lengkap dengan visualisasi data dan peringatan.',
+            'experience.title': 'Pengalaman',
+            'experience.industry': 'Industri',
+            'experience.teaching': 'Mengajar & akademik',
+            'experience.teaching.note': 'Mengajar membuat saya terbiasa menjelaskan hal teknis ke orang non-teknis.',
+            'date.present': 'sekarang',
+            'job6.desc': 'Mengembangkan dan memelihara aplikasi web untuk klien industri: dashboard, modul ERP, dan alat kustom. Mencakup pengembangan full stack, komunikasi dengan klien, dan koordinasi proyek.',
+            'job1.desc': 'Anggota awal di startup monitoring dan kontrol industri. Merancang dashboard web, layanan backend yang menerima sinyal SCADA/MES, serta integrasi notifikasi dan pelaporan. Membawa prototipe ke produksi dan memvalidasinya di lapangan bersama tim operasional.',
+            'job5.desc': 'Software house kecil (kurang dari 10 orang): membangun aplikasi web dari situs profil sampai sistem setingkat skripsi, membimbing mahasiswa tugas akhir, dan mengoordinasi proyek sebagai programmer, mentor, atau manajer proyek sesuai kebutuhan.',
+            'job4.desc': 'Mengotomatisasi dokumen administrasi penebusan pupuk dengan alat web ringan dan template proses, sehingga entri manual berkurang dan proses lebih cepat serta akurat.',
+            'job2.title': 'Guru · SMKS Tamansiswa Kudus',
+            'job2.desc': 'Mengajar jurusan Broadcasting & Film serta topik informatika: coding dan pengenalan AI praktis. Menyusun kurikulum dan asesmen, menjadi administrator Moodle LMS, membimbing siswa, dan mengawasi proyek.',
+            'job3.title': 'Mentor Akademik & Asisten Lab · Universitas Muria Kudus',
+            'job3.desc': 'Asisten pengajar di praktikum laboratorium, membimbing mahasiswa di sesi teori, dan membantu dosen dalam riset: pengolahan data dan penerjemahan makalah ke Bahasa Inggris.',
+            'skills.title': 'Keahlian',
+            'skills.web.k': 'Web & backend',
+            'skills.web.v': 'PHP, SQL (desain skema dan penyimpanan data), aplikasi web full stack',
+            'skills.industry.k': 'Industri',
+            'skills.industry.v': 'Integrasi SCADA/MES, dashboard produksi, OEE dan SPC, pemetaan proses (draw.io)',
+            'skills.data.k': 'Data',
+            'skills.data.v': 'Python: analisis, dasar machine learning, visualisasi',
+            'skills.research.k': 'Riset & tulisan',
+            'skills.research.v': 'Desain studi, statistik, penulisan makalah (LaTeX)',
+            'skills.other.k': 'Lainnya',
+            'skills.other.v': "Ren'Py (visual novel), Photoshop, Filmora",
+            'education.title': 'Pendidikan',
+            'edu1.title': 'Universitas Muria Kudus · S1 Teknik Informatika',
+            'edu1.desc': 'IPK <strong>3,69 / 4,00</strong>. Fokus pada pengembangan perangkat lunak, pengolahan data, dan komputasi terapan.',
+            'edu2.title': 'SMKN 1 Wonosobo · SMK Rekayasa Perangkat Lunak',
+            'edu2.desc': 'Pendidikan vokasi dengan fokus pada praktik rekayasa perangkat lunak dan pengembangan aplikasi.',
+            'beyond.title': 'Di luar jam kerja',
+            'beyond.note': "Saya membuat game, terutama visual novel dengan Ren'Py. Kotak di bawah adalah simulasi kecil buatan saya: pesawat melawan alien, keduanya dikendalikan AI sederhana.",
+            'beyond.caption': 'Berjalan hanya saat terlihat di layar.'
+        },
+        en: {
+            'page.title': 'Firman Adi Nur Fatin — Software engineer for manufacturing & instrumentation',
+            'nav.projects': 'Projects',
+            'nav.research': 'Research',
+            'nav.experience': 'Experience',
+            'nav.skills': 'Skills',
+            'nav.education': 'Education',
+            'nav.beyond': 'Off the clock',
+            'hero.role': 'Software engineer · Manufacturing & instrumentation',
+            'hero.lead': 'I connect SCADA and MES signals to the dashboards, reports, and planning tools that people on the production floor actually use: from an ERP for a steel-processing plant to dosing control for animal feed.',
+            'hero.sub': 'Two of my studies on sensor-based monitoring are published in journals, one of them international. I also teach, so I am used to explaining technical systems to non-technical people.',
+            'projects.title': 'Selected projects',
+            'nda': 'Client name withheld due to NDA.',
+            'dms.meta': 'ERP · Steel-processing plant',
+            'dms.p1': 'An ERP built from scratch in PHP to complement an industrial L3 system at a steel-processing plant. DMS centralizes production data and gives operations and planners fast access to the KPIs they need.',
+            'dms.p2': 'Modules: Daily Report, Quality Control, Capacity Planning, Manufacture Planning List, Energy Consumption, OEE Report, and Statistical Process Control. Together they turn raw production signals into information for reducing downtime, protecting quality, managing energy, and scheduling production from data.',
+            'ad.meta': 'SCADA · Animal feed production',
+            'ad.p1': 'A web application integrated with SCADA to monitor and control animal feed production. Visualizations and tabular reports turn SCADA signals into operator-ready information, to keep dosing accurate and production traceable.',
+            'fb.meta': 'Web-based accounting',
+            'fb.p1': 'Web-based accounting software that streamlines commercial workflows, from quotations and invoicing to transaction recording and purchase orders. It stores customer and vendor data and produces financial reports for bookkeeping and tax.',
+            'research.title': 'Published research',
+            'research.note': 'Both are about sensor-based monitoring, the same subject as my day-to-day work.',
+            'research.pub1.desc': 'A prototype and field evaluation of a wireless sensor network for continuous air pollutant monitoring in urban and industrial environments.',
+            'research.pub2.desc': 'Design and implementation of a real-time monitoring prototype for gas field operations, with data visualization and alerting.',
+            'experience.title': 'Experience',
+            'experience.industry': 'Industry',
+            'experience.teaching': 'Teaching & academia',
+            'experience.teaching.note': 'Teaching taught me to explain technical things to non-technical people.',
+            'date.present': 'present',
+            'job6.desc': 'Developing and maintaining web applications for industrial clients: dashboards, ERP modules, and custom tools. Covers full stack development, client communication, and project coordination.',
+            'job1.desc': 'Early team member at an industrial monitoring and control startup. Designed web dashboards, backend services that ingest SCADA/MES signals, and integrations for alerts and reporting. Took prototypes to production and validated them in the field with the operations team.',
+            'job5.desc': 'A small software house (fewer than 10 people): building web applications from agency sites to thesis-level systems, mentoring students on their final projects, and coordinating projects as programmer, mentor, or project manager as needed.',
+            'job4.desc': 'Automated fertilizer redemption paperwork with lightweight web tools and process templates, cutting manual entry and making the process faster and more accurate.',
+            'job2.title': 'Teacher · SMKS Tamansiswa Kudus',
+            'job2.desc': 'Taught Broadcasting & Film departments and informatics topics: coding and practical AI introductions. Wrote curricula and assessments, administered the Moodle LMS, mentored students, and supervised projects.',
+            'job3.title': 'Academic Mentor & Lab Assistant · Universitas Muria Kudus',
+            'job3.desc': 'Teaching assistant for laboratory practicals, mentored students in theory sessions, and helped lecturers with research: data processing and translating papers into English.',
+            'skills.title': 'Skills',
+            'skills.web.k': 'Web & backend',
+            'skills.web.v': 'PHP, SQL (schema design and data storage), full stack web applications',
+            'skills.industry.k': 'Industry',
+            'skills.industry.v': 'SCADA/MES integration, production dashboards, OEE and SPC, process mapping (draw.io)',
+            'skills.data.k': 'Data',
+            'skills.data.v': 'Python: analysis, machine learning basics, visualization',
+            'skills.research.k': 'Research & writing',
+            'skills.research.v': 'Study design, statistics, paper writing (LaTeX)',
+            'skills.other.k': 'Other',
+            'skills.other.v': "Ren'Py (visual novels), Photoshop, Filmora",
+            'education.title': 'Education',
+            'edu1.title': 'Universitas Muria Kudus · B.Sc. Informatics Engineering',
+            'edu1.desc': 'GPA <strong>3.69 / 4.00</strong>. Focus on software development, data processing, and applied computing.',
+            'edu2.title': 'SMKN 1 Wonosobo · Vocational, Software Engineering',
+            'edu2.desc': 'Vocational education focused on software engineering practice and application development.',
+            'beyond.title': 'Off the clock',
+            'beyond.note': "I make games, mostly visual novels in Ren'Py. The box below is a small simulation I wrote: a spaceship versus an alien, both driven by simple AI.",
+            'beyond.caption': 'Runs only while it is on screen.'
         }
     };
 
-    const saved = localStorage.getItem('lang');
-    let lang = saved || (document.documentElement.lang || 'id');
+    function store(k, v) { try { localStorage.setItem(k, v); } catch (e) { /* ignore */ } }
+    function load(k) { try { return localStorage.getItem(k); } catch (e) { return null; } }
 
-    function applyLang(l) {
-        if (!translations[l]) return;
+    let lang = load('lang');
+    if (!T[lang]) lang = (navigator.language || '').toLowerCase().startsWith('en') ? 'en' : 'id';
+
+    function apply(l) {
+        if (!T[l]) return;
         lang = l;
         document.querySelectorAll('[data-i18n]').forEach((el) => {
-            const key = el.getAttribute('data-i18n');
-            if (key && translations[lang] && translations[lang][key]) {
-                el.innerHTML = translations[lang][key];
-            }
+            const text = T[l][el.getAttribute('data-i18n')];
+            if (text === undefined) return;
+            if (el.tagName === 'TITLE') el.textContent = text;
+            else el.innerHTML = text;
         });
-        document.documentElement.lang = lang;
-        
-        // Update new segmented switcher
-        const switcher = document.getElementById('langSwitcher');
-        if (switcher) {
-            switcher.querySelectorAll('.lang-btn').forEach(b => {
-                b.classList.toggle('active', b.getAttribute('data-lang') === lang);
-                b.setAttribute('aria-pressed', b.getAttribute('data-lang') === lang);
-            });
-        }
-        
-        localStorage.setItem('lang', lang);
+        document.documentElement.lang = l;
+        document.querySelectorAll('#langSwitcher .lang-btn').forEach((b) => {
+            const on = b.getAttribute('data-lang') === l;
+            b.classList.toggle('active', on);
+            b.setAttribute('aria-pressed', on);
+        });
+        store('lang', l);
     }
 
-    document.addEventListener('DOMContentLoaded', function () {
-        let switcher = document.getElementById('langSwitcher');
-        if (!switcher) {
-            switcher = document.createElement('div');
-            switcher.id = 'langSwitcher';
-            switcher.className = 'lang-switcher';
-            switcher.innerHTML = `
-                <div class="lang-icon"><i class="fas fa-globe"></i></div>
-                <button class="lang-btn" data-lang="id" aria-label="Bahasa Indonesia">ID</button>
-                <button class="lang-btn" data-lang="en" aria-label="English">EN</button>
-            `;
-            document.body.appendChild(switcher);
-        }
-
-        switcher.querySelectorAll('.lang-btn').forEach(btn => {
-            btn.addEventListener('click', function () {
-                applyLang(this.getAttribute('data-lang'));
-            });
-        });
-
-        applyLang(lang);
-
-        // Reveal animation observer
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('active');
-                    revealObserver.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.reveal').forEach(el => {
-            revealObserver.observe(el);
-        });
+    document.querySelectorAll('#langSwitcher .lang-btn').forEach((b) => {
+        b.addEventListener('click', () => apply(b.getAttribute('data-lang')));
     });
+    apply(lang);
+
+    // Highlight the nav link of the section in view
+    const links = Array.from(document.querySelectorAll('.nav a'));
+    const sections = links
+        .map((a) => document.querySelector(a.getAttribute('href')))
+        .filter(Boolean);
+    function highlight() {
+        let current = '';
+        sections.forEach((s) => {
+            if (window.scrollY >= s.offsetTop - 140) current = s.id;
+        });
+        links.forEach((a) => a.classList.toggle('active', a.getAttribute('href') === '#' + current));
+    }
+    window.addEventListener('scroll', highlight, { passive: true });
+    highlight();
 })();

@@ -1,76 +1,28 @@
-// Starry background canvas
-(function () {
-    const canvas = document.getElementById("stars");
-    if (!canvas) return;
-    const ctx = canvas.getContext("2d");
-    let w = (canvas.width = innerWidth);
-    let h = (canvas.height = innerHeight);
-
-    const stars = [];
-    const STAR_COUNT = Math.floor((w * h) / 9000); // density
-
-    function rand(min, max) {
-        return Math.random() * (max - min) + min;
-    }
-
-    for (let i = 0; i < STAR_COUNT; i++) {
-        stars.push({
-            x: Math.random() * w,
-            y: Math.random() * h,
-            r: rand(0.3, 1.3),
-            phase: Math.random() * Math.PI * 2,
-            twinkle: rand(0.01, 0.04),
-        });
-    }
-
-    function draw() {
-        ctx.clearRect(0, 0, w, h);
-        // soft gradient vignette
-        const g = ctx.createRadialGradient(w * 0.15, h * 0.05, 0, w * 0.15, h * 0.05, Math.max(w, h));
-        g.addColorStop(0, "rgba(0,230,118,0.02)");
-        g.addColorStop(1, "rgba(0,0,0,0)");
-        ctx.fillStyle = g;
-        ctx.fillRect(0, 0, w, h);
-
-        for (let s of stars) {
-            s.phase += s.twinkle;
-            const a = 0.4 + Math.sin(s.phase) * 0.6;
-            ctx.beginPath();
-            ctx.fillStyle = `rgba(255,255,255,${a})`;
-            ctx.arc(s.x, s.y, s.r, 0, Math.PI * 2);
-            ctx.fill();
-        }
-        requestAnimationFrame(draw);
-    }
-
-    window.addEventListener("resize", () => {
-        w = canvas.width = innerWidth;
-        h = canvas.height = innerHeight;
-        // recreate stars density on resize
-        stars.length = 0;
-        const count = Math.floor((w * h) / 9000);
-        for (let i = 0; i < count; i++) {
-            stars.push({
-                x: Math.random() * w,
-                y: Math.random() * h,
-                r: rand(0.3, 1.3),
-                phase: Math.random() * Math.PI * 2,
-                twinkle: rand(0.01, 0.04),
-            });
-        }
-    });
-
-    draw();
-})();
-
 // --- Small autonomous battlefield: spaceship chases a bug, both throw/avoid projectiles ---
 (function () {
     const canvas = document.getElementById("battlefield");
     if (!canvas) return;
+    const box = canvas.parentElement;
     const ctx = canvas.getContext("2d");
-    let w = (canvas.width = innerWidth);
-    let h = (canvas.height = innerHeight);
-    ctx.imageSmoothingEnabled = false;
+    let w = 0;
+    let h = 0;
+
+    // Size the canvas to its container, at device resolution so it stays sharp.
+    function resize() {
+        const dpr = window.devicePixelRatio || 1;
+        w = box.clientWidth;
+        h = box.clientHeight;
+        canvas.width = Math.round(w * dpr);
+        canvas.height = Math.round(h * dpr);
+        ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+        ctx.imageSmoothingEnabled = false;
+    }
+    resize();
+
+    // The play area is small, so keep wall margins proportional to it.
+    function edgeMargin(base) {
+        return Math.min(base, h * 0.22, w * 0.22);
+    }
 
     // --- helpers ---
     function length(x, y) {
@@ -84,7 +36,8 @@
         return Math.max(-n, Math.min(n, v));
     }
 
-    function getContainmentForce(ent, margin = 100) {
+    function getContainmentForce(ent, baseMargin = 100) {
+        const margin = edgeMargin(baseMargin);
         let fx = 0, fy = 0;
         if (ent.x < margin) fx = (margin - ent.x) * 1.5;
         else if (ent.x > w - margin) fx = (w - margin - ent.x) * 1.5;
@@ -127,14 +80,14 @@
             evade: ["NANI?!", "TOO SLOW", "NOPE", "MISS ME?", "STAY CALM"],
             kill: ["GG EZ", "SKILL ISSUE", "PWNED", "VICTORY ROYALE", "L + RATIO"],
             wall: ["BONK!", "LAG!", "OUCH!", "BRUH", "PHYSICS PLS"],
-            spawn: ["AW SHIT, AGAIN?", "NOT AGAIN...", "WHO KILLED ME?", "HACKER!", "LATENCY!"]
+            spawn: ["AW, AGAIN?", "NOT AGAIN...", "WHO KILLED ME?", "HACKER!", "LATENCY!"]
         },
         bug: {
             idle: ["ZUG ZUG", "DAKKA DAKKA", "WRYYY!", "MONKE", "POG"],
             evade: ["MISSED!", "HEH", "CALCULATED", "BAMBOOZLED", "COWABUNGA"],
-            panic: ["WAAAGGHH!", "OH LAWD", "PANIK!", "NIGERUNDAYO!", "HELIKOPTER"],
+            panic: ["WAAAGGHH!", "OH LAWD", "PANIK!", "RUN AWAY!", "HELIKOPTER"],
             kill: ["LMAO", "GIT GUD", "UMAD?", "EZZZZ", "OH NO NO NO"],
-            wall: ["BLYAT!", "OOF", "BRUH", "STONKS", "STUPID WALL"],
+            wall: ["DANG!", "OOF", "BRUH", "STONKS", "STUPID WALL"],
             spawn: ["REEEEEE", "I'LL BE BACK!", "STONKS DOWN", "WAIT FOR ME!", "U CHEATER"]
         }
     };
@@ -170,8 +123,8 @@
 
     function respawn(ent, isInitial = false) {
         const edge = Math.floor(Math.random() * 4);
-        const margin = 80;
-        const startOffset = 80;
+        const margin = edgeMargin(80);
+        const startOffset = 40;
         const targetX = Math.random() * (w - margin * 2) + margin;
         const targetY = Math.random() * (h - margin * 2) + margin;
         ent.entering = true;
@@ -372,7 +325,7 @@
     function drawSay(ent) {
         if (!ent.say || ent.sayTimer <= 0) return;
         ctx.save();
-        ctx.font = "bold 9px 'Inter', sans-serif";
+        ctx.font = "bold 9px 'IBM Plex Mono', monospace";
         const textWidth = ctx.measureText(ent.say).width;
         const pad = 5;
         const rx = Math.round(ent.x - textWidth / 2 - pad);
@@ -402,6 +355,7 @@
         ctx.restore();
     }
 
+    let running = false;
     let prevDraw = performance.now();
     function drawLoop(now) {
         const dtMs = Math.min(60, Math.max(0, now - prevDraw));
@@ -504,17 +458,38 @@
         drawSay(ship);
         drawSay(bug);
 
-        requestAnimationFrame(drawLoop);
+        if (running) requestAnimationFrame(drawLoop);
     }
 
     respawn(ship, true);
     respawn(bug, true);
 
-    window.addEventListener("resize", () => {
-        w = canvas.width = innerWidth;
-        h = canvas.height = innerHeight;
-    });
+    window.addEventListener("resize", resize);
 
     const reduced = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    if (!reduced) requestAnimationFrame(drawLoop);
+    if (reduced) {
+        // Static frame: place both at their spawn targets and draw once.
+        [ship, bug].forEach((e) => {
+            e.x = e.enterTargetX;
+            e.y = e.enterTargetY;
+            e.entering = false;
+        });
+        running = false;
+        drawLoop(performance.now());
+    } else if ("IntersectionObserver" in window) {
+        // Run only while the box is on screen.
+        new IntersectionObserver((entries) => {
+            const visible = entries.some((en) => en.isIntersecting);
+            if (visible && !running) {
+                running = true;
+                prevDraw = last = performance.now();
+                requestAnimationFrame(drawLoop);
+            } else if (!visible) {
+                running = false;
+            }
+        }).observe(box);
+    } else {
+        running = true;
+        requestAnimationFrame(drawLoop);
+    }
 })();
